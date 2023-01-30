@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<style>
+    header {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+}
+   {# body{
+        background: url(../static/images/pexels-ella-olsson-1640777.jpg) no-repeat;
+        background-size: 1920px 1080px;
+    }#}
+    .bg-image{
+        background: url(../static/images/pexels-ella-olsson-1640777.jpg) no-repeat;
+        background-size: 1910px 960px;
+        position: absolute;
+        filter: blur(8px);
+        width: 1910px;
+        height: 960px;
+    }
+
+    input[type=submit]:hover{
+        background-color: green;
+    }
+    input[type=submit]{
+        width: 50%;
+        background-color: blue;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+
+    .block {
+    width: 1300px;
+    margin: auto;
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 20px;
+    left: 200px;
+    top: 330px;
+    position: relative;
+}
+    div.text{
+        font-size: 700%;
+        color: black;
+        font-weight: bold;
+    }
+
+    div.message{
+        font-size: 100%;
+        color: green;
+    }
+
+</style>
+    <title>Welcome Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+<head/>
+   <body>
+    <div class="bg-image"></div>
+    <div class="block">
+       <div class="message">{{ msg }}</div>
+       <div class="text">Welcome to NutrOn</div>
+       <form action = "{{ url_for('name') }}" method = "POST">
+           <input type = "submit" value = "Starten" /><br>
+       </form>
+    </div>
+   </body>
+
+
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+    <link rel="stylesheet" href='../static/css/stylesheet.css'>
+    <link rel="stylesheet" href='../static/css/laptop.css'>
+    <link rel="stylesheet" href="../static/css/mobile.css">
+    <title>Home Page</title>
+<style>
+@media screen and (min-width: 300px) and (max-width: 950px) {
+    body{
+        margin: 0;
+    }
+    input[type=submit]{
+        width: 100%;
+        background-color: ghostwhite;
+        color: black;
+        padding: 4% 4%;
+        margin: 3% 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    footer{
+        visibility: hidden;
+    }
+    #logout{
+        visibility: hidden;
+    }
+    .fa-sign-out{
+        visibility: hidden;
+    }
+    .header2{
+        position: relative;
+        width: 100%;
+        background-image: linear-gradient(to bottom, grey, white, lightgrey);
+        font-size: 150%;
+        font-weight: bolder;
+        top:0;
+        left: 0;
+        color: black;
+        text-align: center;
+    }
+    #first{
+        width: 100%;
+        background-image: linear-gradient(to bottom, lightblue, ghostwhite, lightgrey);
+        text-align: center;
+        top: 0;
+        max-height: 100%;
+        position: relative;
+        padding-bottom:10px;
+    }
+    #firsttext{
+        padding: 2%;
+    }
+    #sectext{
+        padding: 2%;
+    }
+    #second{
+        bottom: 0;
+        width: 100%;
+        background-image: linear-gradient(to bottom, lightseagreen, ghostwhite, lightgrey);
+        text-align: center;
+        top: 1px;
+        position: relative;
+    }
+    #third{
+        width: 100%;
+        background-image: linear-gradient(to bottom, lightgreen, ghostwhite, lightgrey);
+        text-align: center;
+        top: 1px;
+        position: relative;
+    }
+    #fourth{
+        width: 100%;
+        background-image: linear-gradient(to bottom, lightgreen, ghostwhite, lightgrey);
+        text-align: center;
+        top: 1px;
+        position: relative;
+    }
+}
+@media screen and (min-width: 1800px) {
+
+    #first {
+        width: 15%;
+        height: 30%;
+        margin-left: 34.5%;
+        border: 1px black;
+        background-color: dodgerblue;
+        color: black;
+        display: inline-block;
+        position: absolute;
+
+    }
+
+    #firsttext {
+        display: block;
+        margin-left: 1%;
+    }
+
+    #second {
+        width: 15%;
+        height: 30%;
+        margin-left: 50.5%;
+        overflow: hidden;
+        background-color: palegreen;
+        float: left;
+        color: black;
+        position: absolute;
+
+    }
+
+    #sectext {
+        display: block;
+        margin-left: 5px;
+    }
+
+    #third {
+        width: 15%;
+        height: 30%;
+        margin-left: 34.5%;
+        margin-top: 16%;
+        overflow: hidden;
+        background-color: indianred;
+        color: black;
+        position: absolute;
+    }
+
+    #fourth {
+        width: 15%;
+        height: 30%;
+        margin-left: 50.5%;
+        margin-top: 16%;
+        overflow: hidden;
+        background-color: orange;
+        float: left;
+        color: black;
+        position: absolute;
+    }
+
+    .header2 {
+        width: 30%;
+        color: black;
+        background-color: transparent;
+        margin-top: 0%;
+        position: relative;
+        z-index: 2;
+        font-size: 150%;
+        margin-left: 35%;
+        font-weight: bolder;
+    }
+
+
+    div.text {
+        font-size: 100%;
+        color: black;
+        margin: 2%;
+        font-weight: bold;
+
+    }
+}
+@media screen and (min-width: 1200px) and (max-width: 1799px){
+
+    #first {
+        width: 15%;
+        height: 30%;
+        margin-left: 34.5%;
+        font-size: 80%;
+        border: 1px black;
+        background-color: dodgerblue;
+        color: black;
+        display: inline-block;
+        position: absolute;
+
+    }
+
+    #firsttext {
+        display: block;
+        margin-left: 1%;
+    }
+
+    #second {
+        width: 15%;
+        height: 30%;
+        margin-left: 50.5%;
+        overflow: hidden;
+        font-size: 80%;
+        background-color: palegreen;
+        float: left;
+        color: black;
+        position: absolute;
+
+    }
+
+    #sectext {
+        display: block;
+        margin-left: 5px;
+    }
+
+    #third {
+        width: 15%;
+        height: 30%;
+        margin-left: 34.5%;
+        margin-top: 16%;
+        font-size: 80%;
+        overflow: hidden;
+        background-color: indianred;
+        color: black;
+        position: absolute;
+    }
+
+    #fourth {
+        width: 15%;
+        height: 30%;
+        margin-left: 50.5%;
+        margin-top: 16%;
+        overflow: hidden;
+        font-size: 80%;
+        background-color: orange;
+        float: left;
+        color: black;
+        position: absolute;
+    }
+
+    .header2 {
+        width: 30%;
+        color: black;
+        background-color: transparent;
+        margin-top: 0%;
+        position: relative;
+        z-index: 2;
+        font-size: 150%;
+        margin-left: 35%;
+        font-weight: bolder;
+    }
+
+
+    div.text {
+        font-size: 100%;
+        color: black;
+        margin: 2%;
+        font-weight: bold;
+
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg-image">
+
+</div>
+<div class="navbarmobile" id="myTopnav">
+  <div class="dropdown2">
+  <button onclick="myFunction()" class="dropbtn2"><i class="fa fa-bars"></i>
+  </button>
+  <div id="myDropdown" class="dropdown2-content">
+        <form action = "{{ url_for('homepage') }}" method = "POST" id="formhome">
+            <input type="hidden" name="username" value=" {{ username }}">
+            <a href="#" onclick="document.getElementById('formhome').submit()">Nutron</a>
+        </form>
+        <form action = "{{ url_for('logouttohome') }}" method = "POST" id="formbackhome">
+            <a href="#" onclick="document.getElementById('formbackhome').submit()">NonFoodKg</a>
+        </form>
+        <form action = "{{ url_for('contactnutron') }}" method = "POST" id="formcontact">
+            <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
+        </form>
+        <form action = "{{ url_for('disclaimernutron') }}" method = "POST" id="formdisclaimer">
+            <a href="#" onclick="document.getElementById('formdisclaimer').submit()">Disclaimer</a>
+        </form>
+        <form action = "{{ url_for('logout') }}" method = "POST" id="formlogout">
+            <a href="#" onclick="document.getElementById('formlogout').submit()">Logout  <i class="fa fa-sign-out"></i></a>
+        </form>
+  </div>
+</div>
+</div>
+<div class="navbar">
+    <i id="icon" class="fa fa-leaf"></i>
+    <div class="title">
+        <h1>NutrOn</h1>
+    </div>
+<form action = "{{ url_for('homepage') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="homebutton" type ="submit" value = "Homepage" /><br>
+</form>
+<form action = "{{ url_for('contactnutron') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="contact" type ="submit" value = "Contact" /><br>
+</form>
+<form action = "{{ url_for('disclaimernutron') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="disclaimer" type ="submit" value = "Disclaimer" /><br>
+</form>
+
+<div class="dropdown">
+  <i id="dropdown" class="fa fa-user"></i>
+  <div class="dropdown-content">
+      {% for item in everything %}
+    <a href="#">Weight: {{ item[4] }}</a>
+    <a href="#">Gender: {{ item[2] }}</a>
+       {% endfor %}
+    <a href="#">Age: {{ userage }}</a>
+    <a href="#">Activity Level: {{ useractivity }}</a>
+  </div>
+</div>
+<form action="{{ url_for('logout') }}" method="post">
+    <button ><i class="fa fa-sign-out" id="logout"></i></button>
+</form>
+</div>
+
+    <div class="header2">
+        <p>Welcome to NutrOn, {{ username }}</p>
+        <p>Please select one of the Options below</p>
+    </div>
+    <div id="first">
+        <div class="text">
+            <b>Nutritional Value of Products</b>
+        </div>
+        <div id="firsttext">
+            <p>Here you can look for particular product and its nutritional components.</p>
+            <p>It will also show you the percentage of the daily reference for the individual nutritions, which is covered by that product</p>
+            <p>The results are based on your weight, age, gender and activity</p>
+            <form action = "{{ url_for('name') }}" method = "POST">
+                <input type = "submit" value = "Continue" /><br>
+            </form>
+        </div>
+    </div>
+    <div id="second">
+       <div class="text">
+            <b>Recipes with Daily References</b>
+        </div>
+         <div id="sectext">
+            <p>Here you can look for particular recipes and its nutritional components.</p>
+            <p>It will also show you the percentage of the daily reference for the individual nutritions, which is covered by that recipe</p>
+            <p>The results are based on your weight, age, gender and activity</p>
+            <form action = "{{ url_for('recipes') }}" method = "POST">
+                <input type = "submit" value = "Continue" /><br>
+            </form>
+        </div>
+    </div>
+    <div id="third">
+        <div class="text">
+            <b>Filter Page</b>
+        </div>
+        <div id="sectext">
+            <p>Here you can look for particular products, by selecting the nutrients.</p>
+            <br>
+            <form action = "{{ url_for('filterredirect') }}" method = "POST">
+                <input id="filterbutton" type = "submit" value = "Continue" /><br>
+            </form>
+        </div>
+    </div>
+    <div id="fourth">
+        <div class="text">
+            <b>Symptom Page</b>
+        </div>
+        <div id ="sectext">
+        <p>Here you can look for possible treatments for certain symptoms</p>
+        <form action=" {{ url_for ('symptoms') }}" method="post">
+            <input id ="symptombutton" type="submit" value="Continue">
+        </form>
+    </div>
+    </div>
+<footer>
+         <p>Projekt der Universität Bremen<p>
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+</footer>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+</script>
+</body>
+</html>

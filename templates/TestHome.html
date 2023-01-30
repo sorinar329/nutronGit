@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>NonFoodKG</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+    <link media="screen and (min-width: 300px)" href='../static/css/mobile.css' rel="stylesheet">
+    <title>Title</title>
+    <style>
+@media screen and (min-width: 1200px) and (max-width: 1799px) {
+    body, html {
+        background-image: url("../static/images/bg2.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0 0;
+    }
+    .navbarmobile{
+        visibility: hidden;
+        position: absolute;
+    }
+    .nav {
+        height: 15%;
+        width: 100%;
+        position: absolute;
+        margin: 0 0;
+        background-color: white;
+    }
+
+    .nav a {
+        float: left;
+        color: black;
+        background-color: lightgrey;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 150%;
+        position: relative;
+        margin: 3.6% 2px;
+        border-radius: 1px;
+        box-shadow: 0 0 0.1em black;
+    }
+
+    .nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .nonfoodkg {
+        background-color: transparent;
+        position: absolute;
+        margin: 8% 2%;
+        width: 40%;
+        height: 70%;
+    }
+
+    .titel {
+        background-color: transparent;
+        position: relative;
+        margin: 5% 0%;
+        color: black;
+        font-family: Georgia;
+        font-size: 400%;
+    }
+
+    .nonfoodkgtext {
+        position: relative;
+        background-color: transparent;
+        max-width: 100%;
+        max-height: 80%;
+        color: black;
+        font-size: 90%;
+        font-weight: normal;
+        margin: 5% 0;
+    }
+
+    .gitbutton {
+
+        width: 20%;
+        height: 10%;
+        position: relative;
+        background-color: black;
+        border-radius: 5px;
+        font-size: 100%;
+        color: ghostwhite;
+        margin: 1% 0%;
+    }
+
+    .nutron {
+        position: absolute;
+        height: 30%;
+        width: 20%;
+        margin: 10% 50%;
+        background-color: ghostwhite;
+        border-radius: 10px;
+        box-shadow: 0 0 2em black;
+    }
+
+    .nutrontitel {
+        background-color: transparent;
+        position: relative;
+        margin: 1% 3%;
+        color: black;
+        font-family: Georgia;
+        font-size: 300%;
+    }
+
+    .nutrontext {
+        position: relative;
+        background-color: transparent;
+        max-width: 100%;
+        max-height: 80%;
+        color: black;
+        font-size: 90%;
+        font-weight: normal;
+        margin: 5% 3%;
+    }
+
+    .nutronbutton {
+        width: 40%;
+        height: 10%;
+        position: relative;
+        background-color: black;
+        border-radius: 5px;
+        font-size: 100%;
+        color: ghostwhite;
+        margin: 1% 3%;
+    }
+
+    .nutronbutton:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .sparkli {
+        position: absolute;
+        height: 50%;
+        width: 20%;
+        margin: 10% 75%;
+        background-color: ghostwhite;
+        border-radius: 10px;
+        box-shadow: 0 0 2em black;
+    }
+
+    .sparklititel {
+        background-color: transparent;
+        position: relative;
+        margin: 1% 3%;
+        color: black;
+        font-family: Georgia;
+        font-size: 300%;
+    }
+
+    .sparklitext {
+        position: relative;
+        background-color: transparent;
+        max-width: 100%;
+        max-height: 80%;
+        color: black;
+        font-size: 90%;
+        font-weight: normal;
+        margin: 5% 3%;
+    }
+
+    .sparklibutton {
+        width: 40%;
+        height: 10%;
+        position: relative;
+        background-color: black;
+        border-radius: 5px;
+        font-size: 100%;
+        color: ghostwhite;
+        margin: 1% 3%;
+    }
+
+    .sparklibutton:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .gitbutton:hover {
+        background-color: white;
+        color: black;
+    }
+
+    footer {
+        background-color: transparent;
+        position: fixed;
+        left: 0;
+        bottom: 10px;
+        max-height: 10%;
+        width: 100%;
+        text-align: center;
+    }
+
+    footer img {
+        height: 25px;
+    }
+}
+@media screen and (min-width: 1800px) {
+    body, html {
+        background-image: url("../static/images/bg2.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0 0;
+    }
+    .navbarmobile{
+        visibility: hidden;
+        position: absolute;
+    }
+    .nav {
+        height: 15%;
+        width: 100%;
+        position: absolute;
+        margin: 0 0;
+        background-color: white;
+    }
+
+    .nav a {
+        float: left;
+        color: black;
+        background-color: lightgrey;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 180%;
+        position: relative;
+        margin: 4% 2px;
+        border-radius: 1px;
+        box-shadow: 0 0 0.1em black;
+    }
+
+    .nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .nonfoodkg {
+        background-color: transparent;
+        position: absolute;
+        margin: 8% 2%;
+        width: 40%;
+        height: 70%;
+    }
+
+    .titel {
+        background-color: transparent;
+        position: relative;
+        margin: 5% 0%;
+        color: black;
+        font-family: Georgia;
+        font-size: 450%;
+    }
+
+    .nonfoodkgtext {
+        position: relative;
+        background-color: transparent;
+        max-width: 100%;
+        max-height: 80%;
+        color: black;
+        font-size: 110%;
+        font-weight: normal;
+        margin: 5% 0;
+    }
+
+    .gitbutton {
+
+        width: 24%;
+        height: 12%;
+        position: relative;
+        background-color: black;
+        border-radius: 5px;
+        font-size: 140%;
+        color: ghostwhite;
+        margin: 1% 0%;
+    }
+
+    .nutron {
+        position: absolute;
+        height: 30%;
+        width: 20%;
+        margin: 10% 50%;
+        background-color: ghostwhite;
+        border-radius: 10px;
+        box-shadow: 0 0 2em black;
+    }
+
+    .nutrontitel {
+        background-color: transparent;
+        position: relative;
+        margin: 1% 3%;
+        color: black;
+        font-family: Georgia;
+        font-size: 330%;
+    }
+
+    .nutrontext {
+        position: relative;
+        background-color: transparent;
+        max-width: 100%;
+        max-height: 80%;
+        color: black;
+        font-size: 110%;
+        font-weight: normal;
+        margin: 5% 3%;
+    }
+
+    .nutronbutton {
+        width: 40%;
+        height: 15%;
+        position: relative;
+        background-color: black;
+        border-radius: 5px;
+        font-size: 120%;
+        color: ghostwhite;
+        margin: 1% 3%;
+    }
+
+    .nutronbutton:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .sparkli {
+        position: absolute;
+        height: 50%;
+        width: 20%;
+        margin: 10% 75%;
+        background-color: ghostwhite;
+        border-radius: 10px;
+        box-shadow: 0 0 2em black;
+    }
+
+    .sparklititel {
+        background-color: transparent;
+        position: relative;
+        margin: 1% 3%;
+        color: black;
+        font-family: Georgia;
+        font-size: 340%;
+    }
+
+    .sparklitext {
+        position: relative;
+        background-color: transparent;
+        max-width: 100%;
+        max-height: 80%;
+        color: black;
+        font-size: 90%;
+        font-weight: normal;
+        margin: 5% 3%;
+    }
+
+    .sparklibutton {
+        width: 40%;
+        height: 10%;
+        position: relative;
+        background-color: black;
+        border-radius: 5px;
+        font-size: 120%;
+        color: ghostwhite;
+        margin: 1% 3%;
+    }
+
+    .sparklibutton:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .gitbutton:hover {
+        background-color: white;
+        color: black;
+    }
+
+    footer {
+        background-color: transparent;
+        position: fixed;
+        left: 0;
+        bottom: 10px;
+        max-height: 10%;
+        width: 100%;
+        font-size: 120%;
+        text-align: center;
+    }
+
+    footer img {
+        height: 30px;
+    }
+}
+@media screen and (min-width: 300px) and (max-width: 1000px){
+    body{
+        background-color: gainsboro;
+        margin: 0 0.2%;
+    }
+
+    .nav {
+        visibility: hidden;
+        height: 15%;
+        width: 100%;
+        position: absolute;
+        margin: 0 0;
+        background-color: white;
+    }
+
+    .nav a {
+        float: left;
+        color: black;
+        background-color: lightgrey;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 180%;
+        position: relative;
+        margin: 4% 2px;
+        border-radius: 1px;
+        box-shadow: 0 0 0.1em black;
+    }
+
+    .nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .nonfoodkg {
+        background-color: transparent;
+        position: absolute;
+        padding: 1%;
+        width: 98%;
+        height: 70%;
+
+    }
+
+    .titel {
+        background-color: transparent;
+        position: relative;
+        margin: 5% 0%;
+        color: black;
+        font-family: Georgia;
+        font-size: 350%;
+    }
+
+    .nonfoodkgtext {
+        position: relative;
+        background-color: transparent;
+        max-width: 100%;
+        max-height: 70%;
+        overflow: scroll;
+        color: black;
+        font-size: 100%;
+        font-weight: normal;
+        margin: 5% 0;
+        padding-right: 10px;
+    }
+
+    .gitbutton {
+        width: 50%;
+        height: 10%;
+        position: relative;
+        background-color: black;
+        border-radius: 5px;
+        font-size: 120%;
+        color: ghostwhite;
+        margin: 1% 0%;
+    }
+
+    .nutron {
+        position: absolute;
+        height: 30%;
+        width: 98%;
+        margin: 165% 1%;
+        background-color: transparent;
+        border-radius: 2px;
+
+    }
+
+    .nutrontitel {
+        background-color: transparent;
+        position: relative;
+        margin: 1% 3%;
+        color: black;
+        font-family: Georgia;
+        font-size: 330%;
+    }
+
+    .nutrontext {
+        position: relative;
+        background-color: transparent;
+        max-width: 100%;
+        max-height: 80%;
+        color: black;
+        font-size: 100%;
+        font-weight: normal;
+        margin: 5% 0;
+        padding-right: 10px;
+    }
+
+    .nutronbutton {
+        width: 50%;
+        height: 10%;
+        position: relative;
+        background-color: black;
+        border-radius: 5px;
+        font-size: 200%;
+        color: ghostwhite;
+        margin: 1% 1%;
+    }
+
+    .nutronbutton:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .sparkli {
+        position: absolute;
+        height: 60%;
+        width: 98%;
+        margin: 230% 1%;
+        background-color: transparent;
+        
+    }
+
+    .sparklititel {
+        background-color: transparent;
+        position: relative;
+        margin: 1% 3%;
+        color: black;
+        font-family: Georgia;
+        font-size: 340%;
+    }
+
+    .sparklitext {
+        position: relative;
+        background-color: transparent;
+        max-width: 100%;
+        max-height: 80%;
+        color: black;
+        font-size: 90%;
+        font-weight: normal;
+        margin: 5% 3%;
+    }
+
+    .sparklibutton {
+        width: 50%;
+        height: 20%;
+        position: relative;
+        background-color: black;
+        border-radius: 5px;
+        font-size: 140%;
+        color: ghostwhite;
+        margin: 1% 1%;
+    }
+
+    .sparklibutton:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .gitbutton:hover {
+        background-color: white;
+        color: black;
+    }
+
+    footer {
+        visibility: hidden;
+        background-color: transparent;
+        position: fixed;
+        left: 0;
+        bottom: 10px;
+        max-height: 10%;
+        width: 100%;
+        font-size: 120%;
+        text-align: center;
+    }
+
+    footer img {
+        height: 30px;
+    }
+}
+    </style>
+</head>
+<body>
+<div class="navbarmobile" id="myTopnav">
+  <div class="dropdown2">
+  <button onclick="myFunction()" class="dropbtn2"><i class="fa fa-bars"></i>
+  </button>
+  <div id="myDropdown" class="dropdown2-content">
+         <form action = "{{ url_for('backhome') }}" method = "POST" id="formhome">
+            <a href="#" onclick="document.getElementById('formhome').submit()">Home</a>
+        </form>
+        <form action = "{{ url_for('contact') }}" method = "POST" id="formcontact">
+            <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
+        </form>
+        <form action = "{{ url_for('disclaimer') }}" method = "POST" id="formdisclaimer">
+            <a href="#" onclick="document.getElementById('formdisclaimer').submit()">Disclaimer</a>
+        </form>
+  </div>
+</div>
+</div>
+<div class="nav">
+        <form action = "{{ url_for('backhome') }}" method = "POST" id="formhome">
+            <a href="#" onclick="document.getElementById('formhome').submit()">Home</a>
+        </form>
+        <form action = "{{ url_for('contact') }}" method = "POST" id="formcontact">
+            <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
+        </form>
+        <form action = "{{ url_for('disclaimer') }}" method = "POST" id="formdisclaimer">
+            <a href="#" onclick="document.getElementById('formdisclaimer').submit()">Disclaimer</a>
+        </form>
+    </div>
+<div class="nonfoodkg">
+<div class="titel">
+    NonFoodKg
+</div>
+<div class="nonfoodkgtext">
+    Non-FoodKG is a non-food knowledge graph interlinking different ontologies designed for retail, household and
+        robotic applications. It is based on a merged product taxonomy reflecting the product classification in grocery
+        stores and drugstores that is linked to a product location ontology created from a robot belief state while
+        performing stocktaking in a retail store. The product location ontology therefore stores inventory data like
+        stock and price of products as well as their positions relative to shelves (instead of coordinates). We use the
+        KnowRob knowledge processing system for creation of the location ontology. In KnowRob, a robot can access specific
+        position information of the perceived objects. The product taxonomy classifies products that were recognized during
+        stocktaking. It is linked to an ingredients classification based on string matching, which is connected to an
+        allergen classification. The product taxonomy is also linked to further product information like name and place
+        of production in product information, product label or product dimensions, i.e. dimensions of product packaging
+        as well as product weight/ filling information. All this can be used for shopping applications on mobile phones
+        or smart glasses, for example.
+</div>
+<button class="gitbutton" onclick="window.location.href = 'https://github.com/K4R-IAI/NonFoodKG';">
+        <i class="fa fa-github" ></i> Git </button>
+</div>
+<div class="nutron">
+<div class="nutrontitel">
+    NutrOn
+</div>
+    <div class="nutrontext">
+         NutrOn (Nutrition Ontology) is a webapplication, which gives customer specific dietary
+            recommendations
+    </div>
+    <form action="{{ url_for('index') }}" method="post">
+        <button class="nutronbutton">
+            <i class="fa fa-leaf"></i> Nutron
+        </button>
+    </form>
+</div>
+<div class="sparkli">
+    <div class="sparklititel">
+    Sparklis
+</div>
+    <div class="nutrontext">
+         Sparklis is a query builder in natural language that allows people to explore and query SPARQL endpoints with
+        all the power of SPARQL and without any knowledge of SPARQL, nor of the endpoint vocabulary.
+        It contains a <i>Query Builder</i>, a <i>Faceted Search System</i> and a <i>Natural Language Interface</i>.
+        <a href="https://github.com/sebferre/sparklis">More Information</a> <br> <br>
+
+        On this Page you have the option to build your own queries and navigate through the knowledge base of the nonfoodkg.
+        </div>
+         <form action="{{ url_for('sparklis') }}" method="post">
+        <button class="sparklibutton">
+             Sparklis
+        </button>
+    </form>
+</div>
+<footer>
+         <p>Projekt der Universität Bremen<p>
+        <!-- <a href="mailto:hege@example.com">hege@example.com</a></p> -->
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+    </footer>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+</script>
+</body>
+</html>

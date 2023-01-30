@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+    <link media="screen and (min-width: 1800px)" href='../static/css/stylesheet.css' rel="stylesheet">
+    <link media="screen and (min-width: 1800px)" href='../static/css/stylesheet.css' rel="stylesheet">
+<style>
+@media screen and (min-width: 300px) and (max-width: 950px){
+    .infobox{
+        position: relative;
+        background-color: gainsboro;
+    }
+    body{
+        background: gainsboro;
+    }
+    .block{
+        margin-top: 20px;
+        position: relative;
+        width: 95%;
+        left: 2%;
+        background: ghostwhite;
+        padding-inline: 1px;
+    }
+    footer {
+        visibility: hidden;
+    }
+        input[type=text], select {
+        height: 100%;
+        padding: 4% 4%;
+        width: 90%;
+        margin: 2% 5%;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4%;
+        box-sizing: border-box;
+    }
+        input[type=submit] {
+        width: 80%;
+        background-color: blue;
+        color: white;
+        padding: 4% 4%;
+        margin: 3% 10%;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-image: linear-gradient(to right, grey, white);
+        color: black;
+        text-align: center;
+        padding: 1% 1%;
+        border-radius: 6px;
+        left: 50%;
+        bottom: 100%;
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+    }
+
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+}
+@media screen and (min-width: 1800px) {
+    body {
+        background: url(../static/images/pexels-ella-olsson-1640777.jpg) no-repeat;
+        background-size: 100%;
+    }
+
+    input[type=text], select {
+        width: 100%;
+        height: 100%;
+        padding: 4% 4%;
+
+        margin: 2% 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4%;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: blue;
+        color: white;
+        padding: 4% 4%;
+        margin: 3% 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: green;
+    }
+
+    .block {
+        width: 15.5%;
+        border-radius: 5px;
+        background-color: ghostwhite;
+        padding: 0.5%;
+        left: 42.25%;
+        top: 3%;
+        position: relative;
+    }
+
+    /* Tooltip container */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: lightgrey;
+        color: black;
+        text-align: center;
+        padding: 1% 1%;
+        border-radius: 6px;
+        left: 50%;
+        bottom: 100%;
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+    }
+
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+    .slidecontainer {
+        width: 100%;
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        width: 80%;
+        height: 10px;
+        border-radius: 5px;
+        background: darkgrey;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        margin-top: 3%;
+    }
+
+    .slider:hover {
+        opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: blue;
+        cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+        width: 4%;
+        height: 4%;
+        border-radius: 50%;
+        background: #04AA6D;
+        cursor: pointer;
+    }
+
+    .infobox {
+        width: 45%;
+        background-color: ghostwhite;
+        border-radius: 5px;
+        padding: 0.5%;
+        margin-left: 30%;
+        margin-top: 2%;
+        font-size: 100%;
+    }
+    footer {
+            background-color: rgb(226, 226, 226);
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            max-height: 10%;
+            width: 100%;
+            text-align: center;
+        }
+
+        footer img {
+            height: 25px;
+        }
+}
+@media screen and (min-width : 1200px) and (max-width: 1800px){
+    body {
+        background: url(../static/images/pexels-ella-olsson-1640777.jpg) no-repeat;
+        background-size: 100%;
+    }
+
+    input[type=text], select {
+        width: 100%;
+        height: 100%;
+        padding: 4% 4%;
+
+        margin: 2% 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4%;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: blue;
+        color: white;
+        padding: 4% 4%;
+        margin: 3% 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: green;
+    }
+
+    .block {
+        width: 15.5%;
+        border-radius: 5px;
+        background-color: ghostwhite;
+        padding: 0.5%;
+        left: 42.25%;
+        margin-top: 1%;
+        position: relative;
+    }
+
+    /* Tooltip container */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: lightgrey;
+        color: black;
+        text-align: center;
+        padding: 1% 1%;
+        border-radius: 6px;
+        left: 50%;
+        bottom: 100%;
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+    }
+
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+    .slidecontainer {
+        width: 100%;
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        width: 80%;
+        height: 10px;
+        border-radius: 5px;
+        background: darkgrey;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        margin-top: 3%;
+    }
+
+    .slider:hover {
+        opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: blue;
+        cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+        width: 4%;
+        height: 4%;
+        border-radius: 50%;
+        background: #04AA6D;
+        cursor: pointer;
+    }
+
+    .infobox {
+        width: 45%;
+        background-color: ghostwhite;
+        border-radius: 5px;
+        padding: 0.5%;
+        margin-left: 30%;
+        margin-top: 2%;
+        font-size: 100%;
+    }
+     footer {
+            background-color: rgb(226, 226, 226);
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            max-height: 10%;
+            width: 100%;
+            text-align: center;
+        }
+
+        footer img {
+            height: 25px;
+        }
+}
+
+</style>
+</head>
+<body>
+    <div class="infobox">
+        Welcome to the web-application "NutrOn". This application will give you a specific dietary recommendation.
+        The results are based on your weight, age, gender and daily activity level. Please fill in the log-in formular and press "Continue" when you are
+        done. Your data is only used for calculation. If you want to "log-in" with other data, simply
+        restart the application or press the logout button.
+    </div>
+    <div class="block">
+
+    <form action = "{{ url_for('addrec') }}" method = "POST">
+        <label for ="name">Name:</label>
+        <div class="tooltip">&#x1F6C8;
+            <span class="tooltiptext">Your Name will be used for personal adressing only. This is optional</span>
+        </div>
+        <input type="text" id="name" name="nm" placeholder="Name" required="required">
+        <label for ="weight">Weight:</label>
+        <div class="tooltip">&#x1F6C8;
+            <span class="tooltiptext">Your Weight will be used for the protein calculations</span>
+        </div>
+      <div class="slidecontainer">
+         <input type="range" min="1" max="300" value="80" class="slider" id="myRange" name="weight">
+            <p>Value: <span id="demo"></span></p>
+      </div>
+        <label for ="age">Age:</label>
+        <div class="tooltip">&#x1F6C8;
+            <span class="tooltiptext">Your Age is needed for the personal results</span>
+        </div>
+        <select name="age" id="age" required="required">
+            <option value="" disabled selected hidden>Select your Age</option>
+            <option value="age7to10">7-9</option>
+            <option value="age10to13">10-12</option>
+            <option value="age13to15">13-14</option>
+            <option value="age15to19">15-18</option>
+            <option value="age19to25">19-24</option>
+            <option value="age25to51">25-50</option>
+            <option value="age51to65">51-65</option>
+        </select>
+
+        <label for ="geschlecht">Gender:</label>
+         <div class="tooltip">&#x1F6C8;
+            <span class="tooltiptext">Your Gender is needed for the personal results</span>
+        </div>
+        <select name="gender" id="gender" required="required">
+            <option value="" disabled selected hidden>Select your Gender</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+        </select>
+
+        <label for="activity">Daily activity</label>
+         <div class="tooltip">&#x1F6C8;
+            <span class="tooltiptext">Your daily activity is needed for the personal results</span>
+        </div>
+        <select name="activity" id="activity" required="required">
+            <option value="" disabled selected hidden>Select your daily activity level</option>
+            <option value="low">low activity (office workers) </option>
+            <option value="mid">average activity (work with partially standing/walking activity)</option>
+            <option value="high">high activity (work with only standing and walking activity) </option>
+        </select>
+        <input type = "submit" value = "Continue" /><br>
+      </form>
+    </div>
+
+<footer>
+         <p>Projekt der Universität Bremen<p>
+        <!-- <a href="mailto:hege@example.com">hege@example.com</a></p> -->
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+</footer>
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>
+</body>
+</html>

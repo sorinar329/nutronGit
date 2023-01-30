@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+    <link href='../static/css/stylesheet.css' rel="stylesheet">
+<style>
+
+
+
+.header{
+    margin-left: -8px;
+    width: 1920px;
+    height: 50px;
+    background-color: transparent;
+}
+
+
+select {
+    width: 300px;
+    height: 40px;
+    padding: 12px 20px;
+
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=text]{
+    width: 300px;
+    height: 50px;
+    padding: 12px 20px;
+
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+}
+
+.toptable{
+    margin-top: 0px;
+}
+
+.result{
+    margin-left: 200px;
+    margin-top: -20px;
+    position: absolute;
+    font-weight: 900;
+    font-size: 20px;
+    background-color: ghostwhite;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+#tables {
+    margin-left: 200px;
+    margin-top: 10px;
+    width: 1500px;
+    height: 700px;
+    background-color: transparent;
+}
+
+
+.tablesWidth {
+    margin-top: 10px;
+    height: 340px;
+    width: 1500px;
+    background-color: transparent;
+}
+
+.tablesLeftUp{
+    height: 340px;
+    width: 420px;
+    background-color: transparent;
+}
+.tablesMidUp{
+    height: 340px;
+    width: 420px;
+    background-color: transparent;
+    margin-left: 440px;
+    margin-top: -340px;
+}
+.tablesRightUp{
+    height: 340px;
+    width: 420px;
+    background-color: transparent;
+    margin-left: 880px;
+    margin-top: -340px;
+}
+.content {
+  padding: 0 18px;
+  max-height: 0;
+    margin-left: -219px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: transparent;
+}
+
+
+#nutrients {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+    width: 100%;
+  background-color: white;
+  color: black;
+}
+
+#nutrients td, #nutrients th {
+      border: 2px solid black;
+      padding: 8px;
+}
+
+#nutrients tr:hover {
+    background-color: grey;
+}
+
+#nutrients th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: white;
+  color: black;
+}
+
+#details{
+    font-size: 10px;
+    width: 100%;
+}
+
+#portions{
+    width: 50px;
+    height: 40px;
+}
+.infobox{
+    width: 700px;
+    height: 50px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+    padding: 15px;
+    margin-left: 600px;
+    margin-top: 10px;
+}
+</style>
+</head>
+<body>
+<div class="background-image">
+
+</div>
+<div class="navbar">
+    <i id="icon" class="fa fa-leaf"></i>
+    <div class="title">
+        <h1>NutrOn</h1>
+    </div>
+<form action = "{{ url_for('homepage') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="homebutton" type ="submit" value = "Homepage" /><br>
+</form>
+<input class="btn" id="contact" type="submit" value="Contact">
+<div class="dropdown">
+  <i id="dropdown" class="fa fa-user"></i>
+  <div class="dropdown-content">
+      {% for item in everything %}
+    <a href="#">Weight: {{ item[4] }}</a>
+    <a href="#">Gender: {{ item[2] }}</a>
+       {% endfor %}
+    <a href="#">Age: {{ userage }}</a>
+    <a href="#">Activity Level: {{ useractivity }}</a>
+  </div>
+</div>
+<form action="{{ url_for('logout') }}" method="post">
+    <button><i class="fa fa-sign-out" id="logout"></i></button>
+</form>
+
+</div>
+
+<div class="infobox">
+        <h>Please select the recipe you want to query. Optionally you can select the portions for the selected recipe,
+        otherwise the nutritions of the recipe (and the coverage) will be shown for 1 portion.
+        Please wait for the query to give a result and dont press the search button twice, or the program could collapse.</h>
+    </div>
+<div class="toptable">
+    <h1 style="text-align: center">Recipe Query</h1>
+        <div class="form" >
+                <form style="text-align: center" action="/recipe_querry/" method="post">
+                    <label for="all_products" style="font-weight: bold">Recipe: </label>
+                     <select name="rr" class="form-control" id="all_products">
+                        <option value="" disabled selected hidden>Select the recipe</option>
+                        {% for item in recipes %}
+                            <option value="{{ item['class'] }}">{{ item ['label'] }}</option>
+                        {% endfor %}
+                        {% for item in recipess %}
+                            <option value="{{ item['class'] }}">{{ item ['label'] }}</option>
+                        {% endfor %}
+                     </select>
+                    <label style="font-weight: bold">Portions:</label>
+                    <input id="portions" type="text" name="portions" placeholder="Portions" value="1">
+                <br>
+                    <input name="nutrient" type="submit" class="searchbutton" style="height:30px; width:120px" value="Search">
+                    <input name="username" type="hidden" value="{{ username }}">
+                    <input name="produkte" type="hidden" value="{{ produckte }}"><br>
+                <div class="result"> Result for: {{ label }} , {{ portions }} Portions </div>
+                </form>
+        </div>
+</div>
+<div id="tables">
+    <div class="tablesWidth">
+        <div class="tablesLeftUp" style="overflow: auto" >
+            <table id="nutrients">
+                <thead>
+                    <tr>
+                        <th>Vitamin</th>
+                        <th>Amount</th>
+                        <th>Unit</th>
+                        <th>Recommended Amount/Day</th>
+                        <th>Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in vitaminlist %}
+                    <tr>
+                        <td>{{ item["label"]["value"] }}</td>
+                        <td>{{ item["abc"]["value"][:5] }}</td>
+                        <td>{{ item["unit"]["value"] }}</td>
+                        <td>{{ item["intake"]["value"]}}</td>
+                        <td>{{ item["totalCoverage"]["value"][:5]}}{{ "%" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tablesMidUp" style="overflow: auto" >
+             <table id="nutrients">
+                <thead>
+                    <tr>
+                        <th>Minerals</th>
+                        <th>Amount</th>
+                        <th>Unit</th>
+                        <th>Recommended Amount/Day</th>
+                        <th>Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in minerallist %}
+                    <tr>
+                        <td>{{ item["label"]["value"] }}</td>
+                        <td>{{ item["abc"]["value"][:5] }}</td>
+                        <td>{{ item["unit"]["value"] }}</td>
+                        <td>{{ item["intake"]["value"]}}</td>
+                        <td>{{ item["totalCoverage"]["value"][:5]}}{{ "%" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tablesRightUp" style="overflow: auto" >
+             <table id="nutrients">
+                <thead>
+                    <tr>
+                        <th>Carbohydrates</th>
+                        <th>Amount</th>
+                        <th>Unit</th>
+                        <th>Recommended Amount/Day</th>
+                        <th>Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in carboslist %}
+                    <tr>
+                        <td>{{ item["label"]["value"] }}</td>
+                        <td>{{ item["abc"]["value"][:5] }}</td>
+                        <td>{{ item["unit"]["value"] }}</td>
+                        <td>{{ item["intake"]["value"]}}</td>
+                        <td>{{ item["totalCoverage"]["value"][:5]}}{{ "%" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tablesWidth">
+        <div class="tablesLeftUp" style="overflow: auto" >
+             <table id="nutrients">
+                <thead>
+                    <tr>
+                        <th>Fats</th>
+                        <th>Amount</th>
+                        <th>Unit</th>
+                        <th>Recommended Amount/Day</th>
+                        <th>Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in fatslist %}
+                    <tr>
+                        <td>{{ item["label"]["value"] }}</td>
+                        <td>{{ item["abc"]["value"][:5] }}</td>
+                        <td>{{ item["unit"]["value"] }}</td>
+                        <td>{{ item["intake"]["value"]}}</td>
+                        <td>{{ item["totalCoverage"]["value"][:5]}}{{ "%" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tablesMidUp" style="overflow: auto" >
+             <table id="nutrients">
+                <thead>
+                    <tr>
+                        <th>Others</th>
+                        <th>Amount</th>
+                        <th>Unit</th>
+                        <th>Recommended Amount/Day</th>
+                        <th>Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in others %}
+                    <tr>
+                        <td>{{ item["label"]["value"] }}</td>
+                        <td>{{ item["abc"]["value"][:5] }}</td>
+                        <td>{{ item["unit"]["value"] }}</td>
+                        <td>{{ item["intake"]["value"]}}</td>
+                        <td>{{ item["totalCoverage"]["value"][:5]}}{{ "%" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tablesRightUp" style="overflow: auto" >
+            <table id="nutrients">
+                <thead>
+                    <tr>
+                        <th>Products</th>
+                        <th>Amount</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in all_prods %}
+                    <tr>
+                        <td>{{ item["label"]["value"] }}</td>
+                        <td>{{ item ["total"]["value"] [:6]}}{{ "g" }}</td>
+                        <td>
+                            <form action="/query_param/" method="post">
+                                <input name="nm" type="hidden" value="{{ item["ing"]["value"] }}">
+                                <input name="unit" type="hidden" value="{{ item ["total"]["value"][:10] }}">
+                                <input id="details" type="submit" value="Details">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+</body>
+<script>
+    function showTable()
+{
+    document.getElementById('tables').style.visibility = "visible";//shows the table
+    return false;
+}
+</script>
+</html>

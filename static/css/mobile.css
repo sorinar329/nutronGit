@@ -1,0 +1,252 @@
+/*
+Stylesheet of the NutrOn-Software
+ */
+@media screen and (min-width: 300px) and (max-width: 950px) {
+
+    body{
+        width: 98.9%;
+        margin:0;
+    }
+
+    /*
+    NavigationBar
+     */
+    .navbar {
+        visibility: hidden;
+        padding: 0 1%;
+        height: 30px;
+        background-image: linear-gradient(to right, ghostwhite, darkred, darkgreen);
+        position: absolute;
+    }
+    .navbarmobile{
+        padding: 0 0;
+        height: 50px;
+        width: 101%;
+        background-image: linear-gradient(to right,green, white, green);
+        position: relative;
+    }
+    /* Dropdown Button */
+.dropbtn2 {
+  background: transparent;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  float: right;
+  position: relative;
+  width: 60px;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn2:hover, .dropbtn2:focus {
+  background-color: black;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown2 {
+  position: relative;
+  display: inline-block;
+  float: right;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown2-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  margin-top: 50px;
+  margin-left: -60px;
+  width: 200%;
+  float: right;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown2-content a {
+  color: black;
+  border: 2px solid black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown2-content a:hover {background-color: transparent}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+    footer {
+        background-color: rgb(226, 226, 226);
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        max-height: 10%;
+        width: 100%;
+        text-align: center;
+    }
+
+    footer img {
+        height: 25px;
+    }
+
+    /*
+    Other Colors:
+    skyblue : radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% );
+     */
+    /*
+    The Position of the icon and buttons
+     */
+    #homebutton {
+        visibility: hidden;
+        margin-left: 200px;
+        position: absolute;
+        top: 5px;
+        font-size: 50%;
+    }
+
+    #contact {
+        visibility: hidden;
+        margin-left: 62.4%;
+        position: absolute;
+        width: 7%;
+        font-size: 60%;
+    }
+
+    #logout {
+        visibility: hidden;
+        margin-left: 72%;
+        position: absolute;
+        font-size: 300%;
+        margin-top: -0.8%;
+        color: #23c483;
+    }
+
+    #logout:hover {
+        visibility: hidden;
+        color: white;
+    }
+
+    .title {
+        position: absolute;
+        font-family: 'Brush Script MT', cursive, bold;
+        font-size: 100%;
+        top: -29px;
+        color: white;
+        left: 35%;
+    }
+
+    .searchbutton {
+        width: 50%;
+        background-color: blue;
+        color: white;
+        padding: 5px 10px;
+        margin: 3px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .details {
+        width: 80px;
+        background-color: blue;
+        color: white;
+        padding: 5px 20px;
+        margin: 5px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #icon {
+        visibility: hidden;
+        position: absolute;
+        margin-left: -90px;
+        font-size: 40px;
+        color: green;
+        margin-top: 10px;
+    }
+
+    /*
+       button style
+     */
+    .btn {
+        visibility: hidden;
+        padding: 1.3em 3em;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        font-weight: 500;
+        color: #000;
+        background-color: lightblue;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
+    }
+
+    .btn:hover {
+        background-color: #23c483;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: black;
+        transform: translateY(-7px);
+    }
+
+    .btn:active {
+        transform: translateY(-1px);
+    }
+
+
+    #dropdown {
+        visibility: hidden;
+        width: 5%;
+        display: inline-block;
+        margin-left: 70%;
+        position: absolute;
+        margin-top: 0;
+        font-size: 240%;
+        color: #23c483;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: ghostwhite;
+        color: black;
+        width: 10%;
+        z-index: 1;
+        font-size: 12px;
+        margin-left: 67%;
+        margin-top: 2.5%;
+        border-radius: 10px;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 6px 11px;
+        text-decoration: none;
+        display: block;
+    }
+
+    #dropdown:hover {
+        color: white;
+    }
+
+
+    .dropdown-content a:hover {
+        background-color: white;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover #dropbtn {
+        background-color: turquoise;
+    }
+
+}

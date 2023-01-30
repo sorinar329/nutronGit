@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+    <link href='../static/css/stylesheet.css' rel="stylesheet">
+    <link rel="stylesheet" href='../static/css/laptop.css'>
+<style>
+    @media screen and (min-width: 1800px) {
+
+        select {
+            width: 15%;
+            padding: 0.4% 0.7%;
+
+            margin: 0.1% 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .toptable {
+            margin-top: 1%;
+        }
+
+        .result {
+            margin-left: 5%;
+            margin-top: 0%;
+            position: absolute;
+            font-weight: bold;
+            background-color: white;
+        }
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+        .tables {
+            margin-left: 25%;
+            margin-top: 2%;
+            width: 50%;
+            max-height: 50%;
+            background-color: transparent;
+        }
+
+
+        .tablesLeftUp {
+            max-height: 45%;
+            width: 15%;
+            background-color: transparent;
+            position: absolute;
+            margin-top: 1%;
+        }
+
+        .tablesMidUp {
+            max-height: 45%;
+            width: 15%;
+            background-color: transparent;
+            position: absolute;
+            margin-top: 1%;
+            margin-left: 16%;
+        }
+
+        .tablesRightUp {
+            max-height: 45%;
+            width: 15%;
+            background-color: transparent;
+            position: absolute;
+            margin-top: 1%;
+            margin-left: 32%;
+        }
+
+
+        #nutrients {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            width: 100%;
+            background-color: white;
+            color: black;
+        }
+
+        #nutrients td, #nutrients th {
+            border: 2px solid black;
+            padding: 8px;
+        }
+
+        #nutrients tr:hover {
+            background-color: grey;
+        }
+
+        #nutrients th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: white;
+            color: black;
+        }
+
+
+        .infobox {
+            width: 45%;
+            background-color: ghostwhite;
+            border-radius: 5px;
+            padding: 0.5%;
+            margin-left: 29%;
+            max-height: 20%;
+            margin-top: 1%;
+            font-size: 100%;
+        }
+
+        .result {
+            font-size: 100%;
+            margin-left: 0px;
+            font-weight: bold;
+            background-color: white;
+        }
+    }
+
+@media screen and (min-width: 1200px) and (max-width: 1799px){
+            select {
+            width: 12%;
+            padding: 0.4% 0.7%;
+
+            margin: 0.1% 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 70%;
+        }
+
+        .toptable {
+            margin-top: 2%;
+        }
+
+        .result {
+            margin-left: 5%;
+            margin-top: 0%;
+            position: absolute;
+            font-weight: bold;
+            background-color: white;
+        }
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+        .tables {
+            margin-left: 25%;
+            margin-top: 2%;
+            width: 50%;
+            max-height: 50%;
+            background-color: transparent;
+        }
+
+
+        .tablesLeftUp {
+            max-height: 45%;
+            width: 15%;
+            background-color: transparent;
+            position: absolute;
+            margin-top: 1%;
+        }
+
+        .tablesMidUp {
+            max-height: 45%;
+            width: 15%;
+            background-color: transparent;
+            position: absolute;
+            margin-top: 1%;
+            margin-left: 16%;
+        }
+
+        .tablesRightUp {
+            max-height: 45%;
+            width: 15%;
+            background-color: transparent;
+            position: absolute;
+            margin-top: 1%;
+            margin-left: 32%;
+        }
+
+
+        #nutrients {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 9px;
+            width: 100%;
+            background-color: white;
+            color: black;
+        }
+
+        #nutrients td, #nutrients th {
+            border: 2px solid black;
+            padding: 8px;
+        }
+
+        #nutrients tr:hover {
+            background-color: grey;
+        }
+
+        #nutrients th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: white;
+            color: black;
+        }
+
+
+        .infobox {
+            width: 40%;
+            background-color: ghostwhite;
+            border-radius: 5px;
+            padding: 0.5%;
+            margin-left: 30%;
+            max-height: 20%;
+            margin-top: 1%;
+            font-size: 80%;
+        }
+
+        .result {
+            font-size: 80%;
+            margin-left: 0px;
+            font-weight: bold;
+            background-color: white;
+        }
+}
+</style>
+
+
+<title>Symptom Query</title>
+</head>
+
+
+
+<body>
+<div class="bg-image">
+
+</div>
+<div class="navbar">
+    <i id="icon" class="fa fa-leaf"></i>
+    <div class="title">
+        <h1>NutrOn</h1>
+    </div>
+<form action = "{{ url_for('homepage') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="homebutton" type ="submit" value = "Homepage" /><br>
+</form>
+<input class="btn" id="contact" type="submit" value="Contact">
+<div class="dropdown">
+  <i id="dropdown" class="fa fa-user"></i>
+  <div class="dropdown-content">
+      {% for item in everything %}
+    <a href="#">Weight: {{ item[4] }}</a>
+    <a href="#">Gender: {{ item[2] }}</a>
+       {% endfor %}
+    <a href="#">Age: {{ userage }}</a>
+    <a href="#">Activity Level: {{ useractivity }}</a>
+  </div>
+</div>
+<form action="{{ url_for('logout') }}" method="post">
+    <button><i class="fa fa-sign-out" id="logout"></i></button>
+</form>
+
+</div>
+
+<div class="infobox">
+        <h>Please select the symptom you want to query.
+        Please wait for the query to give a result and dont press the search button twice, or the program could collapse.</h>
+    </div>
+    <div class="toptable">
+        <div class="form">
+                <form style="text-align: center" action='/treatmentnutrient/' method="post">
+                    <label for="all_products" style="font-weight: bold">Symptom </label>
+                     <select name="symptom" class="form-control" id="all_products">
+                        <option value="" disabled selected hidden>Select the symptom</option>
+                        <option value="Anemia">Anemia</option>
+                        <option value="Asthenia">Asthenia</option>
+                        <option value="Thirst">Thirst</option>
+                        <option value="Headache">Headache</option>
+                        <option value="Fatigue">Fatigue</option>
+                        <option value="Fever">Fever</option>
+                        <option value="Dizziness">Dizziness</option>
+                        <option value="Vitamin_D_Deficiency">Vitamin D Deficiency</option>
+                     </select>
+                    <select name="category" class="form-control" id="all_products">
+                        <option value="" disabled selected hidden>Select the category</option>
+                        <option value="all">all categories</option>
+                        <option value="Beverage">Beverage</option>
+                        <option value="Baked_Product">Baked product</option>
+                        <option value="Cereal_Grain_And_Pasta">Cereal Grain and Pasta</option>
+                        <option value="Dairy_And_Egg">Dairy and Egg</option>
+                        <option value="Fats_And_Oils">Fats and Oils</option>
+                        <option value="Fruits_and_Fruit_Juices">Fruits and Fruit Juices</option>
+                        <option value="Legume">Legume</option>
+                        <option value="Nuts_And_Seeds">Nuts and Seeds</option>
+                        <option value="Spices_And_Herbs">Spices and Herbs</option>
+                        <option value="Vegetable">Vegetable</option>
+                     </select>
+                    <input name="nutrient" type="submit" class="searchbutton" value="Search">
+                </form>
+        </div>
+    </div>
+
+<div class="tables">
+<label class="result">Symptom: {{ symptom }}</label>
+<div class="tablesWidth">
+        <div class="tablesLeftUp" style="overflow: auto" >
+            <table id="nutrients">
+                <thead>
+                    <tr>
+                        <th>Recommended Nutrients</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in nutrients %}
+                    <tr>
+                        <td>{{ item["label"]["value"] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tablesMidUp" style="overflow: auto" >
+             <table id="nutrients">
+                <thead>
+                    <tr>
+                        <th>Recommended Product</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in products_conjuction %}
+                    <tr>
+                        <td>{{ item["label2"]["value"] }}</td>
+                        <td>
+                            <form action="/query_param/" method="post" id="details">
+                                <input name="nm" type="hidden" value="{{ item["food"]["value"] }}">
+                                <input name="unit" type="hidden" value="100">
+                                <input class="details" type="submit" value="Details">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tablesRightUp" style="overflow: auto" >
+             <table id="nutrients">
+                <thead>
+                    <tr>
+                        <th>Recommended Recipe</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in recorecipe %}
+                    <tr>
+                        <td>{{ item["label"]["value"] }}</td>
+                        <td>
+                            <form action="/recipe_querry/" method="post" id="details">
+                                <input name="rr" type="hidden" value="{{ item["recipe"]["value"] }}">
+                                <input name="portions" type="hidden" value="1">
+                                <input class="details" type="submit" value="Details">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer>
+         <p>Projekt der Universität Bremen<p>
+        <!-- <a href="mailto:hege@example.com">hege@example.com</a></p> -->
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+</footer>
+
+</body>
+
+<script>
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
+</script>
+</body>
+</html>

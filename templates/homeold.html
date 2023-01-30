@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>NonFoodKG</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+
+    <style>
+    @media screen and (min-width: 300px) and (max-width: 950px){
+        body{
+            background-color: gainsboro;
+        }
+        .nav{
+            position: relative;
+            left: 0;
+            background-color: black;
+            height: 30px;
+            color: white;
+        }
+        .about {
+            position: relative;
+            background-image: linear-gradient(to bottom, ghostwhite, grey);
+            color: black;
+            font-size: 100%;
+            margin-top: 0;
+            padding-inline: 5px;
+        }
+        .gitbutton {
+            width: 98%;
+            height: 10%;
+            position: relative;
+            background-color: blueviolet;
+            border-radius: 5px;
+            font-size: 300%;
+            color: ghostwhite;
+        }
+        .sparkli {
+            height: 100%;
+            background-color: yellow;
+            position: relative;
+            left: 0;
+            top: -75px;
+            padding-inline: 2px;
+        }
+
+        .x {
+            visibility: hidden;
+            width: 100%;
+            height: 150px;
+            background-color: yellow;
+            position: relative;
+            left: 0;
+            top: -80px;
+            padding-inline: 2px;
+        }
+        .nutron {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            margin: -70px 0;
+
+        }
+
+        .nutron .background {
+            background-image: linear-gradient(to bottom, ghostwhite, lightgreen);
+        }
+
+        .nutron > div {
+            height: 100%;
+            width: 100%;
+        }
+
+        .nutron .foreground {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform: translateY(100%);
+            background-color: ghostwhite;
+            transition: .5s ease;
+        }
+
+        .nutron:hover .foreground {
+            transform: translateY(0);
+        }
+
+        #icon {
+            font-size: 400%;
+            margin-top: 16%;
+            margin-left: 40%;
+            color: darkgreen;
+        }
+
+        #nutron {
+            font-size: 350%;
+            font-family: "Lucida Handwriting";
+            color: forestgreen;
+            margin-left: 25%;
+            margin-top: 2%;
+            position: absolute;
+        }
+
+        .nutrontext {
+            font-size: 100%;
+            padding: 1%;
+            margin-top: 20%;
+        }
+        footer {
+            visibility: hidden;
+            background-color: rgb(226, 226, 226);
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            margin-top: -200px;
+            width: 100%;
+            text-align: center;
+            z-index: -1;
+        }
+
+        footer img {
+            height: 25px;
+        }
+        .applications{
+            visibility: hidden;
+        }
+    }
+    @media screen and (min-width: 1800px) {
+        .nav {
+            background-color: black;
+            width: 99%;
+            height: 7%;
+            position: absolute;
+        }
+
+        .about {
+            width: 40%;
+            height: 85%;
+            position: absolute;
+            background-image: linear-gradient(to bottom, ghostwhite, grey);
+            color: black;
+            font-size: 100%;
+            padding-inline: 1%;
+            margin-top: 4%;
+        }
+
+        .gitbutton {
+            width: 25%;
+            height: 6%;
+            position: relative;
+            background-color: blueviolet;
+            border-radius: 5px;
+            font-size: 100%;
+            color: ghostwhite;
+        }
+
+        .sparkli {
+            width: 17%;
+            height: 45%;
+            background-color: yellow;
+            position: absolute;
+            margin-left: 43%;
+            margin-top: 8%;
+            padding-inline: 2px;
+        }
+
+        .x {
+            width: 17%;
+            height: 45%;
+            background-color: green;
+            position: absolute;
+            margin-left: 61%;
+            padding-inline: 5px;
+            margin-top: 8%;
+        }
+
+        .nutron {
+            width: 17%;
+            height: 45%;
+            position: absolute;
+            margin-left: 79%;
+            overflow: hidden;
+            margin-top: 8%;
+        }
+
+        .nutron .background {
+            background-image: linear-gradient(to bottom, ghostwhite, lightgreen);
+        }
+
+        .nutron > div {
+            height: 100%;
+            width: 100%;
+        }
+
+        .nutron .foreground {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform: translateY(100%);
+            background-color: ghostwhite;
+            transition: .5s ease;
+        }
+
+        .nutron:hover .foreground {
+            transform: translateY(0);
+        }
+
+        .applications {
+            width: 45%;
+            height: 20%;
+            background-color: transparent;
+            position: absolute;
+            margin-left: 43%;
+            margin-top: 4%;
+            font-size: 100%;
+        }
+
+        #icon {
+            font-size: 400%;
+            margin-top: 50%;
+            margin-left: 35%;
+            color: darkgreen;
+        }
+
+        #nutron {
+            font-size: 250%;
+            font-family: "Lucida Handwriting";
+            color: forestgreen;
+            margin-left: 2%;
+            margin-top: 2%;
+            position: absolute;
+        }
+
+        .nutrontext {
+            font-size: 100%;
+            padding: 1%;
+            margin-top: 40%;
+        }
+
+        footer {
+            background-color: rgb(226, 226, 226);
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            max-height: 10%;
+            width: 100%;
+            text-align: center;
+        }
+
+        footer img {
+            height: 25px;
+        }
+    }
+    @media screen and (min-width: 1200px) and (max-width: 1800px) {
+        .nav {
+            background-color: black;
+            width: 99%;
+            height: 6%;
+            position: absolute;
+        }
+
+        .about {
+            width: 40%;
+            height: 85%;
+            position: absolute;
+            background-image: linear-gradient(to bottom, ghostwhite, grey);
+            color: black;
+            font-size: 85%;
+            padding-inline: 1%;
+            margin-top: 4%;
+        }
+
+        .gitbutton {
+            width: 25%;
+            height: 6%;
+            position: relative;
+            background-color: blueviolet;
+            border-radius: 5px;
+            font-size: 100%;
+            color: ghostwhite;
+        }
+
+        .sparkli {
+            width: 15%;
+            height: 40%;
+            background-color: yellow;
+            position: absolute;
+            margin-left: 45%;
+            margin-top: 8%;
+            padding-inline: 2px;
+            font-size: 80%;
+        }
+
+        .x {
+            width: 15%;
+            height: 40%;
+            background-color: green;
+            position: absolute;
+            margin-left: 61%;
+            padding-inline: 4px;
+            margin-top: 8%;
+        }
+
+        .nutron {
+            width: 15%;
+            height: 40%;
+            position: absolute;
+            margin-left: 77%;
+            overflow: hidden;
+            margin-top: 8%;
+        }
+
+        .nutron .background {
+            background-image: linear-gradient(to bottom, ghostwhite, lightgreen);
+        }
+
+        .nutron > div {
+            height: 100%;
+            width: 100%;
+        }
+
+        .nutron .foreground {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform: translateY(100%);
+            background-color: ghostwhite;
+            transition: .5s ease;
+        }
+
+        .nutron:hover .foreground {
+            transform: translateY(0);
+        }
+
+        .applications {
+            width: 45%;
+            height: 20%;
+            background-color: transparent;
+            position: absolute;
+            margin-left: 45%;
+            margin-top: 3%;
+            font-size: 85%;
+        }
+
+        #icon {
+            font-size: 400%;
+            margin-top: 50%;
+            margin-left: 35%;
+            color: darkgreen;
+        }
+
+        #nutron {
+            font-size: 250%;
+            font-family: "Lucida Handwriting";
+            color: forestgreen;
+            margin-left: 2%;
+            margin-top: 2%;
+            position: absolute;
+        }
+
+        .nutrontext {
+            font-size: 100%;
+            padding: 1%;
+            margin-top: 40%;
+        }
+
+        footer {
+            background-color: rgb(226, 226, 226);
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            max-height: 10%;
+            width: 100%;
+            text-align: center;
+        }
+
+        footer img {
+            height: 25px;
+        }
+    }
+       </style>
+</head>
+
+<body>
+    <div class="nav">
+        Header
+    </div>
+    <div class="about">
+    <h1>Welcome to Non-FoodKG</h1>
+    <a>
+        Non-FoodKG is a non-food knowledge graph interlinking different ontologies designed for retail, household and
+        robotic applications. It is based on a merged product taxonomy reflecting the product classification in grocery
+        stores and drugstores that is linked to a product location ontology created from a robot belief state while
+        performing stocktaking in a retail store. The product location ontology therefore stores inventory data like
+        stock and price of products as well as their positions relative to shelves (instead of coordinates). We use the
+        KnowRob knowledge processing system for creation of the location ontology. In KnowRob, a robot can access specific
+        position information of the perceived objects. The product taxonomy classifies products that were recognized during
+        stocktaking. It is linked to an ingredients classification based on string matching, which is connected to an
+        allergen classification. The product taxonomy is also linked to further product information like name and place
+        of production in product information, product label or product dimensions, i.e. dimensions of product packaging
+        as well as product weight/ filling information. All this can be used for shopping applications on mobile phones
+        or smart glasses, for example.
+    </a>
+        <br>
+        <br>
+        <br>
+    <button class="gitbutton" onclick="window.location.href = 'https://github.com/K4R-IAI/NonFoodKG';">
+        <i class="fa fa-github" ></i> GitRepo </button>
+
+
+    </div>
+    <div class="applications">
+        <h1>Related Applications:</h1>
+    </div>
+    <div class="sparkli">
+    <h1>Sparkli</h1>
+        Sparklis is a query builder in natural language that allows people to explore and query SPARQL endpoints with
+        all the power of SPARQL and without any knowledge of SPARQL, nor of the endpoint vocabulary.
+        It contains a <i>Query Builder</i>, a <i>Faceted Search System</i> and a <i>Natural Language Interface</i>.
+        <a href="https://github.com/sebferre/sparklis">More Information</a> <br> <br>
+
+        On this Page you have the option to build your own queries and navigate through the database of the nonfoodkg.
+        <button onclick="window.location.href = 'http://www.irisa.fr/LIS/ferre/sparklis/?title=Core%20English%20DBpedia&endpoint=https%3A//api.krr.triply.cc/datasets/mkumpel/NonFoodKG/services/NonFoodKG/sparql';">
+        Sparkli </button>
+    </div>
+    <div class="nutron">
+        <div class="foreground">
+
+            <div class="nutrontext">NutrOn (Nutrition Ontology) is a webapplication, which gives customer specific dietary
+            recommendations</div>
+            <form action = "{{ url_for('index') }}" method = "POST">
+                <input type="submit" value="NutrOn">
+            </form>
+        </div>
+        <div class="background">
+            <h1 id="nutron">NutrOn</h1>
+            <i id="icon" class="fa fa-leaf"></i>
+        </div>
+    </div>
+    <div class="x">
+    <h1>Placeholder</h1>
+    </div>
+    <footer>
+         <p>Projekt der Universität Bremen<p>
+        <!-- <a href="mailto:hege@example.com">hege@example.com</a></p> -->
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+    </footer>
+</body>
+
+</html>

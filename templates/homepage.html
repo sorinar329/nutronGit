@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+    <link rel="stylesheet" href='../static/css/stylesheet.css'>
+    <link rel="stylesheet" href='../static/css/laptop.css'>
+    <link rel="stylesheet" href="../static/css/mobile.css">
+    <title>Home Page</title>
+<style>
+@media screen and (min-width: 300px) and (max-width: 950px) {
+    body{
+        margin: 0;
+    }
+
+    footer{
+        visibility: hidden;
+    }
+    #logout{
+        visibility: hidden;
+    }
+    .fa-sign-out{
+        visibility: hidden;
+    }
+    .titlea{
+        font-size: 150%;
+    }
+    .filterrecommender{
+        width: 100%;
+        background-image: linear-gradient(to bottom, ghostwhite, ghostwhite, ghostwhite, ghostwhite, lightgreen);
+        text-align: center;
+        top: 10px;
+        max-height: 100%;
+        position: relative;
+        padding-bottom:10px;
+        left: -1px;
+        border: groove lightgreen;
+    }
+    .texta{
+        padding: 1%;
+    }
+
+    .symptomstreatment{
+        bottom: 0;
+        width: 100%;
+        background-image: linear-gradient(to bottom, ghostwhite, ghostwhite, ghostwhite, ghostwhite, lightgreen);
+        text-align: center;
+        top: 12px;
+        left: -1px;
+        position: relative;
+        border: groove lightgreen;
+    }
+    .nutrient{
+        width: 100%;
+        background-image: linear-gradient(to bottom, ghostwhite, ghostwhite, ghostwhite, ghostwhite, lightgreen);
+        text-align: center;
+        top: 14px;
+        left: -1px;
+        position: relative;
+        border: groove lightgreen;
+    }
+    .recipe{
+        width: 100%;
+        background-image: linear-gradient(to bottom, ghostwhite, white);
+        text-align: center;
+        top: 20px;
+        left: -1px;
+        position: relative;
+        visibility: hidden;
+    }
+    .basd {
+        width: 60%;
+        background-color: white;
+        color: black;
+        padding: 3% 3%;
+        margin: 3% 0;
+        border: ridge black;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 80%;
+    }
+    .basd:hover {
+        background-color: black;
+        color: white;
+    }
+}
+@media screen and (min-width: 1800px) {
+    .filterrecommender{
+        width: 20%;
+        height: 50%;
+        position: absolute;
+        margin: 5% 8.5%;
+        background-image: linear-gradient(to bottom, white, #50C878);
+        box-shadow: 0 0 2em black;
+    }
+    .symptomstreatment{
+        width: 20%;
+        height: 50%;
+        position: absolute;
+        margin: 5% 29.5%;
+        background-image: linear-gradient(to bottom, white, #50C878);
+        box-shadow: 0 0 2em black;
+    }
+    .nutrient{
+        width: 20%;
+        height: 50%;
+        position: absolute;
+        margin: 5% 50.5%;
+        background-image: linear-gradient(to bottom, white, #50C878);
+        box-shadow: 0 0 2em black;
+    }
+    .recipe{
+        width: 20%;
+        height: 50%;
+        position: absolute;
+        margin: 5% 71.5%;
+        background-image: linear-gradient(to bottom, white, #50C878);
+        box-shadow: 0 0 2em black;
+    }
+    .titlea{
+        position: relative;
+        font-size: 180%;
+        margin: 1% 2%;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+    .texta{
+        position: relative;
+        font-size: 100%;
+        margin: 5% 2%;
+    }
+    .basd{
+        position: absolute;
+        bottom: 5%;
+        left: 25%;
+        border-radius: 5px;
+        background-color: lightgrey;
+        color: black;
+        width: 50%;
+        height: 10%;
+    }
+    .basd:hover{
+        background-color: black;
+        color: white;
+    }
+}
+@media screen and (min-width: 1200px) and (max-width: 1799px){
+    .filterrecommender{
+        width: 20%;
+        height: 50%;
+        position: absolute;
+        margin: 5% 8.5%;
+        background-image: linear-gradient(to bottom, white, #50C878);
+        box-shadow: 0 0 2em black;
+    }
+    .symptomstreatment{
+        width: 20%;
+        height: 50%;
+        position: absolute;
+        margin: 5% 29.5%;
+        background-image: linear-gradient(to bottom, white, #50C878);
+        box-shadow: 0 0 2em black;
+    }
+    .nutrient{
+        width: 20%;
+        height: 50%;
+        position: absolute;
+        margin: 5% 50.5%;
+        background-image: linear-gradient(to bottom, white, #50C878);
+        box-shadow: 0 0 2em black;
+    }
+    .recipe{
+        width: 20%;
+        height: 50%;
+        position: absolute;
+        margin: 5% 71.5%;
+        background-image: linear-gradient(to bottom, white, #50C878);
+        box-shadow: 0 0 2em black;
+    }
+    .titlea{
+        position: relative;
+        font-size: 180%;
+        margin: 1% 2%;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+    .texta{
+        position: relative;
+        font-size: 100%;
+        margin: 5% 2%;
+    }
+    .basd{
+        position: absolute;
+        bottom: 5%;
+        left: 25%;
+        border-radius: 5px;
+        background-color: lightgrey;
+        color: black;
+        width: 50%;
+        height: 10%;
+    }
+    .basd:hover{
+        background-color: black;
+        color: white;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg-image">
+
+</div>
+<div class="navbarmobile" id="myTopnav">
+  <div class="dropdown2">
+  <button onclick="myFunction()" class="dropbtn2"><i class="fa fa-bars"></i>
+  </button>
+  <div id="myDropdown" class="dropdown2-content">
+        <form action = "{{ url_for('homepage') }}" method = "POST" id="formhome">
+            <input type="hidden" name="username" value=" {{ username }}">
+            <a href="#" onclick="document.getElementById('formhome').submit()">Nutron</a>
+        </form>
+        <form action = "{{ url_for('logouttohome') }}" method = "POST" id="formbackhome">
+            <a href="#" onclick="document.getElementById('formbackhome').submit()">NonFoodKg</a>
+        </form>
+        <form action = "{{ url_for('contactnutron') }}" method = "POST" id="formcontact">
+            <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
+        </form>
+        <form action = "{{ url_for('disclaimernutron') }}" method = "POST" id="formdisclaimer">
+            <a href="#" onclick="document.getElementById('formdisclaimer').submit()">Disclaimer</a>
+        </form>
+        <form action = "{{ url_for('logout') }}" method = "POST" id="formlogout">
+            <a href="#" onclick="document.getElementById('formlogout').submit()">Logout  <i class="fa fa-sign-out"></i></a>
+        </form>
+  </div>
+</div>
+</div>
+<div class="navbar">
+    <i id="icon" class="fa fa-leaf"></i>
+    <div class="title">
+        <h1>NutrOn</h1>
+    </div>
+<form action = "{{ url_for('homepage') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="homebutton" type ="submit" value = "Homepage" /><br>
+</form>
+<form action = "{{ url_for('contactnutron') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="contact" type ="submit" value = "Contact" /><br>
+</form>
+<form action = "{{ url_for('disclaimernutron') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="disclaimer" type ="submit" value = "Disclaimer" /><br>
+</form>
+<form action = "{{ url_for('logouttohome') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="backhome" type ="submit" value = "NonFoodKG" /><br>
+</form>
+
+
+<div class="dropdown">
+  <i id="dropdown" class="fa fa-user"></i>
+  <div class="dropdown-content">
+      {% for item in everything %}
+    <a href="#">Weight: {{ item[4] }}</a>
+    <a href="#">Gender: {{ item[2] }}</a>
+       {% endfor %}
+    <a href="#">Age: {{ userage }}</a>
+    <a href="#">Activity Level: {{ useractivity }}</a>
+  </div>
+</div>
+<form action="{{ url_for('logout') }}" method="post">
+    <button ><i class="fa fa-sign-out" id="logout"></i></button>
+</form>
+</div>
+<div class="filterrecommender">
+    <div class="titlea">Filter Recommender</div>
+    <div class="texta">This page will help you find the right product by selecting its nutritional components!<br>
+    You will be able to select from a variety of nutritions and get as a result the products that contains the selected nutritions.</div>
+    <form action = "{{ url_for('filterredirect') }}" method = "POST">
+                <input id="filterbutton" type = "submit" value = "Continue" class="basd" /><br>
+    </form>
+</div>
+<div class="symptomstreatment">
+    <div class="titlea">Symptom Treatment</div>
+    <div class="texta">This page will recommend you nutritions/products that could help you ease your symptoms!<br>
+    You will be able to select from a variety of symtoms and get a recommended treatment based on nutritions for it.</div>
+    <form action=" {{ url_for ('symptoms') }}" method="post">
+            <input id ="symptombutton" type="submit" value="Continue" class="basd">
+        </form>
+</div>
+<div class="nutrient">
+    <div class="titlea">Nutritional Values</div>
+    <div class="texta">This page will help you find the nutritional values of a product<br>
+            Also it will show you the recommended intake for its nutritional components
+            and the achieved coverage in case you decide to consume the product<br>
+            The recommended intake and achieved coverage is based on your data, so weight, age, gender and daily activity
+    </div>
+    <form action = "{{ url_for('name') }}" method = "POST">
+                <input type = "submit" value = "Continue" class="basd"/><br>
+    </form>
+</div>
+<div class="recipe">
+    <div class="titlea">Recipes</div>
+    <div class="texta">This page is work in progress and will be released soon!</div>
+</div>
+<footer>
+         <p>Projekt der Universität Bremen<p>
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+</footer>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+</script>
+</body>
+</html>

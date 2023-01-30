@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+    <link href='../static/css/stylesheet.css' rel="stylesheet">
+    <link rel="stylesheet" href='../static/css/laptop.css'>
+    <link rel="stylesheet" href="../static/css/mobile.css">
+<style>
+@media screen and (min-width: 350px) and (max-width: 950px){
+
+body{
+    background-image: radial-gradient(grey, white);
+    margin: 0 0.2%;
+}
+select {
+        width: 100%;
+        height: 5%;
+        padding: 2% 3%;
+        left: 0;
+        margin: 0 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=text] {
+        width: 20%;
+        height: 50px;
+        padding: 12px 20px;
+
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+
+    }
+
+    .collapsible {
+        background-color: #777;
+        color: black;
+        cursor: pointer;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 100%;
+        border-style: solid;
+    }
+
+    .toptable {
+        margin-top: 1%;
+    }
+
+    .result {
+        left: 0;
+        top: 20px;
+        text-align: left;
+        position: relative;
+        font-weight: bolder;
+        background-color: transparent;
+    }
+
+    .active, .collapsible:hover {
+        background-color: #555;
+    }
+
+    .tables {
+        left: 0;
+        width: 100%;
+        margin-top: 20px;
+        max-height: 50%;
+        background-color: transparent;
+    }
+
+    .content {
+        padding: 0 1%;
+        max-height: 0;
+        height: 100%;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        left: 0;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 1px;
+        font-size: 10px;
+        left: 0;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    .infobox {
+        width: 100%;
+        background-color: lightgrey;
+        border-radius: 5px;
+        padding: 0;
+        left: 0;
+        top: 1px;
+        font-size: 85%;
+        position: relative;
+    }
+
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        left: 0;
+    }
+
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+    }
+
+    #unit {
+        height: 0.1%;
+        width: 20%;
+        margin-top: 0px;
+        position: relative;
+        text-align: left;
+    }
+
+    .unitlabel {
+
+        margin-left: 3%;
+        margin-top:0;
+        position: relative;
+    }
+    footer{
+        visibility: hidden;
+    }
+}
+@media screen and (min-width: 1800px) {
+    select {
+        width: 15%;
+        height: 5%;
+        padding: 2% 3%;
+
+        margin: 0 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=text] {
+        width: 20%;
+        height: 50px;
+        padding: 12px 20px;
+
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+
+    }
+
+    .collapsible {
+        background-color: #777;
+        color: black;
+        cursor: pointer;
+        padding: 18px;
+        width: 98.1%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        border-style: solid;
+    }
+
+    .toptable {
+        margin-top: 1%;
+    }
+
+    .result {
+        margin-left: 15%;
+        position: absolute;
+        font-weight: bolder;
+        background-color: white;
+    }
+
+    .active, .collapsible:hover {
+        background-color: #555;
+    }
+
+    .tables {
+        margin-left: 15%;
+        width: 70%;
+        margin-top: 1%;
+        max-height: 50%;
+        background-color: transparent;
+    }
+
+    .content {
+        padding: 0 1%;
+        max-height: 0;
+        height: 100%;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-left: -1%;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 8px;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    .infobox {
+        width: 45%;
+        background-color: ghostwhite;
+        border-radius: 5px;
+        padding: 0.5%;
+        margin-left: 30%;
+        max-height: 20%;
+        margin-top: 1%;
+        font-size: 100%;
+    }
+
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+    }
+
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+    }
+
+    #unit {
+        height: 0.1%;
+        width: 4%;
+    }
+
+    .unitlabel {
+        margin-left: 3%;
+    }
+}
+@media screen and (min-width: 1200px) and (max-width: 1800px) {
+    select {
+        width: 15%;
+        height: 5%;
+        padding: 2% 3%;
+        margin: 1% 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=text] {
+        width: 20%;
+        height: 50px;
+        padding: 12px 20px;
+
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+
+    }
+
+    .collapsible {
+        background-color: #777;
+        color: black;
+        cursor: pointer;
+        padding: 12px;
+        width: 98.1%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        border-style: solid;
+    }
+
+    .toptable {
+        margin-top: 1%;
+    }
+
+    .result {
+        margin-left: 20%;
+        font-size: 80%;
+        position: absolute;
+        font-weight: bolder;
+        background-color: white;
+    }
+
+    .active, .collapsible:hover {
+        background-color: #555;
+    }
+
+    .tables {
+        margin-left: 20%;
+        width: 60%;
+        margin-top: 1%;
+        max-height: 40%;
+        background-color: transparent;
+    }
+
+    .content {
+        padding: 0 1%;
+        max-height: 0;
+        height: 100%;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-left: -1%;
+        font-size: 80%;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 2px;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    .infobox {
+        width: 45%;
+        background-color: ghostwhite;
+        border-radius: 5px;
+        padding: 0.5%;
+        margin-left: 30%;
+        max-height: 20%;
+        margin-top: 1%;
+        font-size: 85%;
+    }
+
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+    }
+
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+        max-height: 100px;
+    }
+
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+    }
+
+    #unit {
+        height: 10px;
+        width: 4.5%;
+    }
+
+    .unitlabel {
+        margin-left: 3%;
+    }
+
+
+}
+
+
+
+
+</style>
+    <title>Nutrition Query</title>
+</head>
+<body>
+<div class="bg-image">
+</div>
+<div class="navbarmobile" id="myTopnav">
+  <div class="dropdown2">
+  <button onclick="myFunction()" class="dropbtn2"><i class="fa fa-bars"></i>
+  </button>
+  <div id="myDropdown" class="dropdown2-content">
+        <form action = "{{ url_for('homepage') }}" method = "POST" id="formhome">
+            <input type="hidden" name="username" value=" {{ username }}">
+            <a href="#" onclick="document.getElementById('formhome').submit()">Nutron</a>
+        </form>
+        <form action = "{{ url_for('logouttohome') }}" method = "POST" id="formbackhome">
+            <a href="#" onclick="document.getElementById('formbackhome').submit()">NonFoodKg</a>
+        </form>
+        <form action = "{{ url_for('contactnutron') }}" method = "POST" id="formcontact">
+            <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
+        </form>
+        <form action = "{{ url_for('disclaimernutron') }}" method = "POST" id="formdisclaimer">
+            <a href="#" onclick="document.getElementById('formdisclaimer').submit()">Disclaimer</a>
+        </form>
+        <form action = "{{ url_for('logout') }}" method = "POST" id="formlogout">
+            <a href="#" onclick="document.getElementById('formlogout').submit()">Logout  <i class="fa fa-sign-out"></i></a>
+        </form>
+  </div>
+</div>
+</div>
+<div class="navbar">
+    <i id="icon" class="fa fa-leaf"></i>
+    <div class="title">
+        <h1>NutrOn</h1>
+    </div>
+<form action = "{{ url_for('homepage') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="homebutton" type ="submit" value = "Homepage" /><br>
+</form>
+<form action = "{{ url_for('contactnutron') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="contact" type ="submit" value = "Contact" /><br>
+</form>
+<form action = "{{ url_for('disclaimernutron') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="disclaimer" type ="submit" value = "Disclaimer" /><br>
+</form>
+<form action = "{{ url_for('logouttohome') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="backhome" type ="submit" value = "NonFoodKG" /><br>
+</form>
+<div class="dropdown">
+  <i id="dropdown" class="fa fa-user"></i>
+  <div class="dropdown-content">
+      {% for item in everything %}
+    <a href="#">Weight: {{ item[4] }}</a>
+    <a href="#">Gender: {{ item[2] }}</a>
+       {% endfor %}
+    <a href="#">Age: {{ userage }}</a>
+    <a href="#">Activity Level: {{ useractivity }}</a>
+  </div>
+</div>
+<form action="{{ url_for('logout') }}" method="post">
+    <button><i class="fa fa-sign-out" id="logout"></i></button>
+</form>
+
+</div>
+
+    <div class="infobox">
+        Please select the product you want to query. Optionally you can select the unit for the selected product,
+        otherwise the nutritions of the products (and the coverage) will be shown for 100 gramm. You can type keywords
+        to search for a given product or select from over 2000 products.
+    </div>
+    <div class="toptable">
+        <div class="form">
+                <form style="text-align: center" action="/query_param/" method="post">
+                    <label for="all_products"><b>Product: </b></label>
+                     <select name="nm" id="combobox">
+                        <option value="" disabled selected hidden>Select the product</option>
+                        {% for item in ingredients %}
+                            <option value="{{ item ['class'] }}">{{ item ['label'] }}</option>
+                        {% endfor %}
+                        {% for item in ingredients2 %}
+                            <option value="{{ item['class'] }}">{{ item ['label'] }}</option>
+                        {% endfor %}
+                     </select>
+                <label for="unit" class="unitlabel"><b>Amount(gramm):</b> </label>
+                <input type="text" name="unit" id="unit" placeholder="Unit" value="100">
+                <br>
+                    <input class="searchbutton" type="submit" value="Search">
+                    <input name="username" type="hidden" value="{{ username }}">
+                    <input name="produkte" type="hidden" value="{{ produckte }}"><br>
+                <div class="result"> Result for: {{ label }} </div>
+                </form>
+        </div>
+    </div>
+
+<div class="tables" style="overflow: auto">
+<button class="collapsible">Carbohydrates</button>
+<div class="content">
+    <table align="center" id="nutrients" class="table">
+                <thead>
+                    <tr>
+                        <th>Nutrient</th>
+                        <th>Unit</th>
+                        <th>Amount</th>
+                        <th>Recommended Amount/Day</th>
+                        <th>Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in carbohydrates %}
+                    <tr>
+                       <td>{{ item["label"]["value"] }}</td>
+                        <td>{{ item["unit"]["value"][28:] }}</td>
+                        <td>{{ item["value2"]["value"][:6] }}</td>
+                        <td>{{ item["value"]["value"] }}</td>
+                        <td>{{ item["coverage"]["value"][:5]}}{{ "%" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+
+                </tbody>
+ </table>
+</div>
+<button class="collapsible">Fats</button>
+<div class="content" >
+
+  <table align="center" id="nutrients" class="table">
+                <thead>
+                    <tr>
+                        <th>Nutrient</th>
+                        <th>Unit</th>
+                        <th>Amount</th>
+                        <th>Recommended Amount/Day</th>
+                        <th>Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in fats %}
+                    <tr>
+                       <td>{{ item["label"]["value"] }}</td>
+                        <td>{{ item["unit"]["value"][28:] }}</td>
+                        <td>{{ item["value2"]["value"][:6] }}</td>
+                        <td>{{ item["value"]["value"] }}</td>
+                        <td>{{ item["coverage"]["value"][:5]}}{{ "%" }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+  </table>
+</div>
+<button class="collapsible">Vitamins</button>
+<div class="content" >
+
+  <table align="center" id="nutrients" class="table">
+                <thead>
+                    <tr>
+                        <th>Nutrient</th>
+                        <th>Unit</th>
+                        <th>Amount</th>
+                        <th>Recommended Amount/Day</th>
+                        <th>Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in vitamins %}
+                    <tr>
+                      <td>{{ item["label"]["value"] }}</td>
+                        <td>{{ item["unit"]["value"][28:] }}</td>
+                        <td>{{ item["value2"]["value"][:6] }}</td>
+                        <td>{{ item["value"]["value"] }}</td>
+                        <td>{{ item["coverage"]["value"][:5]}}{{ "%" }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+  </table>
+</div>
+<button class="collapsible">Minerals</button>
+<div class="content" >
+
+  <table align="center" id="nutrients" class="table">
+               <thead>
+                    <tr>
+                        <th>Nutrient</th>
+                        <th>Unit</th>
+                        <th>Amount</th>
+                        <th>Recommended Amount/Day</th>
+                        <th>Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in minerals %}
+                    <tr>
+                        <td>{{ item["label"]["value"] }}</td>
+                        <td>{{ item["unit"]["value"][28:] }}</td>
+                        <td>{{ item["value2"]["value"][:6] }}</td>
+                        <td>{{ item["value"]["value"] }}</td>
+                        <td>{{ item["coverage"]["value"][:5]}}{{ "%" }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+  </table>
+</div>
+</div>
+<footer>
+         <p>Projekt der Universität Bremen<p>
+        <!-- <a href="mailto:hege@example.com">hege@example.com</a></p> -->
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
+
+function foo(obj) {
+    obj.disabled = true;
+    setTimeout(function() {
+        obj.disabled = false;
+    }, 2000);
+}
+$( function() {
+    $.widget( "custom.combobox", {
+      _create: function() {
+        this.wrapper = $( "<span>" )
+          .addClass( "custom-combobox" )
+          .insertAfter( this.element );
+
+        this.element.hide();
+        this._createAutocomplete();
+        this._createShowAllButton();
+      },
+
+      _createAutocomplete: function() {
+        var selected = this.element.children( ":selected" ),
+          value = selected.val() ? selected.text() : "";
+
+        this.input = $( "<input>" )
+          .appendTo( this.wrapper )
+          .val( value )
+          .attr( "title", "" )
+          .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+          .autocomplete({
+            delay: 0,
+            minLength: 0,
+            source: this._source.bind( this )
+          })
+          .tooltip({
+            classes: {
+              "ui-tooltip": "ui-state-highlight"
+            }
+          });
+
+        this._on( this.input, {
+          autocompleteselect: function( event, ui ) {
+            ui.item.option.selected = true;
+            this._trigger( "select", event, {
+              item: ui.item.option
+            });
+          },
+
+          autocompletechange: "_removeIfInvalid"
+        });
+      },
+
+      _createShowAllButton: function() {
+        var input = this.input,
+          wasOpen = false;
+
+        $( "<a>" )
+          .attr( "tabIndex", -1 )
+          .attr( "title", "Show All Items" )
+          .tooltip()
+          .appendTo( this.wrapper )
+          .button({
+            icons: {
+              primary: "ui-icon-triangle-1-s"
+            },
+            text: false
+          })
+          .removeClass( "ui-corner-all" )
+          .addClass( "custom-combobox-toggle ui-corner-right" )
+          .on( "mousedown", function() {
+            wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+          })
+          .on( "click", function() {
+            input.trigger( "focus" );
+
+            // Close if already visible
+            if ( wasOpen ) {
+              return;
+            }
+
+            // Pass empty string as value to search for, displaying all results
+            input.autocomplete( "search", "" );
+          });
+      },
+
+      _source: function( request, response ) {
+        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+        response( this.element.children( "option" ).map(function() {
+          var text = $( this ).text();
+          if ( this.value && ( !request.term || matcher.test(text) ) )
+            return {
+              label: text,
+              value: text,
+              option: this
+            };
+        }) );
+      },
+
+      _removeIfInvalid: function( event, ui ) {
+
+        // Selected an item, nothing to do
+        if ( ui.item ) {
+          return;
+        }
+
+        // Search for a match (case-insensitive)
+        var value = this.input.val(),
+          valueLowerCase = value.toLowerCase(),
+          valid = false;
+        this.element.children( "option" ).each(function() {
+          if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+            this.selected = valid = true;
+            return false;
+          }
+        });
+
+        // Found a match, nothing to do
+        if ( valid ) {
+          return;
+        }
+
+        // Remove invalid value
+        this.input
+          .val( "" )
+          .attr( "title", value + " didn't match any item" )
+          .tooltip( "open" );
+        this.element.val( "" );
+        this._delay(function() {
+          this.input.tooltip( "close" ).attr( "title", "" );
+        }, 2500 );
+        this.input.autocomplete( "instance" ).term = "";
+      },
+
+      _destroy: function() {
+        this.wrapper.remove();
+        this.element.show();
+      }
+    });
+
+    $( "#combobox" ).combobox();
+    $( "#toggle" ).on( "click", function() {
+      $( "#combobox" ).toggle();
+    });
+  } );
+
+</script>
+
+</body>
+</html>

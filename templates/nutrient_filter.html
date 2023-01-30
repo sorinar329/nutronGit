@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+    <link href='../static/css/stylesheet.css' rel="stylesheet">
+    <link rel="stylesheet" href='../static/css/laptop.css'>
+    <link rel="stylesheet" href="../static/css/mobile.css">
+<style>
+@media screen and (min-width: 350px) and (max-width: 950px) {
+
+    body {
+        background-image: radial-gradient(grey, white);
+        margin: 0 0.2%;
+    }
+    .infobox {
+        width: 100%;
+        max-height: 20%;
+        background-color: gainsboro;
+        border-radius: 1%;
+        padding: 0.4%;
+        font-size: 90%;
+        margin: 1px 0;
+    }
+    #selection {
+        margin: 5px 0;
+        max-height: 55%;
+        width: 100%;
+        background-color: transparent;
+        position: relative;
+    }
+    .collapsible {
+        background-color: grey;
+        color: black;
+        cursor: pointer;
+        padding: 5%;
+        width: 100%;
+        font-size: 100%;
+    }
+
+    #carobhydrates {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        font-size: 110%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #fats {
+        width: 98.6%;
+        float: left;
+        font-size: 110%;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #minerals {
+        width: 98.6%;
+        float: left;
+        font-size: 110%;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitamin {
+        width: 98.6%;
+        float: left;
+        font-size: 110%;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #misc {
+        width: 98.6%;
+        float: left;
+        font-size: 110%;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitaminb {
+        width: 98.6%;
+        float: left;
+        font-size: 110%;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #button1 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+    }
+
+    #button2 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+
+    }
+
+    #button3 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+    }
+
+    #button4 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+    }
+
+    #button5 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+    }
+
+    #button6 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+    }
+
+
+    .active, .collapsible:hover {
+        background-color: lightgreen;
+    }
+    .content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+    #tables {
+        margin: 10px 0;
+        width: 100%;
+        max-height: 60%;
+        background-color: transparent;
+        overflow: hidden;
+        position: relative;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        width: 100%;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 8px;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    #search {
+        position: relative;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    #details {
+        width: 100px;
+        position: relative;
+    }
+    .tableprod {
+        width: 100%;
+    }
+    .result {
+        font-size: 100%;
+        font-weight: bold;
+        margin: 1px 0;
+        background-color: transparent;
+        position: relative;
+    }
+    footer{
+        visibility: hidden;
+    }
+}
+@media screen and (min-width: 1800px) {
+    #selection {
+        margin-top: 4%;
+        margin-left: 7%;
+        max-height: 55%;
+        width: 10%;
+        background-color: transparent;
+        position: absolute;
+    }
+
+    .collapsible {
+        background-color: grey;
+        color: black;
+        cursor: pointer;
+        padding: 5%;
+        width: 100%;
+        font-size: 100%;
+    }
+
+    #carobhydrates {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #fats {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #minerals {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitamin {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #misc {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitaminb {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #button1 {
+        width: 100%;
+        position: relative;
+    }
+
+    #button2 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+
+    }
+
+    #button3 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button4 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button5 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button6 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+
+    .active, .collapsible:hover {
+        background-color: lightgreen;
+    }
+
+
+    .content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+
+
+    #tables {
+        margin-left: 25%;
+        margin-top: 2%;
+        width: 50%;
+        max-height: 60%;
+        background-color: transparent;
+        overflow: hidden;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        width: 100%;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 8px;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    #search {
+        position: absolute;
+        width: 8%;
+        margin-left: 19%;
+        margin-top: 4%;
+    }
+
+    #details {
+        width: 100px;
+        position: relative;
+    }
+
+    .tableprod {
+        margin-left: 10%;
+    }
+
+    .infobox {
+        width: 40%;
+        max-height: 20%;
+        background-color: ghostwhite;
+        border-radius: 1%;
+        padding: 0.4%;
+        margin-left: 30%;
+        margin-top: 1%;
+    }
+
+    .result {
+        font-size: 100%;
+        font-weight: bold;
+        margin-left: 30%;
+        margin-top: 1%;
+        background-color: white;
+        position: absolute;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1799px){
+    #selection {
+        margin-top: 4%;
+        margin-left: 7%;
+        max-height: 50%;
+        width: 10%;
+        background-color: transparent;
+        position: absolute;
+    }
+
+    .collapsible {
+        background-color: grey;
+        color: black;
+        cursor: pointer;
+        padding: 5%;
+        width: 100%;
+        font-size: 100%;
+    }
+
+    #carobhydrates {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #fats {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #minerals {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitamin {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #misc {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitaminb {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #button1 {
+        width: 100%;
+        position: relative;
+    }
+
+    #button2 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+
+    }
+
+    #button3 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button4 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button5 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button6 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+
+    .active, .collapsible:hover {
+        background-color: lightgreen;
+    }
+
+
+    .content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+
+
+    #tables {
+        margin-left: 28%;
+        margin-top: 2%;
+        width: 40%;
+        max-height: 60%;
+        background-color: transparent;
+        overflow: hidden;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        width: 100%;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 8px;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    #search {
+        position: absolute;
+        width: 8%;
+        margin-left: 19%;
+        margin-top: 4%;
+    }
+
+    #details {
+        width: 100px;
+        position: relative;
+    }
+
+    .tableprod {
+        margin-left: 10%;
+    }
+
+    .infobox {
+        width: 40%;
+        font-size: 80%;
+        max-height: 20%;
+        background-color: ghostwhite;
+        border-radius: 1%;
+        padding: 0.4%;
+        margin-left: 30%;
+        margin-top: 1%;
+    }
+
+    .result {
+        font-size: 80%;
+        font-weight: bold;
+        margin-left: 32%;
+        margin-top: 1%;
+        background-color: white;
+        position: absolute;
+    }
+}
+</style>
+</head>
+<body>
+<div class="bg-image">
+
+</div>
+<div class="navbarmobile" id="myTopnav">
+  <div class="dropdown2">
+  <button onclick="myFunction()" class="dropbtn2"><i class="fa fa-bars"></i>
+  </button>
+  <div id="myDropdown" class="dropdown2-content">
+        <form action = "{{ url_for('homepage') }}" method = "POST" id="formhome">
+            <input type="hidden" name="username" value=" {{ username }}">
+            <a href="#" onclick="document.getElementById('formhome').submit()">Nutron</a>
+        </form>
+        <form action = "{{ url_for('logouttohome') }}" method = "POST" id="formbackhome">
+            <a href="#" onclick="document.getElementById('formbackhome').submit()">NonFoodKg</a>
+        </form>
+        <form action = "{{ url_for('contactnutron') }}" method = "POST" id="formcontact">
+            <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
+        </form>
+        <form action = "{{ url_for('disclaimernutron') }}" method = "POST" id="formdisclaimer">
+            <a href="#" onclick="document.getElementById('formdisclaimer').submit()">Disclaimer</a>
+        </form>
+        <form action = "{{ url_for('logout') }}" method = "POST" id="formlogout">
+            <a href="#" onclick="document.getElementById('formlogout').submit()">Logout  <i class="fa fa-sign-out"></i></a>
+        </form>
+  </div>
+</div>
+</div>
+<div class="navbar">
+    <i id="icon" class="fa fa-leaf"></i>
+    <div class="title">
+        <h1>NutrOn</h1>
+    </div>
+<form action = "{{ url_for('homepage') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="homebutton" type ="submit" value = "Homepage" /><br>
+</form>
+<form action = "{{ url_for('contactnutron') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="contact" type ="submit" value = "Contact" /><br>
+</form>
+<form action = "{{ url_for('disclaimernutron') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="disclaimer" type ="submit" value = "Disclaimer" /><br>
+</form>
+<form action = "{{ url_for('logouttohome') }}" method = "POST">
+                <input name="username" type="hidden" value="{{ username }}">
+                <input class="btn" id="backhome" type ="submit" value = "NonFoodKG" /><br>
+</form>
+<div class="dropdown">
+  <i id="dropdown" class="fa fa-user"></i>
+  <div class="dropdown-content">
+      {% for item in everything %}
+    <a href="#">Weight: {{ item[4] }}</a>
+    <a href="#">Gender: {{ item[2] }}</a>
+       {% endfor %}
+    <a href="#">Age: {{ userage }}</a>
+    <a href="#">Activity Level: {{ useractivity }}</a>
+  </div>
+</div>
+<form action="{{ url_for('logout') }}" method="post">
+    <button><i class="fa fa-sign-out" id="logout"></i></button>
+</form>
+
+</div>
+<div class="infobox">
+        <h>On this page you can select any number of nutrients. Based on the selected nutrients you will get products,
+            which contain all the selected nutrients. The selection is made on the left side of the page and by clicking
+            search the page will load the results. You can click Details on the right part of the product-table. This option
+            will redirect you to the nutrient-page, which gives comprehensive informations about that product. It is recommended
+            to select not more then 5 nutrients. The result is ordered by the amount of choosen nutrient in the products</h>
+    </div>
+<form action="{{ url_for('filternut') }}" method="post">
+<div id="selection" style="overflow: auto">
+
+<div id="button1">
+<button class="collapsible" type="button">Carbohydrates</button>
+<div class="content">
+    <div id="carobhydrates">
+    <input type="checkbox" id = "dietary fibre" name="carbos" value="dietary_fibre"/>
+    <label for="dietary fibre">Dietary Fibre</label><br>
+    <input type="checkbox" id = "starch" name="carbos" value="starch"/>
+    <label for="starch">Starch</label><br>
+    <input type="checkbox" id = "sugar" name="carbos" value="sugar"/>
+    <label for="sugar">Sugar</label>
+    </div>
+</div>
+</div>
+<div id="button2">
+<button class="collapsible" type="button">Fats</button>
+<div class="content">
+    <div id="fats">
+    <input type="checkbox" id="monounsaturated fatty acids" name="fats" value="monounsaturated_fatty_acids"/>
+    <label for="monounsaturated fatty acids">monounsaturated fatty acids</label><br>
+    <input type="checkbox" id="polyunsaturated fatty acids" name="fats" value="polyunsaturated_fatty_acids"/>
+    <label for="polyunsaturated fatty acids">polyunsaturated fatty acids</label><br>
+    <input type="checkbox" id="saturated fatty acids" name="fats" value="saturated_fatty_acids"/>
+    <label for="saturated fatty acids">saturated fatty acids</label><br>
+    <input type="checkbox" id="cholesterol" name="fats" value="cholesterol"/>
+    <label for="cholesterol">cholesterol</label>
+    </div><br>
+</div>
+</div>
+<div id="button3">
+<button class="collapsible" type="button">Minerals</button>
+<div class="content">
+<div id="minerals">
+    <input type="checkbox" id="calcium" name="minerals" value="calcium"/>
+    <label for="calcium">calcium</label><br>
+    <input type="checkbox" id="magnesium" name="minerals" value="magnesium"/>
+    <label for="magnesium">magnesium</label><br>
+    <input type="checkbox" id="sodium" name="minerals" value="sodium"/>
+    <label for="sodium">natrium</label><br>
+    <input type="checkbox" id="Phosphorus" name="minerals" value="phosphorus"/>
+    <label for="Phosphorus">phosphorus</label><br>
+    <input type="checkbox" id="potasium" name="minerals" value="potassium"/>
+    <label for="potasium">potasium</label><br>
+    <input type="checkbox" id="nitrogen" name="minerals" value="nitrogen"/>
+    <label for="nitrogen">nitrogen</label><br>
+    <input type="checkbox" id="iron" name="minerals" value="iron"/>
+    <label for="iron">iron</label><br>
+    <input type="checkbox" id="iodine" name="minerals" value="iodine"/>
+    <label for="iodine">iodine</label><br>
+    <input type="checkbox" id="zinc" name="minerals" value="zinc"/>
+    <label for="zinc">zinc</label>
+
+</div>
+</div>
+</div>
+<div id="button4">
+<button class="collapsible" type="button">Vitamin</button>
+<div class="content">
+<div id="vitamin">
+        <input type="checkbox" id="vitamin a" name="vitamin" value="vitamin_A"/>
+        <label for="vitamin a">vitamin a</label><br>
+        <input type="checkbox" id="vitamin c" name="vitamin" value="vitamin_C"/>
+        <label for="vitamin c">vitamin c</label><br>
+        <input type="checkbox" id="vitamin d" name="vitamin" value="vitamin_D"/>
+        <label for="vitamin d">vitamin d</label><br>
+        <input type="checkbox" id="vitamin e" name="vitamin" value="vitamin_E"/>
+        <label for="vitamin e">vitamin e</label><br>
+        <input type="checkbox" id="vitamin k" name="vitamin" value="vitamin_K"/>
+        <label for="vitamin k">vitamin k</label><br>
+</div>
+</div>
+</div>
+<div id="button6">
+<button class="collapsible" type="button">Vitamin B</button>
+<div class="content">
+    <div id="vitaminb">
+    <input type="checkbox" id="biotin" name="vitaminb" value="vitamin_B7"/>
+    <label for="biotin">biotin</label><br>
+    <input type="checkbox" id="folate" name="vitaminb" value="vitamin_B9"/>
+    <label for="folate">folate</label><br>
+    <input type="checkbox" id="niacin" name="vitaminb" value="vitamin_B3"/>
+    <label for="niacin">niacin</label><br>
+    <input type="checkbox" id="pantothenic acid" name="vitaminb" value="vitamin_B5"/>
+    <label for="pantothenic acid">pantothenic acid</label><br>
+    <input type="checkbox" id="riboflavin" name="vitaminb" value="vitamin_B2"/>
+    <label for="riboflavin">riboflavin</label><br>
+    <input type="checkbox" id="thiamin" name="vitaminb" value="vitamin_B1"/>
+    <label for="thiamin">thiamin</label><br>
+    <input type="checkbox" id="vitaminb12" name="vitaminb" value="vitamin_B12"/>
+    <label for="vitaminb12">vitamin B12</label><br>
+    <input type="checkbox" id="vitaminb6" name="vitaminb" value="vitamin_B6"/>
+    <label for="vitaminb6">vitamin B6</label>
+    </div><br>
+</div>
+</div>
+</div>
+    <input type="submit" class="searchbutton" id="search" value="Search">
+</form>
+<label class="result">Filtered by: {{ allfiltered }}</label>
+<div id="tables" style="overflow: auto">
+
+  <div class="tableprod" style="overflow: auto">
+  <table align="center" id="nutrients">
+               <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in products %}
+                    <tr>
+                        <td>{{item ["label"]["value"]}}</td>
+                       <td>
+                            <form action="/query_param/" method="post" id="details">
+                                <input name="nm" type="hidden" value="{{ item["food"]["value"] }}">
+                                <input name="unit" type="hidden" value="100">
+                                <input id="details" class="searchbutton"  type="submit" value="Details">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+  </table>
+  </div>
+
+
+</div>
+<footer>
+         <p>Projekt der Universität Bremen<p>
+        <!-- <a href="mailto:hege@example.com">hege@example.com</a></p> -->
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+</footer>
+<script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
+
+</script>
+
+</body>
+</html>
