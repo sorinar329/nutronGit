@@ -794,6 +794,7 @@ def query_reference_others(product, gender, age, activity, unit):
 
 prefix = """
     PREFIX symp: <http://purl.org/NonFoodKG/symptom#>
+    PREFIX symp-nutrition: <http://purl.org/NonFoodKG/symptom-nutrition#>
     PREFIX user: <http://purl.org/NonFoodKG/user-profile#>
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -951,8 +952,9 @@ def triply_query_symptoms(symptom):
     sparql = spq
     query = """
     SELECT ?nutrient ?label WHERE {
-  symp:%s rdfs:subClassOf ?res.
+ symp:%s rdfs:subClassOf ?res.
   ?res owl:someValuesFrom|owl:someValuesFrom/owl:unionOf/rdf:rest*/rdf:first ?nutrient.
+  ?res owl:onProperty symp-nutrition:possible_treatment.
   ?nutrient rdfs:label ?label
   FILTER (lang(?label) = 'en')
     }"""  %symptom
@@ -964,41 +966,42 @@ def triply_query_symptoms(symptom):
 
 
 
-def test1():
-    products = ['iron','calcium']
-    a = triply_query_filter(products)
-    for item in a:
-        print(item["label"]["value"])
-
-
-def test2():
-    a = triply_query_nutrient_products_percategory("age19to25" , "female", "has_medium_intake", "vitamin", "Cheese_gouda", str(1.0))
-    for item in a:
-        print(item["label"]["value"])
-        print(item["unit"]["value"])
-        print(item["value2"]["value"])
-        print(item["value"]["value"])
-        print(item["coverage"]["value"])
-
-def test3():
-    a = triply_query_nutrient_products_protein("age19to25", "male", str(80), "Cheese_gouda", str(100) )
-    for item in a:
-        print(item["label"]["value"])
-        print(item["unit"]["value"])
-        print(item["value2"]["value"])
-        print(item["value"]["value"])
-        print(item["coverage"]["value"])
-
-
-def test4():
-    symp = "Headache"
-    a = triply_query_symptoms(symp)
-    for item in a:
-        print(item["label"]["value"])
-
-def test5():
-    a = triply_query_symptoms_data()
-    for item in a:
-        print(item["label"]["value"])
-        print(item["class"]["value"])
-#test5()
+# def test1():
+#     products = ['iron','calcium']
+#     a = triply_query_filter(products)
+#     for item in a:
+#         print(item["label"]["value"])
+#
+#
+# def test2():
+#     a = triply_query_nutrient_products_percategory("age19to25" , "female", "has_medium_intake", "vitamin", "Cheese_gouda", str(1.0))
+#     for item in a:
+#         print(item["label"]["value"])
+#         print(item["unit"]["value"])
+#         print(item["value2"]["value"])
+#         print(item["value"]["value"])
+#         print(item["coverage"]["value"])
+#
+# def test3():
+#     a = triply_query_nutrient_products_protein("age19to25", "male", str(80), "Cheese_gouda", str(100) )
+#     for item in a:
+#         print(item["label"]["value"])
+#         print(item["unit"]["value"])
+#         print(item["value2"]["value"])
+#         print(item["value"]["value"])
+#         print(item["coverage"]["value"])
+#
+#
+# def test4():
+#     symp = "Headache"
+#     a = triply_query_symptoms(symp)
+#     for item in a:
+#         print(item["label"]["value"])
+#
+# def test5():
+#     a = triply_query_symptoms_data()
+#     for item in a:
+#         print(item["label"]["value"])
+#         print(item["class"]["value"])
+#
+# test4()
