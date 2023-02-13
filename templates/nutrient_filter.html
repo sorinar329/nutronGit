@@ -625,7 +625,7 @@
             <a href="#" onclick="document.getElementById('formhome').submit()">Nutron</a>
         </form>
         <form action = "{{ url_for('logouttohome') }}" method = "POST" id="formbackhome">
-            <a href="#" onclick="document.getElementById('formbackhome').submit()">NonFoodKg</a>
+            <a href="#" onclick="document.getElementById('formbackhome').submit()">ProductKg</a>
         </form>
         <form action = "{{ url_for('contactnutron') }}" method = "POST" id="formcontact">
             <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
@@ -658,7 +658,7 @@
 </form>
 <form action = "{{ url_for('logouttohome') }}" method = "POST">
                 <input name="username" type="hidden" value="{{ username }}">
-                <input class="btn" id="backhome" type ="submit" value = "NonFoodKG" /><br>
+                <input class="btn" id="backhome" type ="submit" value = "ProductKG" /><br>
 </form>
 <div class="dropdown">
   <i id="dropdown" class="fa fa-user"></i>
