@@ -12,6 +12,7 @@ app = Flask(__name__)
 #conn = sql.connect('/var/www/nutron/user.db')
 
 db_path = '/var/www/nutron/user.db'
+#db_path = "E:/nutronGit/user.db"
 
 # managing the database
 def databasemanager():
@@ -54,7 +55,6 @@ def redirecttologin():
     cursor = conn.cursor()
     cursor.execute("SELECT * from 'user' where name = ?", (username,))
     data = cursor.fetchone()
-    print(data)
     return data
 
 
@@ -138,7 +138,6 @@ def logout():
         username = session['username']
         # database connection
         conn = sql.connect(db_path)
-        print(username)
         conn.execute("DELETE from 'user' where name = ?", (username,))
         conn.commit()
         conn.close()
@@ -151,7 +150,6 @@ def logouttohome():
         username = session['username']
         # database connection
         conn = sql.connect(db_path)
-        print(username)
         conn.execute("DELETE from 'user' where name = ?", (username,))
         conn.commit()
         conn.close()
@@ -179,8 +177,7 @@ def addrec():
     for row in cur:
         for field in row:
             names.append(field)
-    print(names)
-    print(username)
+
 
     if str(username) in names:
         return render_template("index_login_failed.html")
@@ -341,14 +338,14 @@ def filternut():
         carbos = request.form.getlist('carbos')
 
     all = carbos + misc + minerals + fats + vitamin + vitaminb
-    print(all)
+
     allfiltered = str(all)
     allfiltered1 = allfiltered.replace("[", "")
     allfiltered2 = allfiltered1.replace("]", "")
 
-    print(allfiltered)
+
     products = queryCollection.triply_query_filter(all)
-    print(products)
+
     return render_template("nutrient_filter.html", products=products, userage=userDAO.getprofileage(),
                                    useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything(), all=all,
                            allfiltered=allfiltered2)
@@ -385,11 +382,11 @@ def actualquery_recipe():
     portions = int(request.form['portions'])
     if "http://purl.org/heals/ingredient/" in recipe:
         recipe = recipe.replace("http://purl.org/heals/ingredient/", "ingredient:")
-        print(recipe)
+
 
     if "http://purl.org/heals/ingredient/" in recipe_shown:
         recipe_shown = recipe.replace("http://purl.org/heals/ingredient/", "")
-        print(recipe_shown)
+
     return redirect(url_for('recipequery_result', recipe=recipe, portions=portions,userage=userDAO.getprofileage(),
                                    useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything(),
                             recipe_shown=recipe_shown))
@@ -422,9 +419,7 @@ def recipequery_result(recipe, portions):
     minerallist = list()
     carboslist = list()
     fatslist = list()
-    print(recipe)
-    print(gender, age, activity)
-    print(recipecoverage)
+
     all_prods = list()
     recipecoveragelist = list()
     for item in recipecoverage:
@@ -461,8 +456,7 @@ def sparql_query(product, unit):
     gender = userDAO.getUserGenderGroup()
     activity = userDAO.getUserActivityGroup()
     weight = userDAO.getUserWeight()
-    print(0)
-    print(age, gender, activity, weight, product, unit)
+
     category1 = "vitamin"
     category2 = "lipid"
     category3 = "carbohydrates"
@@ -494,7 +488,7 @@ def sparql_query(product, unit):
     articles = list()
 
     for item in vitamins:
-        print(item)
+
         vitaminslist.append(item)
 
     for item in fats:
@@ -550,12 +544,12 @@ def query_param():
         label = label.replace("http://purl.org/heals/ingredient/", "")
         label = label.replace((""), ", ")
 
-    if "http://purl.org/NonFoodKG/food-nutrition#" in label:
-        label = label.replace("http://purl.org/NonFoodKG/food-nutrition#", "")
+    if "http://purl.org/ProductKG/food-nutrition#" in label:
+        label = label.replace("http://purl.org/ProductKG/food-nutrition#", "")
         label = label.replace(("_"), ", ")
 
-    if "http://purl.org/NonFoodKG/food-nutrition#" in product:
-        product = product.replace("http://purl.org/NonFoodKG/food-nutrition#", "")
+    if "http://purl.org/ProductKG/food-nutrition#" in product:
+        product = product.replace("http://purl.org/ProductKG/food-nutrition#", "")
         # product = product.capitalize()
 
     if "http://localhost/usda_food_nutritions#" in label:

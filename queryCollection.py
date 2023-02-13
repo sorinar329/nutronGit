@@ -98,7 +98,7 @@ def recipe_coverage_others(gender, age, activity, ingredient1, portions):
 def protein_intake(product, gender, age, weight, unit):
     sparql = sparqlurl
     sparql.setCredentials("nonfoodkg", "nWOgDJkfYdXzYDW7vc3bYAHn3CGv0l")
-    print(product)
+
     if "ingredient" in product:
         sparql.setQuery("""
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -793,15 +793,15 @@ def query_reference_others(product, gender, age, activity, unit):
     return results["results"]["bindings"]
 
 prefix = """
-    PREFIX symp: <http://purl.org/NonFoodKG/symptom#>
-    PREFIX symp-nutrition: <http://purl.org/NonFoodKG/symptom-nutrition#>
-    PREFIX user: <http://purl.org/NonFoodKG/user-profile#>
+    PREFIX symp: <http://purl.org/ProductKG/symptom#>
+    PREFIX symp-nutrition: <http://purl.org/ProductKG/symptom-nutrition#>
+    PREFIX user: <http://purl.org/ProductKG/user-profile#>
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX nutri: <http://purl.org/NonFoodKG/food-nutrition#>
-    PREFIX nutrition: <http://purl.org/NonFoodKG/nutrition#>
+    PREFIX nutri: <http://purl.org/ProductKG/food-nutrition#>
+    PREFIX nutrition: <http://purl.org/ProductKG/nutrition#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
-    PREFIX tax: <http://purl.org/NonFoodKG/product-taxonomy#>
+    PREFIX tax: <http://purl.org/ProductKG/product-taxonomy#>
             \n"""
 
 sparqlurltripy = "https://api.krr.triply.cc/datasets/mkumpel/ProductKG/services/ProductKG/sparql"
@@ -816,7 +816,7 @@ def triply_query_products():
   ?food rdfs:label ?label
 }"""
     sparql.setQuery(prefix + query)
-    print(prefix + query)
+
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     return results["results"]["bindings"]
@@ -826,7 +826,7 @@ def triply_query_filter(products):
     spq = SPARQLWrapper(sparqlurltripy)
     sparql = spq
     sparql.setQuery(textManipulation.triply_dynamicgeneration_filter(products))
-    print(textManipulation.triply_dynamicgeneration_filter(products))
+
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     return results["results"]["bindings"]
@@ -898,7 +898,7 @@ def triply_query_nutrient_products_percategory(age, gender, activity, category, 
                        } Order By (?food)""" % (age, gender, activity, category, product, unit)
 
     sparql.setQuery(prefix + query)
-    a = print(prefix + query)
+
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     return results["results"]["bindings"]
@@ -927,7 +927,7 @@ def triply_query_nutrient_products_protein(age, gender, weight, product, unit):
   Bind((?value2 * 100 / ?value) * %s as ?coverage)
 } Order By (?food)""" % (age, gender, weight, product, unit)
     sparql.setQuery(prefix + query)
-    #print(prefix + query)
+
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     return results["results"]["bindings"]
@@ -941,7 +941,7 @@ def triply_query_symptoms_data():
   FILTER(lang(?label) = "en")
     }"""
     sparql.setQuery(prefix + query)
-    a = print(prefix + query)
+
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     return results["results"]["bindings"]
@@ -959,7 +959,7 @@ def triply_query_symptoms(symptom):
   FILTER (lang(?label) = 'en')
     }"""  %symptom
     sparql.setQuery(prefix + query)
-    a = print(prefix + query)
+
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     return results["results"]["bindings"]
@@ -1004,4 +1004,4 @@ def triply_query_symptoms(symptom):
 #         print(item["label"]["value"])
 #         print(item["class"]["value"])
 #
-# test4()
+# test3()
