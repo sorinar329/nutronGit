@@ -275,25 +275,28 @@ def symptoms():
 def treatmentnutrient():
     deleteexpired()
     symptom = request.form['symptom']
-    symptom = symptom.replace("http://purl.org/NonFoodKG/symptom#", "")
+    symptom = symptom.replace("http://purl.org/ProductKG/symptom#", "")
     symptoms = userDAO.getSymptoms()
-
     nutrients = queryCollection.triply_query_symptoms(symptom)
     nutrientlist = list()
-    for item in nutrients:
-        nutrientlist.append(item["nutrient"]["value"])
+    if len(nutrients) > 0:
+        for item in nutrients:
+            nutrientlist.append(item["nutrient"]["value"])
+        nutrientlist = [n.replace('http://purl.org/ProductKG/nutrition#', '') for n in nutrientlist]
+        #prefix = "http://purl.org/ProductKG/disease"
+        #nutrientlist2 = [x for x in nutrientlist if not x.startswith(prefix)]
+        products = queryCollection.triply_query_filter(nutrientlist)
 
-    nutrientlist = [n.replace('http://purl.org/NonFoodKG/nutrition#', '') for n in nutrientlist]
-    prefix = "http://purl.org/NonFoodKG/disease"
-    nutrientlist2 = [x for x in nutrientlist if not x.startswith(prefix)]
-    products = queryCollection.triply_query_filter(nutrientlist2)
-
-    if redirecttologin() == None:
-        return render_template('index.html')
+        if redirecttologin() == None:
+            return render_template('index.html')
+        else:
+            return render_template("symptomsV2.html", nutrients=nutrients, userage=userDAO.getprofileage(),
+                                   useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything(),
+                                   products_conjuction=products, symptom=symptom, symptoms=symptoms)
     else:
-        return render_template("symptomsV2.html", nutrients=nutrients, userage=userDAO.getprofileage(),
-                               useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything(),
-                               products_conjuction=products, symptom=symptom, symptoms=symptoms)
+        return render_template("symptomsV2_error.html", userage=userDAO.getprofileage(),
+                                   useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything(),
+                               symptom=symptom, symptoms=symptoms)
 
 
 # redirect to nutrient_filter.html

@@ -141,8 +141,8 @@ triplyprefix = """
  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
-    PREFIX tax: <http://purl.org/NonFoodKG/product-taxonomy#>
-    PREFIX nutri: <http://purl.org/NonFoodKG/nutrition#>
+    PREFIX tax: <http://purl.org/ProductKG/product-taxonomy#>
+    PREFIX nutri: <http://purl.org/ProductKG/nutrition#>
             \n"""
 def triply_dynamicgeneration_filter(list):
     query = triplyprefix + """select ?food ?label ?value where {
