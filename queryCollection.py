@@ -9,7 +9,89 @@ from textManipulation import dynamicgeneration_filter_nutritions_category
 #https://graphdb.informatik.uni-bremen.de:7200/repositories/nonfoodkg
 #http://DESKTOP-NJVHG71:7200/repositories/test123
 sparqlurl = SPARQLWrapper("https://graphdb.informatik.uni-bremen.de:7200/repositories/nonfoodkg")
+sparqlurl2 = SPARQLWrapper("https://api.krr.triply.cc/datasets/mkumpel/ProductKG/services/ProductKG/sparql")
 
+#Query to get only the ingredients which are associated with a symptom or a disease
+def get_harmful_ingredients_of_product(ean):
+    s = ean
+    sparql = sparqlurl2
+    sparql.setCredentials("nonfoodkg", "nWOgDJkfYdXzYDW7vc3bYAHn3CGv0l")
+
+    sparql.setQuery("""
+PREFIX symp: <http://purl.org/ProductKG/symptom-disease#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX tax: <http://purl.org/ProductKG/product-taxonomy#>
+PREFIX trust: <http://purl.org/ProductKG/trust#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+PREFIX in: <http://purl.org/ProductKG/nonfoodingredient#>
+PREFIX disease: <http://purl.org/ProductKG/disease#>
+PREFIX inDisease: <http://purl.org/ProductKG/ingredient-disease#>
+SELECT DISTINCT  ?ingredient ?label ?productName ?productEAN WHERE {
+
+
+  ?disease rdfs:subClassOf ?r1.
+  ?r1 rdf:type owl:Restriction.
+  ?r1 owl:onProperty inDisease:is_triggered_by.
+  ?r1 owl:someValuesFrom ?ingredient.
+    OPTIONAL{
+  ?ingredient rdfs:subClassOf ?subClass.
+
+    ?subClass rdfs:label ?label.
+    FILTER(LANG(?label)="en")
+  }
+
+
+
+  ?product a tax:Product.
+  ?in1 rdf:type ?ingredient.
+  ?product in:has_ingredient ?in1.
+  ?product gr:name ?productName.
+  ?product gr:hasEAN_UCC-13 "%s".
+
+}""" % s)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results["results"]["bindings"]
+
+def get_product_name(ean):
+    s = ean
+    sparql = sparqlurl2
+    sparql.setCredentials("nonfoodkg", "nWOgDJkfYdXzYDW7vc3bYAHn3CGv0l")
+
+    sparql.setQuery("""
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?productName WHERE {
+  ?product gr:hasEAN_UCC-13 "%s".
+  ?product gr:name ?productName
+} LIMIT 1""" %s)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results["results"]["bindings"]
+
+#Query to get all ingredients of a product given its ean number
+def get_Ingredients_of_Prod(prodEAN):
+    sparql = sparqlurl2
+    sparql.setCredentials("nonfoodkg", "nWOgDJkfYdXzYDW7vc3bYAHn3CGv0l")
+    sparql.setQuery("""
+PREFIX in: <http://purl.org/ProductKG/nonfoodingredient#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?productName ?ingredient ?label WHERE {
+  ?product gr:hasEAN_UCC-13 "%s".
+  ?product gr:name ?productName.
+  ?product in:has_ingredient ?ingredient.
+
+}
+        """ % prodEAN)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results["results"]["bindings"]
 # query for the conjuction of nutrients which result in a product that contains at least the given nutrients
 def filter_conjuction_nutrients(list):
     sparql = sparqlurl

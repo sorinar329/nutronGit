@@ -1,3 +1,4 @@
+from collections import OrderedDict
 
 prefix = """PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -7,6 +8,50 @@ prefix = """PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX ingredient: <http://purl.org/heals/ingredient/>
             PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 			PREFIX food: <http://purl.org/heals/food/>"""
+
+def get_product_name(l):
+    name = ""
+    for item in l:
+        name = item['productName']['value']
+    return name
+
+
+#The following three functions are only for manipulation of
+# the ingredient list of the product
+def remove_duplicate_ingredients(list1, list2):
+    ing = list()
+    ing = [x for x in list1 if x not in list2]
+    return ing
+def get_readableList_harmful(oldList):
+    newList = list()
+    classes = list()
+    for item in oldList:
+        curIng = item['ingredient']['value']
+        subClass = item['label']['value']
+        removeURI = curIng.replace("http://purl.org/ProductKG/nonfoodingredient#", "")
+
+        removeUnderscore = removeURI.replace("_", " ")
+        upper = removeUnderscore.title()
+        newList.append(upper)
+        classes.append(subClass)
+        print(classes)
+    tupleList = list(zip(newList, classes))
+    finishedList = OrderedDict(tupleList).items()
+    print(classes)
+    return finishedList
+def get_readableList(oldList):
+    newList = list()
+    for item in oldList:
+        test = item['ingredient']['value']
+        removeURI = test.replace("http://purl.org/ProductKG/nonfoodingredient#", "")
+
+        removeUnderscore = removeURI.replace("_", " ")
+        #capitalize = removeUnderscore[0].capitalize()
+        upper = removeUnderscore.title()
+        newList.append(upper)
+        print(removeURI)
+    return newList
+
 
 
 # function that generates queries dynamically based on a given list

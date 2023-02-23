@@ -338,7 +338,10 @@
 </div>
 <div class="scanproduct">
     <div class="titlea">Scan Product</div>
-    <div class="texta">This page is work in progress and will be released soon!</div>
+    <div class="texta">This page allows you to scan products and get feedback directly regarding their ingredients.</div>
+    <form action = "{{ url_for('productScan') }}" method = "POST">
+                <input type = "submit" value = "Continue" class="basd"/><br>
+    </form>
 </div>
 <footer>
          <p>Projekt der Universität Bremen<p>
