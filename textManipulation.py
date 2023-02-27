@@ -34,10 +34,10 @@ def get_readableList_harmful(oldList):
         upper = removeUnderscore.title()
         newList.append(upper)
         classes.append(subClass)
-        print(classes)
+        #print(classes)
     tupleList = list(zip(newList, classes))
     finishedList = OrderedDict(tupleList).items()
-    print(classes)
+    #print(classes)
     return finishedList
 def get_readableList(oldList):
     newList = list()
@@ -49,7 +49,7 @@ def get_readableList(oldList):
         #capitalize = removeUnderscore[0].capitalize()
         upper = removeUnderscore.title()
         newList.append(upper)
-        print(removeURI)
+        #print(removeURI)
     return newList
 
 

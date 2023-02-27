@@ -20,8 +20,8 @@ app = Flask(__name__)
 #conn = sql.connect('/var/www/nutron/user.db')
 
 #db_path = '/var/www/nutron/user.db'
-#db_path = "E:/nutronGit/user.db"
-db_path = 'C:/Users/meike/Downloads/nutronGit/user.db'
+db_path = "E:/nutronGit/user.db"
+#db_path = 'C:/Users/meike/Downloads/nutronGit/user.db'
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = './pictures'
@@ -133,7 +133,7 @@ def upload_file():
                 name = queryCollection.get_product_name(product_ean)
                 if len(name) > 0:
                     message = textManipulation.get_product_name(name)
-                    print(message)
+                    #print(message)
                     ing = textManipulation.get_readableList(queryCollection.get_Ingredients_of_Prod(product_ean))
                     harmful_ingredients = textManipulation.get_readableList_harmful(queryCollection.get_harmful_ingredients_of_product(product_ean))
                     ingredients = textManipulation.remove_duplicate_ingredients(ing, textManipulation.get_readableList(queryCollection.get_harmful_ingredients_of_product(product_ean)))
@@ -147,8 +147,8 @@ def upload_file():
             return render_template("productScan.html", name=name, ingredients=ingredients,
                                        harmful_ingredients=harmful_ingredients, userage=userDAO.getprofileage(),message=message,
                                        useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything())
-        print("I want to die " + str(ingredients))
-        print("I want to die too" + str(harmful_ingredients))
+        #print("I want to die " + str(ingredients))
+        #print("I want to die too" + str(harmful_ingredients))
         if redirecttologin() == None:
             return render_template('index.html')
         else:
