@@ -1,0 +1,1140 @@
+/*
+
+@media screen and (min-width: 350px) and (max-width: 950px){
+
+
+
+body{
+    background-image: radial-gradient(grey, white);
+    margin: 0 0.2%;
+}
+select {
+        width: max-content;
+        height: 5%;
+        padding: 2% 3%;
+        left: 0;
+        margin: 0 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=text] {
+        width: 20%;
+        height: 50px;
+        padding: 12px 20px;
+
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+
+    }
+
+    .collapsible {
+        background-color: #777;
+        color: black;
+        cursor: pointer;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 100%;
+        border-style: solid;
+    }
+
+    .toptable {
+        margin-top: 1%;
+    }
+
+    .result {
+        left: 0;
+        top: 20px;
+        text-align: left;
+        position: relative;
+        font-weight: bolder;
+        background-color: transparent;
+    }
+
+    .active, .collapsible:hover {
+        background-color: #555;
+    }
+
+    .tables {
+        left: 0;
+        width: 100%;
+        margin-top: 20px;
+        max-height: 50%;
+        background-color: transparent;
+    }
+
+    .content {
+        padding: 0 1%;
+        max-height: 0;
+        height: 100%;
+        overflow: scroll;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        left: 0;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 1px;
+        font-size: 10px;
+        left: 0;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    .infobox {
+        width: 100%;
+        background-color: grey;
+        border-radius: 5px;
+        padding: 0;
+        left: 0;
+        top: 1px;
+        font-size: 85%;
+        position: relative;
+    }
+
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        left: 0;
+    }
+
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+    }
+
+    #portions {
+        height: 0.1%;
+        width: 20%;
+        margin-top: 0px;
+        position: relative;
+        text-align: left;
+    }
+
+    .unitlabel {
+
+        margin-left: 3%;
+        margin-top:0;
+        position: relative;
+    }
+    footer{
+        visibility: hidden;
+    }
+}
+@media screen and (min-width: 1800px) {
+    select {
+            width: 15%;
+            padding: 0.4% 0.7%;
+
+            margin: 0.1% 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+    input[type=text] {
+        width: 300px;
+        height: 50px;
+        padding: 12px 20px;
+
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+
+    }
+
+    .toptable {
+        margin-top: 2px;
+    }
+
+    .result {
+        margin: 5px 18%;
+        position: relative;
+        font-weight: 900;
+        font-size: 20px;
+        background-color: ghostwhite;
+    }
+
+     .collapsible {
+        background-color: #777;
+        color: black;
+        cursor: pointer;
+        padding: 18px;
+        width: 80%;
+        border: none;
+         margin: 0 10%;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        border-style: solid;
+    }
+
+    .active, .collapsible:hover {
+        background-color: #555;
+    }
+
+
+    .active, .collapsible:hover {
+        background-color: #555;
+    }
+
+    .tables {
+        margin-left: 10%;
+        width: 80%;
+        margin-top: 0;
+        max-height: 50%;
+        background-color: transparent;
+    }
+
+
+    .content {
+        padding: 0 1%;
+        max-height: 0;
+        height: 100%;
+        width: 78%;
+        margin: 0 10%;
+        overflow: scroll;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-left: -1%;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 8px;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    #details {
+        font-size: 10px;
+        width: 100%;
+    }
+
+    .infobox {
+        width: 700px;
+        height: 50px;
+        background-color: ghostwhite;
+        border-radius: 5px;
+        padding: 15px;
+        margin-left: 600px;
+        margin-top: 10px;
+    }
+}
+@media screen and (max-width: 1800px) and (min-width: 1000px){
+        select {
+        width: 15%;
+        height: 30px;
+        padding: 4px 4px;
+
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=text] {
+        width: 300px;
+        height: 50px;
+        padding: 12px 20px;
+
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+
+    }
+
+    .toptable {
+        margin-top: 0px;
+    }
+
+    .result {
+        !*margin-left: 200px;*!
+        margin-top: -50px;
+        position: absolute;
+        font-weight: 900;
+        font-size: 20px;
+        background-color: transparent;
+    }
+
+     .collapsible {
+        background-color: white;
+        color: black;
+        cursor: pointer;
+        padding: 12px;
+        width: 98.1%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        border-style: solid;
+         border-radius: 6px !important;
+    }
+
+    .toptable {
+        margin-top: 1%;
+    }
+
+    .result {
+        margin-left: 20%;
+        font-size: 80%;
+        margin-top: 0%;
+        position: absolute;
+        font-weight: bolder;
+        background-color: white;
+    }
+
+    .active, .collapsible:hover {
+        background-color: lightblue;
+    }
+
+    .tables {
+        margin-left: 2%;
+        width: 100%;
+        margin-top: 1%;
+        max-height: 50%;
+        background-color: transparent;
+    }
+
+    .content {
+        padding: 0 1%;
+        max-height: 0;
+        height: 100%;
+        overflow: scroll;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-left: -1%;
+        font-size: 80%;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 2px;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    #details {
+        font-size: 10px;
+        width: 100%;
+    }
+
+    #portions {
+        width: 4%;
+        height: 20px;
+    }
+
+    .infobox {
+        width: 50%;
+        background-color: rgba(10000,10000,10000,.85);
+        border-radius: 6px !important;
+        padding: 10px;
+        !*margin-left: 30%;*!
+       !* margin-top: 5%;*!
+        margin-left:auto;
+        margin-right: auto;
+        margin-top: 5%;
+        font-size: 80%;
+
+    }
+    .panel-body{
+     padding: 0 30px 30px;
+        min-height: calc(100vh - 123px);
+        margin-top: -30px;
+}
+    .row {
+    display: table;
+    width: 100%; !*Optional*!
+    table-layout: fixed; !*Optional*!
+    border-spacing: 10px; !*Optional*!
+}
+.Column {
+    display: table-cell;
+    !*background-color: red; !*Optional*!
+}
+    .mainContainer{
+        display: inline-block;
+        margin-left: 30%;
+        margin-top: 5%;
+        margin-right: 5%;
+        background-color: ghostwhite;
+        border-radius: 4px;
+        font-size:14px;
+        width: max-content;
+    }
+
+    .mainContainer .filterDiseaseContainer{
+        margin:10% 10% 10% 10%;
+
+    }
+    .selectDisease{
+        width: max-content;
+    }
+    label{
+        display:inline-block;
+    }
+
+    .searchbutton{
+        width: max-content;
+        !*margin-left: 150px;*!
+    }
+
+    .multipleChoiceDisease{
+        margin-left: 5%;
+        width: max-content;
+    }
+
+    .result{
+
+          margin-left: 20%;
+        font-size: 80%;
+        margin-top: 0%;
+        position: absolute;
+        font-weight: bolder;
+        background-color: transparent;
+    }
+
+
+}
+
+.infoText{
+    margin: auto;
+    font-weight: bold;
+    font-size: 15px;
+    color: #323333;
+    font-family: 'Ubuntu', sans-serif;
+
+}
+.searchLabel{
+   // margin-left:  20%;
+    font-weight: bold;
+    font-size: 13px;
+    color: #323333;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#selection{
+    width: max-content;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#button{
+        border-radius: 6px !important;
+        border: thin solid black !important;
+        background: transparent;
+        width: max-content;
+        vertical-align: center;
+        display: inline-block;
+        font-size: 14px;
+        padding: 0.54rem .54rem;
+        color: #323333;
+}
+
+    .tutorialBox{
+        margin:auto;
+        align: center;
+    !*padding-right: 10px;*!
+        !*width: 50%;*!
+        border-radius: 6px !important;
+            font-family: 'Ubuntu', sans-serif;
+
+
+
+    }
+    .pagination-page-info {
+    padding: .6em;
+    padding-left: 0;
+    width: 40em;
+    margin: .5em;
+    margin-left: 0;
+    font-size: 12px;
+}
+.pagination-page-info b {
+    color: black;
+    background: #6aa6ed;
+    padding-left: 2px;
+    padding: .1em .25em;
+    font-size: 150%;
+}
+
+
+*/
+
+@media screen and (min-width: 350px) and (max-width: 950px) {
+
+    body {
+        background-image: radial-gradient(grey, white);
+        margin: 0 0.2%;
+    }
+    .infobox {
+        width: 100%;
+        max-height: 20%;
+        background-color: gainsboro;
+        border-radius: 1%;
+        padding: 0.4%;
+        font-size: 90%;
+        margin: 1px 0;
+    }
+    #selection {
+        margin: 5px 0;
+        max-height: 55%;
+        width: 100%;
+        background-color: transparent;
+        position: relative;
+    }
+    .collapsible {
+        background-color: grey;
+        color: black;
+        cursor: pointer;
+        padding: 5%;
+        width: 100%;
+        font-size: 100%;
+    }
+
+    #carobhydrates {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        font-size: 110%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #fats {
+        width: 98.6%;
+        float: left;
+        font-size: 110%;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #minerals {
+        width: 98.6%;
+        float: left;
+        font-size: 110%;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitamin {
+        width: 98.6%;
+        float: left;
+        font-size: 110%;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #misc {
+        width: 98.6%;
+        float: left;
+        font-size: 110%;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitaminb {
+        width: 98.6%;
+        float: left;
+        font-size: 110%;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #button1 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+    }
+
+    #button2 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+
+    }
+
+    #button3 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+    }
+
+    #button4 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+    }
+
+    #button5 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+    }
+
+    #button6 {
+        width: 70%;
+        font-size: 80%;
+        position: relative;
+    }
+
+
+    .active, .collapsible:hover {
+        background-color: lightgreen;
+    }
+    .content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+    #tables {
+        margin: 10px 0;
+        width: 100%;
+        max-height: 60%;
+        background-color: transparent;
+        overflow: hidden;
+        position: relative;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        width: 100%;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 8px;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    #search {
+        position: relative;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    #details {
+        width: 100px;
+        position: relative;
+    }
+    .tableprod {
+        width: 100%;
+    }
+    .result {
+        font-size: 100%;
+        font-weight: bold;
+        margin: 1px 0;
+        background-color: transparent;
+        position: relative;
+    }
+    footer{
+        visibility: hidden;
+    }
+}
+@media screen and (min-width: 1800px) {
+    #selection {
+        margin-top: 4%;
+        margin-left: 7%;
+        max-height: 55%;
+        width: 10%;
+        background-color: transparent;
+        position: absolute;
+    }
+
+    .collapsible {
+        background-color: grey;
+        color: black;
+        cursor: pointer;
+        padding: 5%;
+        width: 100%;
+        font-size: 100%;
+    }
+
+    #carobhydrates {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #fats {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #minerals {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitamin {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #misc {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitaminb {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #button1 {
+        width: 100%;
+        position: relative;
+    }
+
+    #button2 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+
+    }
+
+    #button3 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button4 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button5 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button6 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+
+    .active, .collapsible:hover {
+        background-color: lightgreen;
+    }
+
+
+    .content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+
+
+    #tables {
+        margin-left: 25%;
+        margin-top: 2%;
+        width: 50%;
+        max-height: 60%;
+        background-color: transparent;
+        overflow: hidden;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        width: 100%;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 8px;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    #search {
+        position: absolute;
+        width: 8%;
+        margin-left: 19%;
+        margin-top: 4%;
+    }
+
+    #details {
+        width: 100px;
+        position: relative;
+    }
+
+    .tableprod {
+        margin-left: 10%;
+    }
+
+    .infobox {
+        width: 40%;
+        max-height: 20%;
+        background-color: ghostwhite;
+        border-radius: 1%;
+        padding: 0.4%;
+        margin-left: 30%;
+        margin-top: 1%;
+    }
+
+    .result {
+        font-size: 100%;
+        font-weight: bold;
+        margin-left: 30%;
+        margin-top: 1%;
+        background-color: white;
+        position: absolute;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1799px){
+    #selection {
+        margin-top: 4%;
+        margin-left: 7%;
+        max-height: 50%;
+        width: 10%;
+        background-color: transparent;
+        position: absolute;
+    }
+
+    .collapsible {
+        background-color: grey;
+        color: black;
+        cursor: pointer;
+        padding: 5%;
+        width: 100%;
+        font-size: 100%;
+    }
+
+    #carobhydrates {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #fats {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #minerals {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitamin {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #misc {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #vitaminb {
+        width: 98.6%;
+        float: left;
+        padding-bottom: 2%;
+        border: 1px black;
+        background-color: ghostwhite;
+        color: black;
+        display: inline-block;
+    }
+
+    #button1 {
+        width: 100%;
+        position: relative;
+    }
+
+    #button2 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+
+    }
+
+    #button3 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button4 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button5 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+    #button6 {
+        width: 100%;
+        margin-left: -0px;
+        position: relative;
+    }
+
+
+    .active, .collapsible:hover {
+        background-color: lightgreen;
+    }
+
+
+    .content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: transparent;
+    }
+
+
+    #tables {
+        margin-left: 28%;
+        margin-top: 2%;
+        width: 40%;
+        max-height: 60%;
+        background-color: transparent;
+        overflow: hidden;
+    }
+
+    #nutrients {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        width: 100%;
+        background-color: white;
+        color: black;
+    }
+
+    #nutrients td, #nutrients th {
+        border: 2px solid black;
+        padding: 8px;
+    }
+
+    #nutrients tr:hover {
+        background-color: grey;
+    }
+
+    #nutrients th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: white;
+        color: black;
+    }
+
+    #search {
+        position: absolute;
+        width: 8%;
+        margin-left: 19%;
+        margin-top: 4%;
+    }
+
+    #details {
+        width: 100px;
+        position: relative;
+    }
+
+    .tableprod {
+        margin-left: 10%;
+    }
+
+    .infobox {
+        width: 40%;
+        font-size: 80%;
+        max-height: 20%;
+        background-color: ghostwhite;
+        border-radius: 1%;
+        padding: 0.4%;
+        margin-left: 30%;
+        margin-top: 1%;
+    }
+
+    .result {
+        font-size: 80%;
+        font-weight: bold;
+        margin-left: 32%;
+        margin-top: 1%;
+        background-color: white;
+        position: absolute;
+    }
+}

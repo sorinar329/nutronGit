@@ -1,18 +1,163 @@
 #!/usr/bin/env python3.10
+import os
 
-from flask import Flask, render_template, request, url_for, redirect, session
+import numpy
+from flask import Flask, render_template, request, url_for, redirect, session, flash
 import sqlite3 as sql
+from pyzbar import pyzbar
+import numpy as np
+
+from werkzeug.utils import secure_filename
+import cv2
 from datetime import datetime
 from datetime import timedelta
 import queryCollection
+import textManipulation
 import userDAO
 
 app = Flask(__name__)
 
 #conn = sql.connect('/var/www/nutron/user.db')
 
-db_path = '/var/www/nutron/user.db'
-#db_path = "E:/nutronGit/user.db"
+#db_path = '/var/www/nutron/user.db'
+db_path = "E:/nutronGit/user.db"
+#db_path = 'C:/Users/meike/Downloads/nutronGit/user.db'
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+UPLOAD_FOLDER = './pictures'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
+
+#Routing Function for the Product Scanner
+@app.route("/productScan", methods=['GET', 'POST'])
+def productScan():
+    deleteexpired()
+    con = sql.connect(db_path)
+    con.row_factory=sql.Row
+
+    cur=con.cursor()
+    cur.execute("select name from 'user'")
+    username = cur.fetchone()
+    con.close
+    if redirecttologin() == None:
+        return render_template('index.html')
+    else:
+        return render_template("productScan.html", userage=userDAO.getprofileage(),
+                                   useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything())
+
+#Function for the access to the webcam
+@app.route("/upload_webcam/", methods=['GET','POST'])
+def upload_webcam():
+    deleteexpired()
+    con = sql.connect(db_path)
+    con.row_factory=sql.Row
+
+    cur=con.cursor()
+    cur.execute("select name from 'user'")
+    username = cur.fetchone()
+    con.close
+
+    message = ""
+    ingredients = list()
+    harmful_ingredients = list()
+
+    cv2.namedWindow("preview")
+    vc = cv2.VideoCapture(0)
+    if vc.isOpened():
+        rval, frame = vc.read()
+    else:
+        rval = False
+    while rval:
+        cv2.imshow("preview", frame)
+        rval, frame = vc.read()
+        key = cv2.waitKey(20)
+        success = False
+        for code in pyzbar.decode(frame):
+            product_ean = code.data.decode('utf-8')
+            name =queryCollection.get_product_name(code.data.decode('utf-8'))
+            if len(name) > 0:
+                message = textManipulation.get_product_name(name)
+                ing = textManipulation.get_readableList(queryCollection.get_Ingredients_of_Prod(product_ean))
+                harmful_ingredients = textManipulation.get_readableList_harmful(
+                queryCollection.get_harmful_ingredients_of_product(product_ean))
+                ingredients = textManipulation.remove_duplicate_ingredients(ing, textManipulation.get_readableList(
+                queryCollection.get_harmful_ingredients_of_product(product_ean)))
+                flash(message)
+                success = True
+            else:
+                message = "No product with this EAN was found in the database"
+                flash(message)
+                success= True
+
+        if success:
+            break
+    cv2.destroyWindow("preview")
+    vc.release()
+    if redirecttologin() == None:
+        return render_template('index.html')
+    else:
+        return render_template("productScan.html", userage=userDAO.getprofileage(), ingredients = ingredients, harmful_ingredients = harmful_ingredients,
+                               useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything())
+
+@app.route("/query_treatment", methods=['GET', 'POST'])
+
+#Function for the manual upload of files
+@app.route("/upload_file/", methods=['GET','POST'])
+def upload_file():
+    deleteexpired()
+    con = sql.connect(db_path)
+    con.row_factory=sql.Row
+    cur = con.cursor()
+    cur.execute("select name from 'user'")
+    username = cur.fetchone()
+    con.close()
+
+    ingredients = list()
+    harmful_ingredients = list()
+    name = list()
+    message = ""
+    if request.method == 'POST':
+        test = request.files['filename']
+
+        f = request.files['filename'].read()
+        if allowed_file(test.filename):
+            file_byte = numpy.fromstring(f, numpy.uint8)
+            img = cv2.imdecode(file_byte, cv2.IMREAD_UNCHANGED)
+
+            decode_objects = pyzbar.decode(img)
+            for obj in decode_objects:
+                product_ean = obj.data.decode('utf-8')
+                name = queryCollection.get_product_name(product_ean)
+                if len(name) > 0:
+                    message = textManipulation.get_product_name(name)
+                    #print(message)
+                    ing = textManipulation.get_readableList(queryCollection.get_Ingredients_of_Prod(product_ean))
+                    harmful_ingredients = textManipulation.get_readableList_harmful(queryCollection.get_harmful_ingredients_of_product(product_ean))
+                    ingredients = textManipulation.remove_duplicate_ingredients(ing, textManipulation.get_readableList(queryCollection.get_harmful_ingredients_of_product(product_ean)))
+                    flash(message)
+                else:
+                    message= "No product with this EAN was found in the database."
+                    flash(message)
+
+        elif not allowed_file(f.filename):
+            flash('Allowed image types are png, jpeg, jpg,')
+            return render_template("productScan.html", name=name, ingredients=ingredients,
+                                       harmful_ingredients=harmful_ingredients, userage=userDAO.getprofileage(),message=message,
+                                       useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything())
+        #print("I want to die " + str(ingredients))
+        #print("I want to die too" + str(harmful_ingredients))
+        if redirecttologin() == None:
+            return render_template('index.html')
+        else:
+            return render_template("productScan.html", userage=userDAO.getprofileage(), ingredients=ingredients,
+                                   harmful_ingredients=harmful_ingredients, message=message,
+                                   useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything())
+
+
+
 
 # managing the database
 def databasemanager():
