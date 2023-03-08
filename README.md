@@ -13,13 +13,13 @@ For this simply cd to your working directory, where you cloned the repo and exec
 ## Change db_path
 The standart db_path for this repository will always be
 
-´db_path = '/var/www/nutron/user.db'´
+`db_path = '/var/www/nutron/user.db'`
 
 since this is the path provided for the website.
 If you want to run the application locally you will need to provide the path to the user.db database in your working directory
 Normaly this will be
 
-´db_path  = 'user.db'´
+`db_path  = 'user.db'`
 
 The changes need to be made in ´main.py´ and ´userDAO.py´
 
