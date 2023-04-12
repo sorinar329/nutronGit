@@ -8,6 +8,7 @@ First you will need to clone the repository.
 Before installing the packages provided by requirments.txt, you will need to install the zbar-library.
 
 `sudo apt-get install libzbar-dev -y`
+
 After that you will need to install the required packages provided by "requirments.txt".
 For this simply cd to your working directory, where you cloned the repo and execute:
 
