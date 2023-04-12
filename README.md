@@ -5,7 +5,7 @@ In the following steps it will be explained how to run this application locally.
 
 ## Clone Repo and Install packages
 First you will need to clone the repository.
-Before installing the packages provided by requirments.txt, you will need to install the zbar-library.
+Before installing the packages provided by requirments.txt, you will need to install the zbar-library(Ubuntu only).
 
 `sudo apt-get install libzbar-dev -y`
 
