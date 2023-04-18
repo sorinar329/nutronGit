@@ -5,7 +5,7 @@ import numpy
 from flask import Flask, render_template, request, url_for, redirect, session, flash
 import sqlite3 as sql
 from pyzbar import pyzbar
-
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import cv2
 from datetime import datetime
@@ -13,11 +13,15 @@ from datetime import timedelta
 import queryCollection
 import textManipulation
 import userDAO
+from flask_login import LoginManager
 
+import flask_login
 app = Flask(__name__)
-
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/test.db"
+db = SQLAlchemy(app)
 # conn = sql.connect('/var/www/nutron/user.db')
-db_path = '/var/www/nutron/user.db'
+db_path='/home/sorin/code/nutronGit/user.db'
+# db_path = '/var/www/nutron/user.db'
 # db_path = "E:/nutronGit/user.db"
 # db_path = 'C:/Users/meike/Downloads/nutronGit/user.db'
 #db_path = "user.db"
@@ -25,6 +29,11 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = './pictures'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    return render_template("login.html")
 
 
 def allowed_file(filename):
