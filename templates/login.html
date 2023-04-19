@@ -114,7 +114,7 @@
         background-color: ghostwhite;
         padding: 0.5%;
         left: 42.25%;
-        top: 3%;
+        top: 20%;
         position: relative;
     }
 
@@ -345,20 +345,14 @@
 </style>
 </head>
 <body>
-    <div class="infobox">
-        Welcome to the web-application "NutrOn". This application will give you a specific dietary recommendation.
-        The results are based on your weight, age, gender and daily activity level. Please fill in the log-in formular and press "Continue" when you are
-        done. Your data is only used for calculation. If you want to "log-in" with other data, simply
-        restart the application or press the logout button.
-    </div>
     <div class="block">
 
     <form action = "{{ url_for('addrec') }}" method = "POST">
-        <label for ="name">Sign Up:</label>
+        <label for ="name">LogIn:</label>
         <input type="text" id="name" name="nm" placeholder="Username" required="required">
-        <input type="text" id="name" name="email" placeholder="E-mail" required="required">
+
         <input type="text" id="name" name="pw" placeholder="Password" required="required">
-        <input type="text" id="name" name="pw2" placeholder="Re-enter Password" required="required">
+
         <input type = "submit" value = "Continue" /><br>
       </form>
     </div>
