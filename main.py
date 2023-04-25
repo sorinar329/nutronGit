@@ -14,12 +14,20 @@ import queryCollection
 import textManipulation
 import userDAO
 from flask_login import LoginManager
-
+#from models import User
 import flask_login
+db = SQLAlchemy()
+
+
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/test.db"
-db = SQLAlchemy(app)
+db.init_app(app)
+app.secret_key = 'nutron'
+app.app_context().push()
+db.create_all()
+
 # conn = sql.connect('/var/www/nutron/user.db')
+
 db_path='/home/sorin/code/nutronGit/user.db'
 # db_path = '/var/www/nutron/user.db'
 # db_path = "E:/nutronGit/user.db"
@@ -31,9 +39,9 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    return render_template("login.html")
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    return render_template("register.html")
 
 
 def allowed_file(filename):
@@ -618,7 +626,7 @@ def query_param():
     return redirect(url_for('sparql_query', product=product, unit=actualunit))
 
 
-app.secret_key = 'nutron'
+
 
 if __name__ == "__main__":
     app.run()
