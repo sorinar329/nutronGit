@@ -313,13 +313,25 @@
         <div class="login">
             You can acces the web-application without creating an account. By doing this you will be able to only get a more
             generalized dietary recommendations.
-            <input type="submit" value="Continue without registration">
+            <form action="{{ url_for('index') }}" method="post">
+                <button class="nutronbutton">
+                 Continue without registration
+            </button>
+    </form>
         </div>
         <div class="registration">
              By registering you will be able to save your personal data and gain access to more detailed dietary recommendations, by
             filling up a detailed formular about personal dietary information.
-            <input type="submit" value="LogIn">
-            <input type="submit" value="Registration">
+            <form action="{{ url_for('register') }}" method="post">
+                <button class="nutronbutton">
+                Register
+            </button>
+            </form>
+            <form action="{{ url_for('redirect_to_login') }}" method="post">
+                <button class="nutronbutton">
+                 LogIn
+            </button>
+            </form>
         </div>
     </div>
 

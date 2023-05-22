@@ -67,6 +67,10 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 def hello():
     return render_template("TestHome.html")
 
+@app.route("/redirect_to_login", methods = ["POST", "GET"])
+def redirect_to_login():
+    if request.method == "POST":
+        return render_template("login.html")
 # Login route
 @app.route("/login/", methods=("GET", "POST"), strict_slashes=False)
 def login():
@@ -440,6 +444,13 @@ def logouttohome():
 
 
 # Redirect to the login-page
+
+@app.route("/before_nutron", methods = ["POST", "GET"])
+def before_nutron():
+    if request.method == "POST":
+        return render_template("redirect_to_login_or_registration.html")
+
+
 @app.route('/index', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
