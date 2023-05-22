@@ -2,10 +2,31 @@
 import os
 
 import numpy
-from flask import Flask, render_template, request, url_for, redirect, session, flash
+from flask import Flask, render_template, request, url_for, redirect, session, flash, redirect
 import sqlite3 as sql
 from pyzbar import pyzbar
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import (
+    IntegrityError,
+    DataError,
+    DatabaseError,
+    InterfaceError,
+    InvalidRequestError,
+)
+from werkzeug.routing import BuildError
+from flask_bcrypt import Bcrypt,generate_password_hash, check_password_hash
+from flask_login import (
+    UserMixin,
+    login_user,
+    LoginManager,
+    current_user,
+    logout_user,
+    login_required,
+)
+from app import create_app,db,login_manager,bcrypt
+from models import User
+from forms import login_form,register_form
+
 from werkzeug.utils import secure_filename
 import cv2
 from datetime import datetime
@@ -16,19 +37,22 @@ import userDAO
 from flask_login import LoginManager
 #from models import User
 import flask_login
-db = SQLAlchemy()
 
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/test.db"
-db.init_app(app)
-app.secret_key = 'nutron'
-app.app_context().push()
-db.create_all()
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
+app = create_app()
+
+@app.before_request
+def session_handler():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=1)
 # conn = sql.connect('/var/www/nutron/user.db')
 
-db_path='/home/sorin/code/nutronGit/user.db'
+#db_path='/home/sorin/code/nutronGit/user.db'
+db_path = "C:/code/nutronGit/user.db"
 # db_path = '/var/www/nutron/user.db'
 # db_path = "E:/nutronGit/user.db"
 # db_path = 'C:/Users/meike/Downloads/nutronGit/user.db'
@@ -39,9 +63,100 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route('/')
+def hello():
+    return render_template("TestHome.html")
+
+# Login route
+@app.route("/login/", methods=("GET", "POST"), strict_slashes=False)
+def login():
+    form = login_form()
+    if form.validate_on_submit():
+        try:
+            user = User.query.filter_by(email=form.email.data).first()
+            if check_password_hash(user.pwd, form.pwd.data):
+                login_user(user)
+                return redirect(url_for('index'))
+            else:
+                flash("Invalid Username or password!", "danger")
+        except Exception as e:
+            flash(e, "danger")
+
+    return render_template("register.html",
+                           form=form,
+                           text="Login",
+                           title="Login",
+                           btn_action="Login"
+                           )
+
+# Register route
+@app.route("/register/", methods=("GET", "POST"), strict_slashes=False)
 def register():
-    return render_template("register.html")
+    form = register_form()
+    if form.validate_on_submit():
+        try:
+            email = form.email.data
+            pwd = form.pwd.data
+            username = form.username.data
+
+            newuser = User(
+                username=username,
+                email=email,
+                pwd=bcrypt.generate_password_hash(pwd),
+            )
+
+            db.session.add(newuser)
+            db.session.commit()
+            flash(f"Account Succesfully created", "success")
+            return redirect(url_for("login"))
+
+        except InvalidRequestError:
+            db.session.rollback()
+            flash(f"Something went wrong!", "danger")
+        except IntegrityError:
+            db.session.rollback()
+            flash(f"User already exists!.", "warning")
+        except DataError:
+            db.session.rollback()
+            flash(f"Invalid Entry", "warning")
+        except InterfaceError:
+            db.session.rollback()
+            flash(f"Error connecting to the database", "danger")
+        except DatabaseError:
+            db.session.rollback()
+            flash(f"Error connecting to the database", "danger")
+        except BuildError:
+            db.session.rollback()
+            flash(f"An error occured !", "danger")
+    return render_template("auth.html",
+                           form=form,
+                           text="Create account",
+                           title="Register",
+                           btn_action="Register account"
+                           )
+
+
+@app.route("/create_user", methods=("GET", "POST"))
+def create_user():
+    form = register_form
+    email = form.email.data
+    pwd = form.pwd.data
+    username = form.username.data
+
+    newuser = User(
+        username=username,
+        email=email,
+        pwd=bcrypt.generate_password_hash(pwd),
+    )
+    db.session.add(newuser)
+    db.session.commit()
+    flash(f"Account Succesfully created", "success")
+    return redirect(url_for("login"))
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 def allowed_file(filename):
@@ -227,7 +342,6 @@ def redirecttologin():
 
 
 # database filled with products and symptoms. this happens before the first request.
-@app.before_first_request
 def fill_database_products():
     con = sql.connect(db_path)
     cur = con.cursor()
@@ -246,11 +360,9 @@ def fill_database_products():
 
     con.close()
 
-
+fill_database_products()
 # Homepage is brought up, at the start of the application
-@app.route('/')
-def hello():
-    return render_template("TestHome.html")
+
 
 
 # Returns the user to the Homepage
@@ -302,16 +414,16 @@ def sparklis():
 
 
 # logout function
-@app.route('/logout', methods=['POST', 'GET'])
-def logout():
-    if request.method == 'POST':
-        username = session['username']
-        # database connection
-        conn = sql.connect(db_path)
-        conn.execute("DELETE from 'user' where name = ?", (username,))
-        conn.commit()
-        conn.close()
-        return render_template("index.html")
+# @app.route('/logout', methods=['POST', 'GET'])
+# def logout():
+#     if request.method == 'POST':
+#         username = session['username']
+#         # database connection
+#         conn = sql.connect(db_path)
+#         conn.execute("DELETE from 'user' where name = ?", (username,))
+#         conn.commit()
+#         conn.close()
+#         return render_template("index.html")
 
 
 # When returning to the Homepage of productkg, the user is logged out.

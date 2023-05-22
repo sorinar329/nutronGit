@@ -110,9 +110,9 @@ def triply_query_products():
     sparql = spq
     query = """
        SELECT distinct ?food ?label  WHERE {
-  ?food rdfs:subClassOf ?sup . 
+  ?food rdfs:subClassOf ?sub . 
   FILTER NOT EXISTS{?sub rdfs:subClassOf ?food FILTER(?sub != ?food && ?sub != owl:Nothing )}
-  ?sup rdfs:subClassOf | rdfs:subClassOf/rdfs:subClassOf | rdfs:subClassOf/rdfs:subClassOf/rdfs:subClassOf nutri:Food.
+  ?sub rdfs:subClassOf | rdfs:subClassOf/rdfs:subClassOf | rdfs:subClassOf/rdfs:subClassOf/rdfs:subClassOf nutri:Food.
   ?food rdfs:label ?label
 }"""
     sparql.setQuery(prefix + query)
