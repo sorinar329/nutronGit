@@ -4,8 +4,9 @@ import os.path
 
 # Path of the Database "user.db"
 
-db_path = ("/var/www/nutron/user.db")
+#db_path = ("/var/www/nutron/user.db")
 #db_path = ('user.db')
+db_path = '/home/sorin/code/nutronGit/user.db'
 
 
 def getEverything():
@@ -25,7 +26,10 @@ def getprofileage():
     username = session['username']
     cur.execute("select age from 'user' where name = ?", (username, ))
     userage = cur.fetchone()
-    profileage = userage['age']
+    if userage == None:
+        userage = "25"
+    #profileage = userage['age']
+    profileage = userage
     profileage = profileage.replace("Ewachsene", "")
     profileage = profileage.replace("_", "")
     profileage = profileage.replace("bis unter", "to")
@@ -42,7 +46,10 @@ def getprofileactivity():
     username = session['username']
     cur.execute("select activity from 'user' where name = ?", (username, ))
     useractivity = cur.fetchone()
-    profileactivity = useractivity['activity']
+    if useractivity == None:
+        useractivity = "mid"
+    #profileactivity = useractivity['activity']
+    profileactivity = useractivity
     if profileactivity == "mid":
         profileactivity = "average activity"
     elif profileactivity == "high":

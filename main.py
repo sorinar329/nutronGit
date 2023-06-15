@@ -51,8 +51,8 @@ def session_handler():
     app.permanent_session_lifetime = timedelta(minutes=1)
 # conn = sql.connect('/var/www/nutron/user.db')
 
-#db_path='/home/sorin/code/nutronGit/user.db'
-db_path = "C:/code/nutronGit/user.db"
+db_path='/home/sorin/code/nutronGit/user.db'
+#db_path = "C:/code/nutronGit/user.db"
 # db_path = '/var/www/nutron/user.db'
 # db_path = "E:/nutronGit/user.db"
 # db_path = 'C:/Users/meike/Downloads/nutronGit/user.db'
@@ -86,7 +86,7 @@ def login():
         except Exception as e:
             flash(e, "danger")
 
-    return render_template("register.html",
+    return render_template("login.html",
                            form=form,
                            text="Login",
                            title="Login",
@@ -477,10 +477,25 @@ def addrec():
         if request.method == 'POST':
             try:
                 name = request.form['nm']
+                print(name)
+                if name == None:
+                    name = "ABC"
                 age = request.form['age']
+                print(age)
+                if age == None:
+                    age = "age19to25"
                 gender = request.form['gender']
+                print(gender)
+                if gender == None:
+                    gender = "male"
                 activity = request.form['activity']
+                print(activity)
+                if activity == None:
+                    activity = "mid"
                 weight = request.form['weight']
+                print(weight)
+                if weight == None:
+                    weight = "80"
                 with sql.connect(db_path) as con:
                     cur = con.cursor()
 
