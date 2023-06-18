@@ -9,7 +9,7 @@ Before installing the packages provided by requirments.txt, you will need to ins
 
 `sudo apt-get install libzbar-dev -y`
 
-After that you will need to install the required packages provided by "requirments.txt".
+After that you will need to install the  packages provided by "requirments.txt".
 For this simply cd to your working directory, where you cloned the repo and execute:
 
 `pip install -r requirments.txt`

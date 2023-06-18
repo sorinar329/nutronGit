@@ -1,11 +1,13 @@
 #!/usr/bin/env python3.10
+import csv
+import itertools
 import os
 
 import numpy
 from flask import Flask, render_template, request, url_for, redirect, session, flash
 import sqlite3 as sql
 from pyzbar import pyzbar
-
+from survey import survey_main
 from werkzeug.utils import secure_filename
 import cv2
 from datetime import datetime
@@ -17,9 +19,9 @@ import userDAO
 app = Flask(__name__)
 
 # conn = sql.connect('/var/www/nutron/user.db')
-db_path = '/var/www/nutron/user.db'
+#db_path = '/var/www/nutron/user.db'
 # db_path = "E:/nutronGit/user.db"
-# db_path = 'C:/Users/meike/Downloads/nutronGit/user.db'
+db_path = 'C:/Users/meike/OneDrive/nutronGit/user.db'
 #db_path = "user.db"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = './pictures'
@@ -607,7 +609,138 @@ def query_param():
         label = label.replace(("_"), ", ")
 
     return redirect(url_for('sparql_query', product=product, unit=actualunit))
+############SURVEY#################
 
+opinionLabel1=['household', 'delivery', 'homework', 'reading', 'talking', 'car', 'grandparents', 'doctor', 'dog']
+opinionCheckboxes1 =[['housHoldYes', 'housHoldNo', 'housHoldMaybe'], ['deliveryYes', 'deliveryNo', 'deliveryMaybe'],
+                     ['homeworkYes', 'homeworkNo', 'homeworkMaybe'], ['readingYes', 'readingNo', 'readingMaybe'],
+                     ['talkingYes', 'talkingNo', 'talkingMaybe'], ['carYes', 'carNo', 'carMaybe'],
+                     ['grandparentsYes', 'grandparentsNo', 'grandparentsMaybe'], ['doctorYes', 'doctorNo', 'doctorMaybe'],
+                     ['dogYes', 'dogNo', 'dogMaybe']]
+
+opinionLabel2 =['lifequality', 'energy and time', 'replace humans', 'support', 'important']
+opinionCheckboxes2 =[['qualityYes', 'qualityNo', 'qualityMaybe'], ['timeYes', 'timeNo', 'timeMaybe'],
+                     ['replaceYes', 'replaceNo', 'replaceMaybe'], ['supportYes', 'supportNo', 'supportMaybe'],
+                     ['importantYes', 'importantNo', 'importantMaybe']]
+
+
+
+usageLabel=['voiceAssistent','searchEngine', 'chatbot', 'chatgpt', 'retailApp', 'smartCart', 'cash', 'orderingMachine']
+usageQuantitiy = ['usage1', 'usage2', 'usage3', 'usage4', 'usage5', 'usage6', 'usage7', 'usage8']
+usageFunction =['funUsage1', 'funUsage2', 'funUsage3', 'funUsage4', 'funUsage5', 'funUsage6', 'funUsage7', 'funUsage8']
+
+dailyLabel=['mowing', 'vacuum', 'service', 'cooking', 'washing', 'drone']
+dailyQuanitity=['quantitiy1', 'quantitiy2', 'quantitiy3', 'quantitiy4', 'quantitiy5', 'quantitiy6']
+dailyFunction=['function1', 'function2', 'function3', 'function4', 'function5', 'function6']
+@app.route('/survey', methods=['POST', 'GET'])
+def survey():
+    return render_template('survey.html')
+
+@app.route('/finish_survey', methods=['POST', 'GET'])
+def finish_survey():
+    getUsageOfRobotos()
+    getDailyOfRobots()
+    getfirstOpinion(opinionLabel1, opinionCheckboxes1)
+    getfirstOpinion(opinionLabel2, opinionCheckboxes2)
+    getMissingRobots()
+    return render_template('finished_survey.html')
+
+def writeTOCSV(l, which):
+    w = ""
+    if which == "use":
+        w = "survey/survey_usage.csv"
+    elif which == "daily":
+        w = "survey/survey_daily.csv"
+    elif which == "missing":
+        w = "survey/survey_missing.csv"
+    else:
+        w = "survey/survey_opinion.csv"
+    with open(w, "a", newline= "") as f:
+        writer = csv.writer(f)
+        writer.writerows(l)
+
+def getMissingRobots():
+    if request.method == "POST":
+        try:
+            output = list()
+            p = list()
+            f = list()
+            place = request.form['placeOfMissing']
+            func = request.form['functionOfMissing']
+            p.append(place)
+            f.append(func)
+            output = list(zip(p,f))
+            writeTOCSV(output, "missing")
+        except Exception as e:
+            print("Missing: " + str(e))
+def getfirstOpinion(label, checkbox):
+    if request.method == "POST":
+        try:
+            opinion = list()
+            for i in checkbox:
+                if request.form.get(i[0]) == "on":
+                    opinion.append("Yes")
+                elif request.form.get(i[1]) == "on":
+                    opinion.append("No")
+                elif request.form.get(i[2]) == "on":
+                    opinion.append("Unsure")
+            zippedList = list(zip(label, opinion))
+            writeTOCSV(zippedList, "")
+        except Exception as e:
+            print(str(e))
+def getDailyOfRobots():
+    if request.method=="POST":
+        try:
+            quantity = list()
+            function = list()
+            miscNum = request.form['quantitiyMisc']
+            miscName = request.form['nameOfMisc']
+            miscFunc = request.form['functionMisc']
+
+            for i in dailyQuanitity:
+                num = request.form[i]
+                quantity.append(num)
+            for n in dailyFunction:
+                func = request.form[n]
+                function.append(func)
+            zippedList = list(zip(dailyLabel, quantity, function))
+            zippedList.append(('Misc', miscNum, miscFunc, miscName))
+            writeTOCSV(zippedList, "daily")
+        except Exception as e:
+            print(str(e))
+
+def getUsageOfRobotos():
+    if request.method=="POST":
+        try:
+            quantitiy = list()
+            function = list()
+            miscNum = request.form['usageMisc']
+            miscFunc = request.form['usageMiscFunction']
+            miscName = request.form['nameOfMisc2']
+            for i in usageQuantitiy:
+                num = request.form[i]
+                print(num)
+                quantitiy.append(num)
+            for n in usageFunction:
+                funv = request.form[n]
+                function.append(funv)
+            zippedList = list(zip(usageLabel, quantitiy, function))
+            zippedList.append(('Misc', miscNum, miscFunc, miscName))
+            writeTOCSV(zippedList, "use")
+
+        except Exception as e:
+            print(str(e))
+            print("There was something wrong")
+
+@app.route('/contact_survey', methods=['POST', 'GET'])
+def contact_survey():
+    return render_template('contact_survey.html')
+
+@app.route('/about_survey', methods=['POST', 'GET'])
+def about_survey():
+    return render_template('about_survey.html')
+
+###############################
 
 app.secret_key = 'nutron'
 

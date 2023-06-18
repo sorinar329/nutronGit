@@ -1,0 +1,320 @@
+body{
+    background-color: #b8ffe2;
+}
+.surveyContent{
+    width: 800px;
+}
+
+.panel{
+    text-align: center;
+    background-color: rgba(255 ,255,255,0.8);
+    width: 80%;
+    height: max-content;
+    padding: 0.85rem;
+    margin-top: 5%;
+    margin-left: 2%;
+    border-radius: 8px;
+    display: grid;
+
+
+}
+
+.panel-button{
+    text-align: center;
+    margin-top: 5%;
+}
+
+.missingRobotsDiv{
+}
+/* Style the form */
+#regForm {
+    background-color: #ffffff;
+    margin: 100px auto;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
+}
+
+/* Style the input fields */
+input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+    background-color: #ffdddd;
+}
+
+
+
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    background-color: #04AA6D;
+}
+
+.left {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+input {
+    width: 100px;
+}
+
+.panel-body {
+    text-align: center;
+    padding: 0 30px 30px;
+    min-height: calc(100vh - 123px);
+    margin-top: -30px;
+}
+.surveyLabel{
+    display: inline-grid;
+    text-align: center;
+    width: 150px;
+    padding-right: 0.45rem;
+    padding-bottom: 0.42rem;
+}
+
+.functionLabel{
+    padding-left: 0.45rem;
+    padding-right: 0.45rem;
+}
+
+.functionInput{
+    width: 150px;
+    height: 10px;
+    border-radius: 3px;
+}
+.surveyInput{
+    width: 50px;
+    height: 10px;
+    padding-right: 0.15rem;
+    border-radius: 3px;
+}
+
+.dailyLifDiv{
+    padding-bottom: 0.35rem;
+}
+
+.dashButton {
+    border-radius: 6px !important;
+    border: thin solid #05613f !important;
+    background: white;
+    width: max-content;
+    vertical-align: center;
+    font-size: 28px;
+    padding: 0.54rem .54rem;
+    width: 800px;
+    font-family: 'Shadows Into Light';
+    color: #323333;
+}
+
+.dashButton:hover{
+    background-color: #05613f;
+    color: white;
+}
+
+ .signup-error {
+                color:#FF0000;
+                padding-left:15px;
+            }
+
+ .topnav{
+     height: 2.5%;
+     width: 100%;
+     padding-bottom: 1.5rem;
+     padding-top: 1.5rem;
+     background-color: #23c483;
+     position: absolute;
+     display: inline-block;
+     align-self: start;
+     justify-content: center;
+ }
+
+ .nav {
+        height: 10%;
+        width: 100%;
+        position: absolute;
+        margin: 0 0;
+        background-color: #b8ffe2 ;
+    }
+
+    .nav a {
+        float: left;
+        color: #0f422d;
+        background-color: #e8fff6;
+        text-align: center;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 150%;
+        font-weight: bold;
+        position: relative;
+        margin: 1% 15px;
+        border-radius: 6px;
+        box-shadow: 0 0 0.1em black;
+    }
+    .nav img{
+        width:147px;
+        height:55px;
+        float: right ;
+        margin-right: 25px;
+    }
+
+    .nav a:hover {
+        background-color: white;
+        color: #05613f;
+    }
+
+    .nav a:hover {
+        background-color: white;
+        color: #05613f;
+    }
+
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+    margin-top: -1.5rem;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #05613f;
+  color: white;
+}
+
+
+
+.footer-label{
+    color: #0f422d;
+}
+
+.container{
+    margin-top: 5%;
+     display: grid;
+ align-items: center;
+ grid-template-columns: 1fr  1fr;
+ column-gap: 5px;
+}
+
+footer{
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: max-content;
+    background:transparent  ;
+    text-align: center;
+    margin-top: auto;
+}
+html{
+    font-family: 'Shadows Into Light';
+}
+
+.btn{
+    margin-top: -1.02rem;
+}
+/*
+
+#homebutton{
+    margin-top: -1.03rem;
+}
+
+#contact{
+    margin-top: -5.3rem;
+    margin-left: 7rem;
+}
+
+#disclaimer{
+    margin-left: 14rem;
+}*/
+
+.btn-group input{
+    background-color: #05613f ;
+    border: 1px solid green;
+    color: white;
+    padding: 10px 24px;
+    cursor: pointer;
+    float: left;
+    display: inline;
+}
+
+.btn-group input:not(:last-child){
+    border-right: none;
+}
+
+.btn-group:after{
+    content: "";
+    clear: both;
+    display: inline;
+}
+
+.btn-group input:hover{
+    background-color: #323333;
+
+}
+
+#homebutton{
+    display: inline;
+}
+
+#contact{
+    display: inline;
+}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.about{
+    margin-top: 15%;
+    margin-left: 45%;
+    margin-bottom: auto;
+    padding:10px;
+    width: max-content;
+    background-color: rgba(255 ,255,255,0.8);
+    border-radius: 6px;
+}
+.about text{
+    padding-bottom: 10%;
+}
+.about input{
+    width: 250px;
+    font-size: 120%;
+}
