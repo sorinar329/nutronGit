@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/survey.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light">
+    <title>Umfrage</title>
+</head>
+<body>
+<div class="nav">
+    <form action="{{ url_for('survey') }}" method="post" id="formhome">
+        <a href="#" onclick="document.getElementById('formhome').submit()">Home</a>
+    </form>
+    <form action="{{ url_for( 'about_survey') }}" method="post" id="about">
+        <a href="#" onclick="document.getElementById('about').submit()">About</a>
+    </form>
+    <form action="{{ url_for('contact_survey') }}" method="post" id="contact">
+        <a href="#" onclick="document.getElementById('contact').submit()">Kontakt</a>
+    </form>
+    <img src="../static/images/university_new.png" alt="" style="" id="navLogo">
+</div>
+    <center>
+    <h1 style="text-align: center; margin-top: 10%; font-size: 250%">Willkommen!</h1>
+        </center>
+<center>
+<form action="{{ url_for('set_language') }}" method="post">
+    <button type="submit" style="background: transparent; border: transparent" class="langButton" name="langButton" value="English">    <img src="../static/images/pngegg.png" alt="" style="width: 80px; height: auto">
+</button>
+    <button type="submit" style="background: transparent; border: transparent" class="langButton" name="langButton" value="German">    <img src="../static/images/clipart1312534.png" alt="" style="width: 55px; height: auto">
+</button>
+</form>
+</center>
+<form action="/finish_survey" method="post">
+
+
+    <div class="container">
+        <div>
+            <img src="../static/images/ease_robot.png" alt="" style="margin-left: 20%; transform: scaleX(-1)">
+        </div>
+        <div class="panel">
+            <h4>Bist du schon einmal den folgenden Robotern begegnet? Und kennst du auch ihre Funktion?</h4>
+             <div class="dailyLifDiv">
+                        <label for="quantitiy1" class="surveyLabel" name="label1">Mähroboter</label>
+                        <input type="number" name="quantitiy1" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="function1" class="functionLabel">Funktion:</label>
+                        <input type="text" name="function1" class="functionInput">
+                    </div>
+                    <div class="dailyLifDiv">
+                        <label for="quantitiy2" class="surveyLabel" name="label2">Saugroboter</label>
+                        <input type="number" name="quantitiy2" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="function2" class="functionLabel">Funktion:</label>
+                        <input type="text" name="function2" class="functionInput">
+                    </div>
+                    <div class="dailyLifDiv">
+                        <label for="quantitiy3" class="surveyLabel" id="label3">Serviceroboter</label>
+                        <input type="number" name="quantitiy3" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="function3" class="functionLabel">Funktion:</label>
+                        <input type="text" name="function3" class="functionInput">
+                    </div>
+                    <div class="dailyLifDiv">
+                        <label for="quantitiy4" class="surveyLabel" id="label4">Kochroboter</label>
+                        <input type="number" id name="quantitiy4" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="function4" class="functionLabel">Funktion:</label>
+                        <input type="text" name="function4" class="functionInput">
+                    </div>
+                    <div class="dailyLifDiv">
+                        <label for="quantitiy5" class="surveyLabel" id="label5">Scheibenputzroboter</label>
+                        <input type="number" id name="quantitiy5" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="function5" class="functionLabel">Funktion:</label>
+                        <input type="text" name="function5" class="functionInput">
+                    </div>
+                    <div class="dailyLifDiv">
+                        <label for="quantitiy6" class="surveyLabel" id="label6">Drohne</label>
+                        <input type="number" id name="quantitiy6" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="function6" class="functionLabel">Funktion:</label>
+                        <input type="text" name="function6" class="functionInput">
+                    </div>
+                    <div class="dailyLifDiv">
+                        <label for="quantitiyMisc" class="surveyLabel" id="label7"> Andere:</label>
+                        <input type="number" id name="quantitiyMisc" class="surveyInput" pattern="[0-9]{1,5}">
+                        <div>
+                            <label for="nameOfMisc" class="functionLabel">Und welche?</label>
+                            <input type="text" name="nameOfMisc" class="functionInput">
+                            <label for="functionMisc" class="functionLabel">Funktion:</label>
+                            <input type="text" name="functionMisc" class="functionInput">
+                        </div>
+                    </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="panel" style="margin-left: 20%">
+         <div class="missingRobotsDiv">
+             <h4>Wo fehlen deiner Meinung nach noch Roboter?</h4>
+             <div>
+                  <input type="text" class="functionInput" name="placeOfMissing">
+                  <label for="functionOfMissing" class="functionLabel">Funktion:</label>
+                  <input type="text"  name="functionOfMissing" class="functionInput">
+              </div>
+         </div>
+        </div>
+        <div>
+            <img src="../static/images/Smile-Workshop-o0bkd4qhfxmfm3ru9liy6uzuoz8hlpt7fkfucbgovu-PhotoRoom.png-PhotoRoom.png" alt=""
+            style="transform: scaleX(-1); margin-left:20%;">
+        </div>
+    </div>
+    <div class="container">
+        <div>
+            <img src="../static/images/pepper.png" alt="" style="width:550px; height:auto; margin-left:15%">
+        </div>
+        <div class="panel">
+            <div id="usageOfRobots">
+                 <h4>Wie viele digitale Agenten benutzt du oder jemand aus deiner Familie?</h4>
+                    <div>
+                        <label for="usage1" class="surveyLabel"> Sprachassitent (z.B. Alexa)</label>
+                        <input type="number" id name="usage1" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="funUsage1" class=functionLabel">Funktion:</label>
+                        <input type="text" name="funUsage1" class="functionInput">
+                    </div>
+                    <div>
+                        <label for="usage2" class="surveyLabel"> Suchmaschine</label>
+                        <input type="number" id name="usage2" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="funUsage2" class="functionLabel">Funktion:</label>
+                        <input type="text" name="funUsage2" class="functionInput">
+                    </div>
+                    <div>
+                        <label for="usage3" class="surveyLabel"> Chatbot</label>
+                        <input type="number" id name="usage3" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="funUsage3" class="functionLabel">Funktion:</label>
+                        <input type="text" name="funUsage3" class="functionInput">
+                    </div>
+                    <div>
+                        <label for="usage4" class="surveyLabel"> ChatGPT o.ä.</label>
+                        <input type="number" id name="usage4" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="funUsage4" class="functionLabel">Funktion:</label>
+                        <input type="text" name="funUsage4" class="functionInput">
+                    </div>
+                    <div>
+                        <label for="usage5" class="surveyLabel"> Einkaufsassitenz (z.B. Lidl App)</label>
+                        <input type="number" id name="usage5" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="funUsage5" class="functionLabel">Funktion:</label>
+                        <input type="text" name="funUsage5" class="functionInput">
+                    </div>
+                    <div>
+                        <label for="usage6" class="surveyLabel"> smarte Einkaufswagen</label>
+                        <input type="number" id name="usage6" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="funUsage6" class="functionLabel">Funktion:</label>
+                        <input type="text" name="funUsage6" class="functionInput">
+                    </div>
+                    <div>
+                        <label for="usage7" class="surveyLabel"> Kassen zum schnellen Bezahlen</label>
+                        <input type="number" id name="usage7" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="funUsage7" class="functionLabel">Funktion:</label>
+                        <input type="text" name="funUsage7" class="functionInput">
+                    </div>
+                    <div>
+                        <label for="usage8" class="surveyLabel"> Bestellautomaten</label>
+                        <input type="number" id name="usage8" class="surveyInput" pattern="[0-9]{1,5}">
+                        <label for="funUsage8" class="functionLabel">Funktion:</label>
+                        <input type="text" name="funUsage8" class="functionInput">
+                    </div>
+                    <div>
+                        <label for="usageMisc" class="surveyLabel" style="text-align: left"> Andere:</label>
+                        <input type="number" id name="usageMisc" class="surveyInput" pattern="[0-9]{1,5}">
+                    </div>
+                    <div>
+                        <label for="nameOfMisc2" class="surveyLabel">Und welche?</label>
+                        <input type="text" name="nameOfMisc2" class="functionInput">
+                        <label for="usageMiscFunction" class="functionLabel">Funktion:</label>
+                        <input type="text" name="usageMiscFunction" class="functionInput">
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="panel" style="margin-left: 15%">
+             <h4>Könntest du dir vorstellen, einen Roboter/Agenten für die folgende Aufgaben zu benutzen?</h4>
+                    <table id="table1">
+                        <thead>
+                        <tr>
+                            <th>Aufgabe</th>
+                            <th>Ja</th>
+                            <th>Nein</th>
+                            <th>Unsicher</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Haushaltsaufgaben bei dir (Putzen, Kochen)</td>
+                            <td>
+                                <input type="checkbox" name="housHoldYes">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="housHoldNo">
+
+                            </td>
+                            <td>
+                                <input type="checkbox" name="housHoldMaybe">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lieferdienst, z.B. Drohnen aus dem Supermarkt</td>
+                            <td>
+                                <input type="checkbox" name="deliveryYes">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="deliveryNo">
+
+                            </td>
+                            <td>
+                                <input type="checkbox" name="deliveryMaybe">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Hausaufgaben-Assistenz</td>
+                            <td>
+                                <input type="checkbox" name="homeworkYes">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="homeworkNo">
+
+                            </td>
+                            <td>
+                                <input type="checkbox" name="homeworkMaybe">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Roboter, der dir vorliest</td>
+                            <td>
+                                <input type="checkbox" name="readingYes">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="readingNo">
+
+                            </td>
+                            <td>
+                                <input type="checkbox" name="readingMaybe">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Gesprächspartner (wie Alexa, Siri)</td>
+                            <td>
+                                <input type="checkbox" name="talkingYes">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="talkingNo">
+
+                            </td>
+                            <td>
+                                <input type="checkbox" name="talkingMaybe">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Selbststeuerndes Auto, in dem du mitfährst</td>
+                            <td>
+                                <input type="checkbox" name="carYes">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="carNo">
+
+                            </td>
+                            <td>
+                                <input type="checkbox" name="carMaybe">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Haushaltshilfe bei deinen Großeltern</td>
+                            <td>
+                                <input type="checkbox" name="grandparentsYes">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="grandparentsNo">
+
+                            </td>
+                            <td>
+                                <input type="checkbox" name="grandparentsMaybe">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Roboter-Arzt, der eine Operation durchführt</td>
+                            <td>
+                                <input type="checkbox" name="doctorYes">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="doctorNo">
+
+                            </td>
+                            <td>
+                                <input type="checkbox" name="doctorMaybe">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Roboter, der mit eurem Hund Gassi geht</td>
+                            <td>
+                                <input type="checkbox" name="dogYes">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="dogNo">
+
+                            </td>
+                            <td>
+                                <input type="checkbox" name="dogMaybe">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+        </div>
+        <div>
+            <img src="../static/images/201810-EaseBremen0578Format-PhotoRoom.png-PhotoRoom.png" alt=""
+            style="width: 380px; height: auto; margin-left:15%">
+        </div>
+    </div>
+    <div class="container">
+        <div>
+            <img src="../static/images/Fotoshooting_2018-6296Format_cropped-PhotoRoom.png-PhotoRoom.png" alt=""
+            style="transform:scaleX(-1); margin-left: 15%; width: 480px; height:auto">
+        </div>
+        <div class="panel">
+        <div class="judgingSurvey">
+            <h4>Ich glaube, dass Roboter...</h4>
+            <table>
+                <thead>
+                <th>Aussage</th>
+                <th>Ja</th>
+                <th>Nein</th>
+                <th>Unsicher</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>... die Lebensqualität von Menschen erhöhen.</td>
+                    <td>
+                        <input type="checkbox" name="qualityYes">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="qualityNo">
+
+                    </td>
+                    <td>
+                        <input type="checkbox" name="qualityMaybe">
+                    </td>
+                </tr>
+                <tr>
+                    <td>... uns Zeit und Energie sparen</td>
+                    <td>
+                        <input type="checkbox" name="timeYes">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="timeNo">
+
+                    </td>
+                    <td>
+                        <input type="checkbox" name="timeMaybe">
+                    </td>
+                </tr>
+                <tr>
+                    <td>...Menschen ersetzen werden</td>
+                    <td>
+                        <input type="checkbox" name="replaceYes">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="replaceNo">
+
+                    </td>
+                    <td>
+                        <input type="checkbox" name="replaceMaybe">
+                    </td>
+                </tr>
+                <tr>
+                    <td>... als Unterstützung gut sind</td>
+                    <td>
+                        <input type="checkbox" name="supportYes">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="supportNo">
+
+                    </td>
+                    <td>
+                        <input type="checkbox" name="supportMaybe">
+                    </td>
+                </tr>
+                <tr>
+                    <td>... wichtig für Menschen sind</td>
+                    <td>
+                        <input type="checkbox" name="importantYes">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="importantNo">
+
+                    </td>
+                    <td>
+                        <input type="checkbox" name="importantMaybe">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <div class="panel-button">
+        <form action="/finish_survey" method="post">
+            <input name="language" type="hidden" value="ger">
+            <input type="submit" value="Absenden" class="dashButton"/>
+        </form>
+    </div>
+
+</form>
+<footer>
+    <p class="footer-label">Projekt der Universität Bremen
+    <p>
+        <!-- <a href="mailto:hege@example.com">hege@example.com</a></p> -->
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+</footer>
+</body>
+<script>
+    var docWidth = document.documentElement.offsetWidth;
+[].forEach.call(
+  document.querySelectorAll('*'),
+  function(el) {
+    if (el.offsetWidth > docWidth) {
+      console.log(el);
+    }
+  }
+);
+</script>
+
+</html>

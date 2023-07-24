@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/survey.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light">
+    <title>Survey</title>
+</head>
+<body>
+<div class="nav">
+    <form action="{{ url_for('survey') }}" method="post" id="formhome">
+        <a href="#" onclick="document.getElementById('formhome').submit()">Home</a>
+    </form>
+    <form action="{{ url_for( 'about_survey_en') }}" method="post" id="about">
+        <a href="#" onclick="document.getElementById('about').submit()">About</a>
+    </form>
+    <form action="{{ url_for('contact_survey_en') }}" method="post" id="contact">
+        <a href="#" onclick="document.getElementById('contact').submit()">Kontakt</a>
+    </form>
+    <img src="../static/images/university_new.png" alt="" style="" id="navLogo">
+</div>
+<div class="surveyContent" style="margin-left: 10%">
+    <center>    <div class="about">
+        <h2>finished_survey.html!</h2>
+        <form action="{{ url_for( 'backhome') }}" method="post">
+        <input type="submit" Value="Back home" class="dashButton" style="margin-bottom: 2.5%;">
+    </form>
+
+    <form action="{{ url_for('index') }}" method="post">
+        <input type="submit" VALUE="Go to NutrOn" class="dashButton">
+    </form>
+    </div>
+        </center>
+
+</div>
+<footer>
+    <p class="footer-label">Projekt der Universität Bremen
+    <p>
+        <!-- <a href="mailto:hege@example.com">hege@example.com</a></p> -->
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+</footer>
+</body>
+<script>
+    var docWidth = document.documentElement.offsetWidth;
+[].forEach.call(
+  document.querySelectorAll('*'),
+  function(el) {
+    if (el.offsetWidth > docWidth) {
+      console.log(el);
+    }
+  }
+);
+</script>
+
+</html>
