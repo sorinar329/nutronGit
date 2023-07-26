@@ -1,4 +1,5 @@
 #!/usr/bin/env python3.10
+import csv
 
 from flask import Flask, render_template, request, url_for, redirect, session
 import sqlite3 as sql
@@ -11,7 +12,8 @@ app = Flask(__name__)
 
 #conn = sql.connect('/var/www/nutron/user.db')
 
-db_path = '/var/www/nutron/user.db'
+db_path = 'user.db'
+#db_path = '/var/www/nutron/user.db'
 #db_path = "E:/nutronGit/user.db"
 
 # managing the database
@@ -60,37 +62,38 @@ def redirecttologin():
 
 
 # database filled with products and recipes. this happens before the first request.
-@app.before_first_request
+
 def fill_database_products():
-    con = sql.connect(db_path)
-    cur = con.cursor()
+    with app.app_context():
+        con = sql.connect(db_path)
+        cur = con.cursor()
 
-    recipes = queryCollection.query_recipes()
-    usda = queryCollection.triply_query_products()
-    symptom_data = queryCollection.triply_query_symptoms_data()
+        recipes = queryCollection.query_recipes()
+        usda = queryCollection.triply_query_products()
+        symptom_data = queryCollection.triply_query_symptoms_data()
 
-    for item in usda:
-        cur.execute("INSERT INTO ingredients(class, label) VALUES(?,?)", (item["food"]["value"], item["label"]["value"]))
-        con.commit()
+        for item in usda:
+            cur.execute("INSERT INTO ingredients(class, label) VALUES(?,?)", (item["food"]["value"], item["label"]["value"]))
+            con.commit()
 
-    for item in recipes:
-        cur.execute("INSERT INTO recipes(class, label) VALUES(?,?)", (item["class"]["value"], item["label"]["value"]))
-        con.commit()
+        for item in recipes:
+            cur.execute("INSERT INTO recipes(class, label) VALUES(?,?)", (item["class"]["value"], item["label"]["value"]))
+            con.commit()
 
-    for item in symptom_data:
-        cur.execute("INSERT INTO symptoms(class, label) VALUES(?,?)", (item["class"]["value"], item["label"]["value"]))
-        con.commit()
+        for item in symptom_data:
+            cur.execute("INSERT INTO symptoms(class, label) VALUES(?,?)", (item["class"]["value"], item["label"]["value"]))
+            con.commit()
 
-    con.close()
+        con.close()
 
 @app.route('/')
 def hello():
-   return render_template("TestHome.html")
+   return render_template("new_homepage.html")
 
 @app.route('/home', methods=['POST','GET'])
 def backhome():
     if request.method == 'POST':
-        return render_template('TestHome.html')
+        return render_template('new_homepage.html')
 
 
 @app.route('/contact', methods=['POST', 'GET'])
@@ -202,7 +205,7 @@ def addrec():
                 msg = "error in insert operation"
 
             finally:
-                return render_template("homepage.html", msg=msg, username=name,userage=userDAO.getprofileage(),
+                return render_template("new_homepage.html", msg=msg, username=name,userage=userDAO.getprofileage(),
                                        useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything())
 
 
@@ -216,7 +219,7 @@ def homepage():
         if redirecttologin() == None:
             return render_template('index.html')
         else:
-            return render_template('homepage.html', userage=userDAO.getprofileage(),
+            return render_template('new_homepage.html', userage=userDAO.getprofileage(),
                                    useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything())
 
 
@@ -560,6 +563,163 @@ def query_param():
         label = label.replace(("_"), ", ")
 
     return redirect(url_for('sparql_query', product=product, unit=actualunit))
+
+@app.route('/set_language', methods=['POST', 'GET'])
+def set_language():
+    req = request.form['langButton']
+    print(req)
+    if request.method == 'POST':
+        req = request.form['langButton']
+        print(req)
+        if req == 'English':
+            print("I selected English")
+            return render_template('survey_en.html')
+        elif req == 'German':
+            print('I selected German')
+            return render_template('survey.html')
+
+    return render_template('survey.html')
+
+
+
+@app.route('/survey', methods=['POST', 'GET'])
+def survey():
+    return render_template('survey.html')
+
+@app.route('/finish_survey', methods=['POST', 'GET'])
+def finish_survey():
+    lang = request.form["language"]
+    getUsageOfRobotos(lang)
+    getDailyOfRobots(lang)
+    getfirstOpinion(input.opinionLabel1, input.opinionCheckboxes1, lang)
+    getfirstOpinion(input.opinionLabel2, input.opinionCheckboxes2, lang)
+    getMissingRobots(lang)
+    render = ""
+    if lang == "ger" :
+        render = 'finished_survey.html'
+    else:
+        render = 'finished_survey_en.html'
+    #render = "finished_survey.html" if lang == "ger" else render = "finished_survey_en.html"
+    return render_template(render)
+
+def writeTOCSV_en(l, which):
+    w = ""
+    if which == "use":
+        w = "survey/survey_usage_en.csv"
+    elif which == "daily":
+        w = "survey/survey_daily_en.csv"
+    elif which == "missing":
+        w = "survey/survey_missing_en.csv"
+    else:
+        w = "survey/survey_opinion_en.csv"
+    with open(w, "a", newline= "") as f:
+        writer = csv.writer(f)
+        writer.writerows(l)
+
+def writeTOCSV_ger(l, which):
+    w = ""
+    if which == "use":
+        w = "survey/survey_usage_de.csv"
+    elif which == "daily":
+        w = "survey/survey_daily_de.csv"
+    elif which == "missing":
+        w = "survey/survey_missing_de.csv"
+    else:
+        w = "survey/survey_opinion_de.csv"
+    with open(w, "a", newline= "") as f:
+        writer = csv.writer(f)
+        writer.writerows(l)
+
+def getMissingRobots(lang):
+    if request.method == "POST":
+        try:
+            output = list()
+            p = list()
+            f = list()
+            place = request.form['placeOfMissing']
+            func = request.form['functionOfMissing']
+            p.append(place)
+            f.append(func)
+            output = list(zip(p,f))
+            writeTOCSV_ger(output, "missing") if lang == "ger" else writeTOCSV_en(output, "missing")
+        except Exception as e:
+            print("Missing: " + str(e))
+def getfirstOpinion(label, checkbox, lang):
+    if request.method == "POST":
+        try:
+            opinion = list()
+            for i in checkbox:
+                if request.form.get(i[0]) == "on":
+                    opinion.append("Yes")
+                elif request.form.get(i[1]) == "on":
+                    opinion.append("No")
+                elif request.form.get(i[2]) == "on":
+                    opinion.append("Unsure")
+            zippedList = list(zip(label, opinion))
+            writeTOCSV_ger(zippedList, "") if lang == "ger" else writeTOCSV_en(zippedList, "")
+        except Exception as e:
+            print(str(e))
+def getDailyOfRobots(lang):
+    if request.method=="POST":
+        try:
+            quantity = list()
+            function = list()
+            miscNum = request.form['quantitiyMisc']
+            miscName = request.form['nameOfMisc']
+            miscFunc = request.form['functionMisc']
+
+            for i in input.dailyQuanitity:
+                num = request.form[i]
+                quantity.append(num)
+            for n in input.dailyFunction:
+                func = request.form[n]
+                function.append(func)
+            zippedList = list(zip(input.dailyLabel, quantity, function))
+            zippedList.append(('Misc', miscNum, miscFunc, miscName))
+            writeTOCSV_ger(zippedList, "daily") if lang == "ger" else writeTOCSV_en(zippedList, "daily")
+        except Exception as e:
+            print(str(e))
+
+def getUsageOfRobotos(lang):
+    if request.method=="POST":
+        try:
+            quantitiy = list()
+            function = list()
+            miscNum = request.form['usageMisc']
+            miscFunc = request.form['usageMiscFunction']
+            miscName = request.form['nameOfMisc2']
+            for i in input.usageQuantitiy:
+                num = request.form[i]
+                print(num)
+                quantitiy.append(num)
+            for n in input.usageFunction:
+                func = request.form[n]
+                print(func)
+                function.append(func)
+            zippedList = list(zip(quantitiy, function))
+            zippedList.append(('Misc', miscNum, miscFunc, miscName))
+
+            writeTOCSV_ger(zippedList, "daily") if lang == "ger" else writeTOCSV_en(zippedList, "daily")
+
+        except Exception as e:
+            print(str(e))
+
+@app.route('/contact_survey', methods=['POST', 'GET'])
+def contact_survey():
+    return render_template('contact_survey.html')
+
+@app.route('/contact_survey_en', methods=['POST', 'GET'])
+def contact_survey_en():
+    return render_template('contact_survey_em.html')
+
+@app.route('/about_survey', methods=['POST', 'GET'])
+def about_survey():
+    return render_template('about_survey.html')
+
+@app.route('/about_survey_en', methods=['POST', 'GET'])
+def about_survey_en():
+    return render_template('about_survey_en.html')
+
 
 
 app.secret_key= 'nutron'
