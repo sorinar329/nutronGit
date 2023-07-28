@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+    <link rel="stylesheet" href='../static/css/stylesheet.css'>
+    <link rel="stylesheet" href='../static/css/laptop.css'>
+    <link rel="stylesheet" href="../static/css/mobile.css">
+    <link rel="stylesheet" href="../static/css/productScan.css">
+
+    <title>Disease Filter</title>
+
+</head>
+
+<div class="bg-image">
+
+</div>
+<div class="navbarmobile" id="myTopnav">
+    <div class="dropdown2">
+        <button onclick="myFunction()" class="dropbtn2"><i class="fa fa-bars"></i>
+        </button>
+        <div id="myDropdown" class="dropdown2-content">
+            <form action="{{ url_for('homepage') }}" method="POST" id="formhome">
+                <input type="hidden" name="username" value=" {{ username }}">
+                <a href="#" onclick="document.getElementById('formhome').submit()">Nutron</a>
+            </form>
+            <form action="{{ url_for('logouttohome') }}" method="POST" id="formbackhome">
+                <a href="#" onclick="document.getElementById('formbackhome').submit()">ProductKG</a>
+            </form>
+            <form action="{{ url_for('contactnutron') }}" method="POST" id="formcontact">
+                <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
+            </form>
+            <form action="{{ url_for('disclaimernutron') }}" method="POST" id="formdisclaimer">
+                <a href="#" onclick="document.getElementById('formdisclaimer').submit()">Disclaimer</a>
+            </form>
+            <form action="{{ url_for('logout') }}" method="POST" id="formlogout">
+                <a href="#" onclick="document.getElementById('formlogout').submit()">Logout <i
+                        class="fa fa-sign-out"></i></a>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="navbar">
+    <i id="icon" class="fa fa-leaf"></i>
+    <div class="title">
+        <h1>NutrOn</h1>
+    </div>
+    <form action="{{ url_for('homepage') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="homebutton" type="submit" value="Homepage"/><br>
+    </form>
+    <form action="{{ url_for('contactnutron') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="contact" type="submit" value="Contact"/><br>
+    </form>
+    <form action="{{ url_for('disclaimernutron') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="disclaimer" type="submit" value="Disclaimer"/><br>
+    </form>
+    <form action="{{ url_for('logouttohome') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="backhome" type="submit" value="ProductKG"/><br>
+    </form>
+
+
+    <div class="dropdown">
+        <i id="dropdown" class="fa fa-user"></i>
+        <div class="dropdown-content">
+            {% for item in everything %}
+                <a href="#">Weight: {{ item[4] }}</a>
+                <a href="#">Gender: {{ item[2] }}</a>
+            {% endfor %}
+            <a href="#">Age: {{ userage }}</a>
+            <a href="#">Activity Level: {{ useractivity }}</a>
+        </div>
+    </div>
+    <form action="{{ url_for('logout') }}" method="post">
+        <button><i class="fa fa-sign-out" id="logout"></i></button>
+    </form>
+</div>
+<body style="overflow-y: auto; overflow-x:hidden">
+<div>
+    <div class="tutorialBox">
+        <div class="infobox">
+            <h4 class="infoText">How To:</h4>
+            <p>Do you want to get information about a specific disease? </p>
+            <p> Just select it and as a return, you will get information in terms of symptoms of the disease,
+                ingredients that have a connection, and the products that have these ingredients. </p>
+            <p> Again, you can get more information by pressing the "More Information" button.</p>
+
+            <p style="font-weight: bold; color: red;">Caution. This is an informational site only, it is not meant
+                to be a diagnosis.
+                If you have any problems and/or are concerned about your health, visit your primary care
+                physician.</p>
+        </div>
+    </div>
+
+    <div class="panel-body">
+
+        <div class="infobox">
+
+            <div class="form">
+                <h4 style="font-family: 'Ubuntu', sans-serif; text-align: center">Please select the disease you want to
+                    query.</h4>
+            </div>
+            <div class="toptable">
+                <div class="form">
+                    <form style="text-align: center" action="/disease_filter/" method="post">
+                        <label class="searchLabel" style="font-family: 'Ubuntu', sans-serif">Disease: </label>
+                        <select name="diseaseSelection" id="selection" class="form-control" style="width: max-content">
+                            <option value="" hidden="true">Choose a disease</option>
+                            <option value="Hypertension">Hypertension</option>
+                            <option value="Essential_hypertension">Essential Hypertension</option>
+                            <option value="Eosinophillic_esophagitis">Eosinophillic Esophagitis</option>
+                            <option value="Uremia">Uremia</option>
+                            <option value="Ulcerative_colitis">Ulcerative Colitis</option>
+                            <option value="Lactic_acidosis">Lactic Acidosis</option>
+                            <option value="Benzoic_acid_allergic_contact_dermatitis">Benzoic Acid Allergy Contact
+                                Dermatitis
+                            </option>
+                        </select>
+
+                        <p style="font-family:'Ubuntu', sans-serif;"> Please select following options: </p>
+                        <div>
+                            <label for="getSymptoms">
+                                <input type="checkbox" class="symptomChoice" id="getSymptoms" name="getSymp">
+                                Get Symptoms of the disease</label>
+                        </div>
+                        <div>
+                            <label for="getIngredients">
+                                <input type="checkbox" class="ingredientChoice" id="getIngredients" name="getIng">
+                                Get Ingredients that could trigger/support this disease</label>
+                        </div>
+                        <div>
+                            <label for="getProducts">
+                                <input type="checkbox" class="productChoise" id="getProducts" name="getProd">
+                                Get all Products with Ingredients associated with this
+                                disease.</label>
+                        </div>
+                        <div>
+                            <p style="font-size: 10px">If no selection has been made, then you will receive all the
+                                information that is currently available for this disease.</p>
+                        </div>
+                        <input name="ingredient" type="submit" class="dashButton" id="button" value="Search">
+
+                    </form>
+                    <h5 style="text-align: center">Chosen Disease: {{ disease }}</h5>
+
+
+                            {% for entry in wikientry %}
+                                {% if entry|length == 0 %}
+                                {% else %}
+                            <a class="dashButton" href="{{ entry['diseaseEntry']['value'] }}" target="_blank" style="text-align: center">
+                                <button class="dashButton" style="text-align: center; margin-bottom: 10px; margin-left:30%">Go To Wikidata for {{ disease }}</button>
+                            </a>
+                                {% endif %}
+                            {% endfor %}
+
+
+
+                    <br>
+                </div>
+            </div>
+
+            <div class="form">
+
+            </div>
+            <div>
+
+
+                <div>
+
+                    <div class="tables" style="overflow:auto">
+                        <button class="collapsible"> Associated Symptoms</button>
+                        <div class="content">
+                            <table align="left" id="symptoms" class="table">
+                                <thead>
+                                <th style="width: 30%;">Name</th>
+                                <th style="width: 50%;">Class</th>
+                                <th style="width: max-content;">Details</th>
+                                <th style="width: 50%;">Wikidata</th>
+                                </thead>
+                                <tbody>
+                                {% if symptoms|length == 0 %}
+                                    <tr>
+                                        <td><b> It seems no symptoms were found for this disease.</b></td>
+                                    </tr>
+                                {% endif %}
+                                {% for item in symptoms %}
+                                    <tr>
+                                        <td><b>{{ item[0] }}</b></td>
+                                        <td> {{ item[3] }}</td>
+                                        {% if item[0] in treatment %}
+                                            <td id="detail">
+                                                <form action="/query_treatment/" method="post" id="details">
+                                                    <input name="symp" type="hidden" value="{{ item[0] }}">
+                                                    <input type="submit" value="Details" class="dashButton">
+                                                </form>
+                                            </td>
+                                        {% else %}
+                                            <td style="width: max-content">
+                                                Nothing found.
+                                            </td>
+                                        {% endif %}
+                                        {% if item[2] == "" %}
+                                            <td>
+                                                No Wikidata-page found.
+                                            </td>
+                                        {% else %}
+                                            <td>
+                                                <a class="dashButton" href="{{ item[2] }}" target="_blank">
+                                                    <button class="dashButton">Go To</button>
+                                                </a>
+                                            </td>
+                                        {% endif %}
+
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <div class="tables" style="overflow: auto">
+                        <button class="collapsible">Ingredients associated with the Disease</button>
+                        <div class="content">
+                            <table align="left" id="ingredient" class="table">
+                                <thead>
+                                <tr>
+                                    <th style="width: 30%">Name</th>
+                                    <th style="width: 40%">Class</th>
+                                    <th style="width: 15%">Details</th>
+                                    <th>Wikidata</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if ingredients|length == 0 %}
+                                    <tr>
+                                        <td><b> Please select the Ingredients Option to see the associated
+                                            Ingredients.</b>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% for item in ingredients %}
+                                    <tr>
+                                        <td><b style="font-family: 'Ubuntu', sans-serif">{{ item[0] }}</b>
+                                        </td>
+                                        <td>{{ item[2] }}</td>
+                                        <td>
+                                            <form action="/query_ingredient/" method="post" id="details">
+                                                <input name="ingredient" type="hidden" value="{{ item[0] }}">
+                                                <input type="submit" value="Details" class="dashButton">
+                                            </form>
+                                        </td>
+                                        {% if item[1] == "" %}
+                                            <td>
+                                                No Wikidata-page found.
+                                            </td>
+                                        {% else %}
+                                            <td>
+                                                <a href="{{ item[1] }}" target="_blank">
+                                                    <button class="dashButton">
+                                                        See more
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="tables" style="overflow: auto">
+                        <button class="collapsible">Products with the associated Ingredients</button>
+                        <div class="content">
+                            <table align="left" id="products" class="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>See all Ingredients</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if products|length == 0 %}
+                                    <tr>
+                                        <td><b> To see the products with the associated ingredients, please select the
+                                            product option.</b></td>
+                                    </tr>
+                                {% endif %}
+                                {% for item in products %}
+                                    <tr>
+                                        <td><b>{{ item[0] }}</b></td>
+                                        <td>
+                                            <form action="/query_product/" method="post" id="details">
+                                                <input name="prod" type="hidden" value="{{ item[1] }}">
+                                                <input id="details" class="dashButton" type="submit" value="Details">
+                                            </form>
+                                        </td>
+                                    </tr>
+
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <footer style="z-index: -1">
+        <p>Projekt der Universität Bremen
+        <p>
+            <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+    </footer>
+</div>
+</body>
+
+</html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+
+</script>
+{#</body>#}

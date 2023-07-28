@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://css.gg/profile.css' rel='stylesheet'>
+    <link rel="stylesheet" href='../static/css/stylesheet.css'>
+    <link rel="stylesheet" href='../static/css/laptop.css'>
+    <link rel="stylesheet" href="../static/css/mobile.css">
+    <link rel="stylesheet" href="../static/css/productScan.css">
+
+    <title>Ingredient Filter</title>
+
+</head>
+
+<div class="bg-image">
+
+</div>
+<div class="navbarmobile" id="myTopnav">
+    <div class="dropdown2">
+        <button onclick="myFunction()" class="dropbtn2"><i class="fa fa-bars"></i>
+        </button>
+        <div id="myDropdown" class="dropdown2-content">
+            <form action="{{ url_for('homepage') }}" method="POST" id="formhome">
+                <input type="hidden" name="username" value=" {{ username }}">
+                <a href="#" onclick="document.getElementById('formhome').submit()">Nutron</a>
+            </form>
+            <form action="{{ url_for('logouttohome') }}" method="POST" id="formbackhome">
+                <a href="#" onclick="document.getElementById('formbackhome').submit()">ProductKG</a>
+            </form>
+            <form action="{{ url_for('contactnutron') }}" method="POST" id="formcontact">
+                <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
+            </form>
+            <form action="{{ url_for('disclaimernutron') }}" method="POST" id="formdisclaimer">
+                <a href="#" onclick="document.getElementById('formdisclaimer').submit()">Disclaimer</a>
+            </form>
+            <form action="{{ url_for('logout') }}" method="POST" id="formlogout">
+                <a href="#" onclick="document.getElementById('formlogout').submit()">Logout <i
+                        class="fa fa-sign-out"></i></a>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="navbar">
+    <i id="icon" class="fa fa-leaf"></i>
+    <div class="title">
+        <h1>NutrOn</h1>
+    </div>
+    <form action="{{ url_for('homepage') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="homebutton" type="submit" value="Homepage"/><br>
+    </form>
+    <form action="{{ url_for('contactnutron') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="contact" type="submit" value="Contact"/><br>
+    </form>
+    <form action="{{ url_for('disclaimernutron') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="disclaimer" type="submit" value="Disclaimer"/><br>
+    </form>
+    <form action="{{ url_for('logouttohome') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="backhome" type="submit" value="ProductKG"/><br>
+    </form>
+
+
+    <div class="dropdown">
+        <i id="dropdown" class="fa fa-user"></i>
+        <div class="dropdown-content">
+            {% for item in everything %}
+                <a href="#">Weight: {{ item[4] }}</a>
+                <a href="#">Gender: {{ item[2] }}</a>
+            {% endfor %}
+            <a href="#">Age: {{ userage }}</a>
+            <a href="#">Activity Level: {{ useractivity }}</a>
+        </div>
+    </div>
+    <form action="{{ url_for('logout') }}" method="post">
+        <button><i class="fa fa-sign-out" id="logout"></i></button>
+    </form>
+</div>
+<body style="overflow-y: auto; overflow-x: hidden" >
+<div class="tutorialBox">
+    <div class="infobox">
+        <h4 class="infoText" style="text-align: center">How To:</h4>
+        <p>Please select your desired ingredient. You can do this by using the drop-down menu.</p>
+        <p>If you have successfully selected an ingredient and click on "Search" you will get a list of symptoms,
+            diseases and products.</p>
+        <p> If you are interested in a symptom or a product, you can click on the button "More information" to get
+            to an external page.</p>
+        <p>If you click on the "Show more" button, you will be taken to the filter page with more results for the
+            selected entry.</p>
+    </div>
+
+</div>
+<div class="infobox">
+    <div class="toptable">
+        <div class="form">
+            <h4 class="selectionText"> Please select the ingredient you want to query. </h4>
+            <br>
+            <p class="selectionText">It is possible that some ingredients may not have
+                available data yet.
+            </p>
+            <form style="text-align: center" action='/ingredientQuery/' method="post">
+                <label for="all_products" style="font-weight: bold">Ingredient </label>
+                <select  style="width: max-content" name="selectedIngredient" class="form-control" id="all_products">
+                    <option value="" disabled selected hidden>Select the Ingredient</option>
+                    <option value="Ethanol_containing_medium">Alcohol Denat</option>
+                    <option value="Ascorbic_acid">Ascorbic Acid</option>
+                    <option value="Benzoic_acid">Benzoic Acid</option>
+                    <option value="Benzyl_alcohol">Benzyl Alcohol</option>
+                    <option value="Glutamic_acid">Glutamic Acid</option>
+                    <option value="Glycolic_acid">Glycolic Acid</option>
+                    <option value="Lactic_acid">Lactic Acid</option>
+                    <option value="Levulinic_acid">Levulinic Acid</option>
+                    <option value="Linoleic_acid">Linoleic Acid</option>
+                    <option value="Linolenic_acid">Linolenic Acid</option>
+                    <option value="Stearic_acid">Stearic Acid</option>
+                    <option value="Palmitic_acid">Palmitic Acid</option>
+                    <option value="Tartaric_acid">Tartaric Acid</option>
+
+                </select>
+                <br>
+                <input name="nutrient" type="submit" class="dashButton" value="Search">
+            </form>
+
+        </div>
+        <h5 style="text-align: center">Chosen Ingredient: {{ selectedIngredient }}</h5>
+                                    {% for entry in wikientry %}
+                                {% if entry|length == 0 %}
+                                {% else %}
+                            <a class="dashButton" href="{{ entry['entry']['value'] }}" target="_blank" style="text-align: center">
+                                <button class="dashButton" style="text-align: center; margin-bottom: 10px; margin-left:30%">Go To Wikidata for {{ selectedIngredient }}</button>
+                            </a>
+                                {% endif %}
+                            {% endfor %}
+    </div>
+    <div class="tables" style="overflow: auto">
+        <button class="collapsible" style="height: 5%">Associated Diseases\ Symptoms of {{ selectedIngredient }}</button>
+
+        <div class="content">
+ {% if diseases|length == 0 %}
+            <p>                        Currently no information related to a disease or symptom can be found for this ingredient
+</p>
+            {% else %}
+            <table align="left" id="symptoms" class="table" style="overflow-y: scroll; height: max-content; display: block">
+
+                <thead>
+                <th style="width: 30%; text-align: center">Name</th>
+                <th style="width: 30%">Class</th>
+                <th style="width: max-content">Type</th>
+                <th style="width: max-content">Details</th>
+                <th style="width: 30%">WikiData Entry</th>
+                </thead>
+                <tbody>
+                {% for item in diseases %}
+                    <tr>
+                        <td>
+                            <b>{{ item[0] }}</b>
+                        </td>
+                        <td>{{ item[3] }}</td>
+                        {% if item[1] == "http://purl.org/ProductKG/symptom-disease#doid" %}
+                            <td>
+                                Disease
+                            </td>
+                        {% elif item[1] == "http://purl.org/ProductKG/symptom-disease#symp" %}
+                            <td>
+                                Symptom
+                            </td>
+                        {% else %}
+                            <td>
+                                Symptom
+                            </td>
+                        {% endif %}
+                    {% if item[1] == "http://purl.org/ProductKG/symptom-disease#doid" %}
+                        <td style="text-align: center">
+                             <form  action="/query_disease/" method="post" id="details" class="dashButton" style="text-align: center">
+                                <input name="disease" type="hidden" value="{{ item[0] }}">
+                                <input type="submit" value="Details" class="dashButton">
+                             </form>
+                        </td>
+                        {% elif item[0] in treatment %}
+                        <td>
+                             <form action="/query_treatment/" method="post" id="details">
+                                <input name="symptom" type="hidden" value="{{ item[0] }}">
+                                <input type="submit" value="Details" class="dashButton">
+                            </form>
+                        </td>
+                        {% else %}
+                        <td>
+                            No Details
+                        </td>
+
+                        {% endif %}
+                    {% if item[2] == '' %}
+                    <td>
+                    No Wikidata-page found.
+                    </td>
+                    {% else %}
+                    <td>
+                        <a href="{{ item[2] }}" target="_blank">
+                            <button class="dashButton" > Go to </button>
+                        </a>
+
+                    </td>
+                    {% endif %}
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+    </div>
+
+
+<div class="tables" style="overflow: auto">
+    <button class="collapsible">Products with the associated Ingredients</button>
+    <div class="content">
+        <table align="left" id="products" class="table" style="overflow-y:scroll;
+   height:250px;
+   display:block;">
+            <thead>
+            <tr>
+                <th style="width: 100%">Name</th>
+                <th style="width: 50%">See More</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in products %}
+                <tr>
+                    <td style="text-align: center"><b>{{ item[0] }}</b></td>
+                    <td>
+                        <form action="/query_product/" method="post" id="details">
+                            <input name="prod" type="hidden" value="{{ item[1] }}">
+                            <input id="details" class="dashButton" type="submit" value="Details">
+                        </form>
+
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</div>
+<footer style="z-index: -1">
+    <p>Projekt der Universität Bremen
+    <p>
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+</footer>
+</body>
+<div>
+
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+
+</script>
+</html>

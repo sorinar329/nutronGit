@@ -134,6 +134,7 @@ def sparklis():
         return render_template('osparklis.html')
 
 
+
 #logout function
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
@@ -580,11 +581,17 @@ def set_language():
 
     return render_template('survey.html')
 
+@app.route('/surveys_and_experiments', methods=['GET', 'POST'])
+def surveys_and_experiments():
+    return render_template('new_surveys_experiments.html')
 
+@app.route('/experiment_chabot', methods=['GET', 'POST'])
+def chatbot():
+    return render_template('new_experiment.html')
 
 @app.route('/survey', methods=['POST', 'GET'])
 def survey():
-    return render_template('survey.html')
+    return render_template('surveys/survey.html')
 
 @app.route('/finish_survey', methods=['POST', 'GET'])
 def finish_survey():
