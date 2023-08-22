@@ -98,14 +98,12 @@ def backhome():
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
-    if request.method == 'POST':
-        return render_template('contact.html')
+    return render_template('contact.html')
 
 
 @app.route('/disclaimer', methods=['POST', 'GET'])
 def disclaimer():
-    if request.method == 'POST':
-        return render_template('disclaimer.html')
+    return render_template('disclaimer.html')
 
 
 @app.route('/contactnutron', methods=['POST', 'GET'])
@@ -157,15 +155,17 @@ def logouttohome():
         conn.execute("DELETE from 'user' where name = ?", (username,))
         conn.commit()
         conn.close()
-        return render_template("TestHome.html")
+        return render_template("new_homepage.html")
 
 
 
-@app.route('/index', methods=['POST', 'GET'])
-def index():
-    if request.method == 'POST':
-        return render_template('index.html')
+@app.route('/nutron_landingpage', methods=['POST', 'GET'])
+def nutron_landingpage():
+    return render_template("nutron/new_nutronlandingpage.html")
 
+@app.route("/nutron_continue_without_registration", methods=["POST", "GET"])
+def nutron_continue_without_registration():
+    return render_template("nutron/new_nutron_continue_without_account.html")
 
 
 #inserting user data into the database
@@ -184,7 +184,7 @@ def addrec():
 
 
     if str(username) in names:
-        return render_template("index_login_failed.html")
+        return render_template("nutron/new_nutron_continue_without_account_failed.html")
     else:
         if request.method == 'POST':
             try:
@@ -206,7 +206,7 @@ def addrec():
                 msg = "error in insert operation"
 
             finally:
-                return render_template("new_homepage.html", msg=msg, username=name,userage=userDAO.getprofileage(),
+                return render_template("nutron/homepage.html", msg=msg, username=name,userage=userDAO.getprofileage(),
                                        useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything())
 
 
@@ -220,7 +220,7 @@ def homepage():
         if redirecttologin() == None:
             return render_template('index.html')
         else:
-            return render_template('new_homepage.html', userage=userDAO.getprofileage(),
+            return render_template('nutron/homepage.html', userage=userDAO.getprofileage(),
                                    useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything())
 
 
