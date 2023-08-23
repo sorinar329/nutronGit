@@ -98,12 +98,12 @@ def backhome():
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
-    return render_template('contact.html')
+    return render_template('new_contact.html')
 
 
 @app.route('/disclaimer', methods=['POST', 'GET'])
 def disclaimer():
-    return render_template('disclaimer.html')
+    return render_template('new_disclaimer.html')
 
 
 @app.route('/contactnutron', methods=['POST', 'GET'])
