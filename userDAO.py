@@ -4,7 +4,7 @@ import os.path
 
 # Path of the Database "user.db"
 
-db_path = ("/var/www/nutron/user.db")
+db_path = ("/var/www/nutronGit/user.db")
 #db_path = ('user.db')
 
 
