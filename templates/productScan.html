@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" style="overflow: scroll">
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://css.gg/profile.css' rel='stylesheet'>
     <link rel="stylesheet" href='../static/css/stylesheet.css'>
@@ -9,7 +11,8 @@
     <link rel="stylesheet" href="../static/css/mobile.css">
     <link rel="stylesheet" href="../static/css/productScan.css">
 
-    <title>Product Scan</title>
+
+    <title>Product Scaner</title>
 
 </head>
 
@@ -17,158 +20,178 @@
 
 </div>
 <div class="navbarmobile" id="myTopnav">
-  <div class="dropdown2">
-  <button onclick="myFunction()" class="dropbtn2"><i class="fa fa-bars"></i>
-  </button>
-  <div id="myDropdown" class="dropdown2-content">
-        <form action = "{{ url_for('homepage') }}" method = "POST" id="formhome">
-            <input type="hidden" name="username" value=" {{ username }}">
-            <a href="#" onclick="document.getElementById('formhome').submit()">Nutron</a>
-        </form>
-        <form action = "{{ url_for('logouttohome') }}" method = "POST" id="formbackhome">
-            <a href="#" onclick="document.getElementById('formbackhome').submit()">ProductKG</a>
-        </form>
-        <form action = "{{ url_for('contactnutron') }}" method = "POST" id="formcontact">
-            <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
-        </form>
-        <form action = "{{ url_for('disclaimernutron') }}" method = "POST" id="formdisclaimer">
-            <a href="#" onclick="document.getElementById('formdisclaimer').submit()">Disclaimer</a>
-        </form>
-        <form action = "{{ url_for('logout') }}" method = "POST" id="formlogout">
-            <a href="#" onclick="document.getElementById('formlogout').submit()">Logout  <i class="fa fa-sign-out"></i></a>
-        </form>
-  </div>
-</div>
+    <div class="dropdown2">
+        <button onclick="myFunction()" class="dropbtn2"><i class="fa fa-bars"></i>
+        </button>
+        <div id="myDropdown" class="dropdown2-content">
+            <form action="{{ url_for('homepage') }}" method="POST" id="formhome">
+                <input type="hidden" name="username" value=" {{ username }}">
+                <a href="#" onclick="document.getElementById('formhome').submit()">Nutron</a>
+            </form>
+            <form action="{{ url_for('logouttohome') }}" method="POST" id="formbackhome">
+                <a href="#" onclick="document.getElementById('formbackhome').submit()">ProductKG</a>
+            </form>
+            <form action="{{ url_for('contactnutron') }}" method="POST" id="formcontact">
+                <a href="#" onclick="document.getElementById('formcontact').submit()">Contact</a>
+            </form>
+            <form action="{{ url_for('disclaimernutron') }}" method="POST" id="formdisclaimer">
+                <a href="#" onclick="document.getElementById('formdisclaimer').submit()">Disclaimer</a>
+            </form>
+            <form action="{{ url_for('logout') }}" method="POST" id="formlogout">
+                <a href="#" onclick="document.getElementById('formlogout').submit()">Logout <i
+                        class="fa fa-sign-out"></i></a>
+            </form>
+        </div>
+    </div>
 </div>
 <div class="navbar">
     <i id="icon" class="fa fa-leaf"></i>
     <div class="title">
         <h1>NutrOn</h1>
     </div>
-<form action = "{{ url_for('homepage') }}" method = "POST">
-                <input name="username" type="hidden" value="{{ username }}">
-                <input class="btn" id="homebutton" type ="submit" value = "Homepage" /><br>
-</form>
-<form action = "{{ url_for('contactnutron') }}" method = "POST">
-                <input name="username" type="hidden" value="{{ username }}">
-                <input class="btn" id="contact" type ="submit" value = "Contact" /><br>
-</form>
-<form action = "{{ url_for('disclaimernutron') }}" method = "POST">
-                <input name="username" type="hidden" value="{{ username }}">
-                <input class="btn" id="disclaimer" type ="submit" value = "Disclaimer" /><br>
-</form>
-<form action = "{{ url_for('logouttohome') }}" method = "POST">
-                <input name="username" type="hidden" value="{{ username }}">
-                <input class="btn" id="backhome" type ="submit" value = "ProductKG" /><br>
-</form>
+    <form action="{{ url_for('homepage') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="homebutton" type="submit" value="Homepage"/><br>
+    </form>
+    <form action="{{ url_for('contactnutron') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="contact" type="submit" value="Contact"/><br>
+    </form>
+    <form action="{{ url_for('disclaimernutron') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="disclaimer" type="submit" value="Disclaimer"/><br>
+    </form>
+    <form action="{{ url_for('logouttohome') }}" method="POST">
+        <input name="username" type="hidden" value="{{ username }}">
+        <input class="btn" id="backhome" type="submit" value="ProductKG"/><br>
+    </form>
 
 
-<div class="dropdown">
-  <i id="dropdown" class="fa fa-user"></i>
-  <div class="dropdown-content">
-      {% for item in everything %}
-    <a href="#">Weight: {{ item[4] }}</a>
-    <a href="#">Gender: {{ item[2] }}</a>
-       {% endfor %}
-    <a href="#">Age: {{ userage }}</a>
-    <a href="#">Activity Level: {{ useractivity }}</a>
-  </div>
+    <div class="dropdown">
+        <i id="dropdown" class="fa fa-user"></i>
+        <div class="dropdown-content">
+            {% for item in everything %}
+                <a href="#">Weight: {{ item[4] }}</a>
+                <a href="#">Gender: {{ item[2] }}</a>
+            {% endfor %}
+            <a href="#">Age: {{ userage }}</a>
+            <a href="#">Activity Level: {{ useractivity }}</a>
+        </div>
+    </div>
+    <form action="{{ url_for('logout') }}" method="post">
+        <button><i class="fa fa-sign-out" id="logout"></i></button>
+    </form>
 </div>
-<form action="{{ url_for('logout') }}" method="post">
-    <button ><i class="fa fa-sign-out" id="logout"></i></button>
-</form>
-</div>
-<body style="overflow: scroll">
+<body style="overflow-y: auto; overflow-x: hidden">
 <div>
     <div class="tutorialBox">
         <div class="infobox">
             <h class="infoText">How To:</h>
-            <p>On this page, you can either manually upload an image of a barcode or hold the desired product in front
-                of your camera.</p>
+            <p>On this page, you can either manually upload an image of a barcode, hold the desired product in front
+                of your camera or search via the search bar for your product.</p>
             <p>If the page finds a barcode, it will be searched in our database.</p>
             <p> If the product is in the database you will get the listing of the ingredients.</p>
             <p> You can get more information about specific ingredients by clicking on the "More information"
                 button. </p>
-            <p> If you click the link below you will download an example image of barcode, that can be used for this
-            purpose</p>
         </div>
     </div>
 
-    <div class="panel-body" style="overflow: auto">
+    <div class="panel-body">
 
         <div class="infobox">
 
-            </p>
-            <a href="../static/images/barcode_benzoic.png" download>Download Example Image</a>
-            <div class="form">
+            <div class="toptable" style="text-align: center">
+                <div class="form">
+                    <form action="/query_product/" method="post">
+                        <label for="all_products"><b>Product:</b></label>
+                        <select style="alignment: center" name="prod" id="combobox">
+                            <option value="" disabled selected hidden> Search for the product</option>
+                            {% for item in products %}
+                                <option value="{{ item ['class'] }}"> {{ item ['label'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <input style="margin-left: 25px" type="submit" class="dashButton" value="Search">
+
+                    </form>
+                </div>
+            </div>
+            <div class="form" style="text-align: center">
                 <form enctype="multipart/form-data" action="/upload_file/" method="POST">
                     <p class="dashButton">File: <input type="file" name="filename"/></p>
                     <p><input type="submit" value="Upload" class="dashButton"></p>
                 </form>
                 <form enctype="multipart/form-data" action="/upload_webcam/" method="POST">
-                    <!--<p>File: <input type="file" name="filename"/></p>-->
                     <p><input type="submit" value="Use webcam" class="dashButton"></p>
                 </form>
-            </div>
-            <div class="form">
+                <a href="../static/images/barcode_benzoic.png" download>Download Example Image</a>
 
             </div>
-       	{% with messages = get_flashed_messages() %}
-	  {% if messages %}
-		<ul>
-		{% for message in messages %}
-		  <li>{{ message }}</li>
-		{% endfor %}
-		</ul>
-	  {% endif %}
-	{% endwith %}
-            <div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
 
-
-                <div class="tables" style="overflow: auto">
-                    <button class="collapsible">Ingredients of product</button>
-                    <div class="content">
-                        <table align="left" id="ingredient" class="table">
-                            <thead>
+            <div class="tables" style="overflow: auto">
+                <button class="collapsible">Ingredients of product</button>
+                <div class="content">
+                    <table align="left" id="ingredient" class="table">
+                        <thead>
+                        <tr>
+                            <th style="width: 50%">Ingredient</th>
+                            <th style="width: 50%">Class</th>
+                            <th style="width: 50%">Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in harmful_ingredients %}
                             <tr>
-                                <th >Ingredient</th>
-                                <th >Classification</th>
+                                <td style="background: lightcoral; border-radius: 3px !important; text-align: center ">
+                                    <b>{{ item[0] }}</b></td>
+                                <td style="text-align: center">{{ item[1] }}</td>
+                                <td>
+                                    <form action="/query_ingredient/" method="post" id="details">
+                                        <input name="ingredient" type="hidden" value="{{ item[0] }}">
+                                        <input type="submit" value="Details" class="dashButton">
+                                    </form>
+                                </td>
+
                             </tr>
-                            </thead>
-                            <tbody>
-                            {%for item in harmful_ingredients%}
+                        {% endfor %}
+                        {% for item in ingredients %}
                             <tr>
-                                <td style="background: lightcoral; "><b>{{item[0]}}</b></td>
-                                <td >{{item[1]}}</td>
-
-                            </tr>
-                            {%endfor%}
-                            {%for item in ingredients %}
-                            <tr>
-                                <td style="background: #a0f0a0"><b>{{item}} </b></td>
+                                <td style="background: #a0f0a0;  border-radius: 3px !important; text-align: center">
+                                    <b>{{ item }} </b></td>
                                 <td>
 
                                 </td>
 
                             </tr>
-                            {%endfor%}
+                        {% endfor %}
 
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 
-<footer>
-         <p>Projekt der Universität Bremen<p>
+<footer style="z-index:-1">
+    <p>Projekt der Universität Bremen
+    <p>
         <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+
 <script>
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
@@ -189,7 +212,152 @@
         });
     }
 
+    function foo(obj) {
+        obj.disabled = true;
+        setTimeout(function () {
+            obj.disabled = false;
+        }, 2000);
+    }
+
+    $(function () {
+        $.widget("custom.combobox", {
+            _create: function () {
+                this.wrapper = $("<span>")
+                    .addClass("custom-combobox")
+                    .insertAfter(this.element);
+
+                this.element.hide();
+                this._createAutocomplete();
+                this._createShowAllButton();
+            },
+
+            _createAutocomplete: function () {
+                var selected = this.element.children(":selected"),
+                    value = selected.val() ? selected.text() : "";
+
+                this.input = $("<input>")
+                    .appendTo(this.wrapper)
+                    .val(value)
+                    .attr("title", "")
+                    .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                    .autocomplete({
+                        delay: 0,
+                        minLength: 0,
+                        source: this._source.bind(this)
+                    })
+                    .tooltip({
+                        classes: {
+                            "ui-tooltip": "ui-state-highlight"
+                        }
+                    });
+
+                this._on(this.input, {
+                    autocompleteselect: function (event, ui) {
+                        ui.item.option.selected = true;
+                        this._trigger("select", event, {
+                            item: ui.item.option
+                        });
+                    },
+
+                    autocompletechange: "_removeIfInvalid"
+                });
+            },
+
+            _createShowAllButton: function () {
+                var input = this.input,
+                    wasOpen = false;
+
+                $("<a>")
+                    .attr("tabIndex", -1)
+                    .attr("title", "Show All Items")
+                    .tooltip()
+                    .appendTo(this.wrapper)
+                    .button({
+                        icons: {
+                            primary: "ui-icon-triangle-1-s"
+                        },
+                        text: false
+                    })
+                    .removeClass("ui-corner-all")
+                    .addClass("custom-combobox-toggle ui-corner-right")
+                    .on("mousedown", function () {
+                        wasOpen = input.autocomplete("widget").is(":visible");
+                    })
+                    .on("click", function () {
+                        input.trigger("focus");
+
+                        // Close if already visible
+                        if (wasOpen) {
+                            return;
+                        }
+
+                        // Pass empty string as value to search for, displaying all results
+                        input.autocomplete("search", "");
+                    });
+            },
+
+            _source: function (request, response) {
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                response(this.element.children("option").map(function () {
+                    var text = $(this).text();
+                    if (this.value && (!request.term || matcher.test(text)))
+                        return {
+                            label: text,
+                            value: text,
+                            option: this
+                        };
+                }));
+            },
+
+            _removeIfInvalid: function (event, ui) {
+
+                // Selected an item, nothing to do
+                if (ui.item) {
+                    return;
+                }
+
+                // Search for a match (case-insensitive)
+                var value = this.input.val(),
+                    valueLowerCase = value.toLowerCase(),
+                    valid = false;
+                this.element.children("option").each(function () {
+                    if ($(this).text().toLowerCase() === valueLowerCase) {
+                        this.selected = valid = true;
+                        return false;
+                    }
+                });
+
+                // Found a match, nothing to do
+                if (valid) {
+                    return;
+                }
+
+                // Remove invalid value
+                this.input
+                    .val("")
+                    .attr("title", value + " didn't match any item")
+                    .tooltip("open");
+                this.element.val("");
+                this._delay(function () {
+                    this.input.tooltip("close").attr("title", "");
+                }, 2500);
+                this.input.autocomplete("instance").term = "";
+            },
+
+            _destroy: function () {
+                this.wrapper.remove();
+                this.element.show();
+            }
+        });
+
+        $("#combobox").combobox();
+        $("#toggle").on("click", function () {
+            $("#combobox").toggle();
+        });
+    });
+
+
+
 </script>
-</body>
 </body>
 </html>

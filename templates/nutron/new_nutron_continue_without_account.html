@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Continue without Registration</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/bootstrap-3.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../static/bootstrap-3.4.1/docs/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../static/bootstrap-3.4.1/docs/examples/signin/signin.css" rel="stylesheet">
+    <link href="../../static/bootstrap-3.4.1/docs/examples/cover/cover.css" rel="stylesheet">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+<body>
+
+    <div class="container">
+        <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">NutrOn</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li><a href="/">ProductKG</a></li>
+                  <li><a href="/disclaimer">Disclaimer</a></li>
+                  <li><a href="/contact">Contact</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+      <form action = "{{ url_for('addrec') }}" method = "POST" class="form-signin">
+
+        <br>
+        <br>
+
+        <label for="name" class="sr-only">Name</label>
+        <input class="form-control" type="text" id="name" name="nm" placeholder="Name" required="required">
+          <br>
+         <label for="activity">Select Activity Level:</label>
+         <select class="form-control" name="activity" id="activity" required="required">
+            <option value="" disabled selected hidden>Select your daily activity level</option>
+            <option value="low">low activity (office workers) </option>
+            <option value="mid">average activity (work with partially standing/walking activity)</option>
+            <option value="high">high activity (work with only standing and walking activity) </option>
+        </select>
+          <br>
+
+          <label for="gender">Select your Gender</label>
+         <select class="form-control" name="gender" id="gender" required="required">
+            <option value="" disabled selected hidden>Select your Gender</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+        </select>
+          <br>
+           <label for="age">Select your Age</label>
+         <select class="form-control" name="age" id="age" required="required">
+            <option value="" disabled selected hidden>Select your Age</option>
+            <option value="age7to10">7-9</option>
+            <option value="age10to13">10-12</option>
+            <option value="age13to15">13-14</option>
+            <option value="age15to19">15-18</option>
+            <option value="age19to25">19-24</option>
+            <option value="age25to51">25-50</option>
+            <option value="age51to65">51-65</option>
+        </select>
+          <br>
+
+        <label for="weight">Input your Weight:</label>
+        <input type="text" id="weight" class="form-control" placeholder="Weight" name="weight" required autofocus><br>
+
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Continue</button>
+      </form>
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

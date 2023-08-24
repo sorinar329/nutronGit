@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/survey.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Umfrage</title>
+</head>
+<body>
+<div class="nav">
+    <form action="{{ url_for('survey') }}" method="post" id="formhome">
+        <a href="#" onclick="document.getElementById('formhome').submit()">Home</a>
+    </form>
+    <form action="{{ url_for( 'about_survey') }}" method="post" id="about">
+        <a href="#" onclick="document.getElementById('about').submit()">About</a>
+    </form>
+    <form action="{{ url_for('contact_survey') }}" method="post" id="contact">
+        <a href="#" onclick="document.getElementById('contact').submit()">Kontakt</a>
+    </form>
+    <img src="../static/images/university_new.png" alt="" style="" id="navLogo">
+</div>
+<div class="container">
+    <center>
+<div class="surveyContent" style="margin-left: 15%">
+    <div class="about">
+        <h2>Ihr habt Fragen? Dann kontaktiert uns einfach!</h2>
+        <text>
+            Schreibt uns einfach eine E-Mail an:
+        </text>
+        <br>
+        <a href="email">Email</a>
+            <div style="margin-top: 10%">
+        <p>Du willst mehr über uns erfahren? Dann besuche unsere Webseite oder unsere Social Media Accounts</p>
+        <div style="margin-bottom: 8.5%">
+            <a href="https://www.youtube.com/user/agkiunibremen" target="_blank" class="fa fa-youtube" style="font-size: 350%; color: #05613f"></a>
+            <a href="https://twitter.com/IAI_Bremen"  target="_blank" class="fa fa-twitter" style="font-size: 350%; color: #05613f"></a>
+
+            <a href="https://ai.uni-bremen.de/doku.php?id=start" target="_blank"> <img src="../static/images/ai_logo.png" alt="" style="width: 100px; height: auto"></a>
+        </div>
+    <form action="{{ url_for('backhome') }}" method="post">
+        <input type="submit" Value="Zurück zur Startseite" class="dashButton" style="margin-bottom: 2.5%;">
+    </form>
+
+    <form action="{{url_for( 'index') }}" method="post">
+        <input type="submit" VALUE="Gehe zu NutrOn" class="dashButton">
+    </form>
+        </div>
+    </div>
+</div>
+        </center>
+</div>
+<footer>
+    <p class="footer-label">Projekt der Universität Bremen
+    <p>
+        <!-- <a href="mailto:hege@example.com">hege@example.com</a></p> -->
+        <img src="https://ai.uni-bremen.de/lib/tpl/agkitpl/images/ai_logo.png">
+</footer>
+</body>
+<script>
+    var docWidth = document.documentElement.offsetWidth;
+[].forEach.call(
+  document.querySelectorAll('*'),
+  function(el) {
+    if (el.offsetWidth > docWidth) {
+      console.log(el);
+    }
+  }
+);
+</script>
+
+</html>
