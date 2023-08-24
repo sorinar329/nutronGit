@@ -707,6 +707,168 @@ def query_param():
     return redirect(url_for('sparql_query', product=product, unit=actualunit))
 
 
+
+@app.route('/set_language', methods=['POST', 'GET'])
+def set_language():
+    req = request.form['langButton']
+    print(req)
+    if request.method == 'POST':
+        req = request.form['langButton']
+        print(req)
+        if req == 'English':
+            print("I selected English")
+            return render_template('survey_en.html')
+        elif req == 'German':
+            print('I selected German')
+            return render_template('survey.html')
+
+    return render_template('survey.html')
+
+@app.route('/surveys_and_experiments', methods=['GET', 'POST'])
+def surveys_and_experiments():
+    return render_template('new_surveys_experiments.html')
+
+@app.route('/experiment_chabot', methods=['GET', 'POST'])
+def chatbot():
+    return render_template('new_experiment.html')
+
+@app.route('/survey', methods=['POST', 'GET'])
+def survey():
+    return render_template('surveys/survey.html')
+
+@app.route('/finish_survey', methods=['POST', 'GET'])
+def finish_survey():
+    lang = request.form["language"]
+    getUsageOfRobotos(lang)
+    getDailyOfRobots(lang)
+    getfirstOpinion(input.opinionLabel1, input.opinionCheckboxes1, lang)
+    getfirstOpinion(input.opinionLabel2, input.opinionCheckboxes2, lang)
+    getMissingRobots(lang)
+    render = ""
+    if lang == "ger" :
+        render = 'finished_survey.html'
+    else:
+        render = 'finished_survey_en.html'
+    #render = "finished_survey.html" if lang == "ger" else render = "finished_survey_en.html"
+    return render_template(render)
+
+def writeTOCSV_en(l, which):
+    w = ""
+    if which == "use":
+        w = "survey/survey_usage_en.csv"
+    elif which == "daily":
+        w = "survey/survey_daily_en.csv"
+    elif which == "missing":
+        w = "survey/survey_missing_en.csv"
+    else:
+        w = "survey/survey_opinion_en.csv"
+    with open(w, "a", newline= "") as f:
+        writer = csv.writer(f)
+        writer.writerows(l)
+
+def writeTOCSV_ger(l, which):
+    w = ""
+    if which == "use":
+        w = "survey/survey_usage_de.csv"
+    elif which == "daily":
+        w = "survey/survey_daily_de.csv"
+    elif which == "missing":
+        w = "survey/survey_missing_de.csv"
+    else:
+        w = "survey/survey_opinion_de.csv"
+    with open(w, "a", newline= "") as f:
+        writer = csv.writer(f)
+        writer.writerows(l)
+
+def getMissingRobots(lang):
+    if request.method == "POST":
+        try:
+            output = list()
+            p = list()
+            f = list()
+            place = request.form['placeOfMissing']
+            func = request.form['functionOfMissing']
+            p.append(place)
+            f.append(func)
+            output = list(zip(p,f))
+            writeTOCSV_ger(output, "missing") if lang == "ger" else writeTOCSV_en(output, "missing")
+        except Exception as e:
+            print("Missing: " + str(e))
+def getfirstOpinion(label, checkbox, lang):
+    if request.method == "POST":
+        try:
+            opinion = list()
+            for i in checkbox:
+                if request.form.get(i[0]) == "on":
+                    opinion.append("Yes")
+                elif request.form.get(i[1]) == "on":
+                    opinion.append("No")
+                elif request.form.get(i[2]) == "on":
+                    opinion.append("Unsure")
+            zippedList = list(zip(label, opinion))
+            writeTOCSV_ger(zippedList, "") if lang == "ger" else writeTOCSV_en(zippedList, "")
+        except Exception as e:
+            print(str(e))
+def getDailyOfRobots(lang):
+    if request.method=="POST":
+        try:
+            quantity = list()
+            function = list()
+            miscNum = request.form['quantitiyMisc']
+            miscName = request.form['nameOfMisc']
+            miscFunc = request.form['functionMisc']
+
+            for i in input.dailyQuanitity:
+                num = request.form[i]
+                quantity.append(num)
+            for n in input.dailyFunction:
+                func = request.form[n]
+                function.append(func)
+            zippedList = list(zip(input.dailyLabel, quantity, function))
+            zippedList.append(('Misc', miscNum, miscFunc, miscName))
+            writeTOCSV_ger(zippedList, "daily") if lang == "ger" else writeTOCSV_en(zippedList, "daily")
+        except Exception as e:
+            print(str(e))
+
+def getUsageOfRobotos(lang):
+    if request.method=="POST":
+        try:
+            quantitiy = list()
+            function = list()
+            miscNum = request.form['usageMisc']
+            miscFunc = request.form['usageMiscFunction']
+            miscName = request.form['nameOfMisc2']
+            for i in input.usageQuantitiy:
+                num = request.form[i]
+                print(num)
+                quantitiy.append(num)
+            for n in input.usageFunction:
+                func = request.form[n]
+                print(func)
+                function.append(func)
+            zippedList = list(zip(quantitiy, function))
+            zippedList.append(('Misc', miscNum, miscFunc, miscName))
+
+            writeTOCSV_ger(zippedList, "daily") if lang == "ger" else writeTOCSV_en(zippedList, "daily")
+
+        except Exception as e:
+            print(str(e))
+
+@app.route('/contact_survey', methods=['POST', 'GET'])
+def contact_survey():
+    return render_template('contact_survey.html')
+
+@app.route('/contact_survey_en', methods=['POST', 'GET'])
+def contact_survey_en():
+    return render_template('contact_survey_em.html')
+
+@app.route('/about_survey', methods=['POST', 'GET'])
+def about_survey():
+    return render_template('about_survey.html')
+
+@app.route('/about_survey_en', methods=['POST', 'GET'])
+def about_survey_en():
+    return render_template('about_survey_en.html')
 app.secret_key= 'nutron'
 
 
