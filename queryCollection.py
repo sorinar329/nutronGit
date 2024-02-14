@@ -8,8 +8,10 @@ from textManipulation import dynamicgeneration_filter_nutritions_category
 # endpoint connection
 sparqlurl = SPARQLWrapper("https://graphdb.informatik.uni-bremen.de:7200/repositories/nonfoodkg")
 sparqlurl2 = SPARQLWrapper("https://api.krr.triply.cc/datasets/mkumpel/ProductKG/services/ProductKG/sparql")
+sparqlurl3 = SPARQLWrapper("http://charly:7200/repositories/Dementia")
 
-#Query to get only the ingredients which are associated with a symptom or a disease
+
+# Query to get only the ingredients which are associated with a symptom or a disease
 def get_harmful_ingredients_of_product(ean):
     s = ean
     sparql = sparqlurl2
@@ -53,6 +55,7 @@ SELECT DISTINCT  ?ingredient ?label ?productName ?productEAN WHERE {
     results = sparql.query().convert()
     return results["results"]["bindings"]
 
+
 def get_product_name(ean):
     s = ean
     sparql = sparqlurl2
@@ -66,12 +69,13 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT ?productName WHERE {
   ?product gr:hasEAN_UCC-13 "%s".
   ?product gr:name ?productName
-} LIMIT 1""" %s)
+} LIMIT 1""" % s)
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     return results["results"]["bindings"]
 
-#Query to get all ingredients of a product given its ean number
+
+# Query to get all ingredients of a product given its ean number
 def get_Ingredients_of_Prod(prodEAN):
     sparql = sparqlurl2
     sparql.setCredentials("nonfoodkg", "nWOgDJkfYdXzYDW7vc3bYAHn3CGv0l")
@@ -102,9 +106,12 @@ prefix = """
     PREFIX nutrition: <http://purl.org/ProductKG/nutrition#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
     PREFIX tax: <http://purl.org/ProductKG/product-taxonomy#>
+    PREFIX dem: <http://www.semanticweb.org/oolgu/ontologies/2023/4/dementia-ontology.owl#>
             \n"""
 
 sparqlurltripy = "https://api.krr.triply.cc/datasets/mkumpel/ProductKG/services/ProductKG/sparql"
+
+
 def triply_query_products():
     spq = SPARQLWrapper(sparqlurltripy)
     sparql = spq
@@ -232,6 +239,7 @@ def triply_query_nutrient_products_protein(age, gender, weight, product, unit):
     results = sparql.query().convert()
     return results["results"]["bindings"]
 
+
 def triply_query_symptoms_data():
     spq = SPARQLWrapper(sparqlurltripy)
     sparql = spq
@@ -257,7 +265,7 @@ def triply_query_symptoms(symptom):
   ?res owl:onProperty symp-nutrition:possible_treatment.
   ?nutrient rdfs:label ?label
   FILTER (lang(?label) = 'en')
-    }"""  %symptom
+    }""" % symptom
     sparql.setQuery(prefix + query)
 
     sparql.setReturnFormat(JSON)
@@ -265,43 +273,143 @@ def triply_query_symptoms(symptom):
     return results["results"]["bindings"]
 
 
+# DEMENTIA ONTOLOGY
 
-# def test1():
-#     products = ['iron','calcium']
-#     a = triply_query_filter(products)
-#     for item in a:
-#         print(item["label"]["value"])
-#
-#
-# def test2():
-#     a = triply_query_nutrient_products_percategory("age19to25" , "female", "has_medium_intake", "vitamin", "Cheese_gouda", str(1.0))
-#     for item in a:
-#         print(item["label"]["value"])
-#         print(item["unit"]["value"])
-#         print(item["value2"]["value"])
-#         print(item["value"]["value"])
-#         print(item["coverage"]["value"])
-#
-# def test3():
-#     a = triply_query_nutrient_products_protein("age19to25", "male", str(80), "Cheese_gouda", str(100) )
-#     for item in a:
-#         print(item["label"]["value"])
-#         print(item["unit"]["value"])
-#         print(item["value2"]["value"])
-#         print(item["value"]["value"])
-#         print(item["coverage"]["value"])
-#
-#
-# def test4():
-#     symp = "Headache"
-#     a = triply_query_symptoms(symp)
-#     for item in a:
-#         print(item["label"]["value"])
-#
-# def test5():
-#     a = triply_query_symptoms_data()
-#     for item in a:
-#         print(item["label"]["value"])
-#         print(item["class"]["value"])
-#
-# test3()
+# ----------------------------------------------------------------------------------------------------------------------
+
+
+# Asks the needed task aids for the patient given his stadium.
+def taskaids_query(stadium):
+    sparql = sparqlurl3
+    query = """
+        Select ?class ?tasks ?label WHERE {
+   dem:%s rdfs:subClassOf ?class.
+   ?class owl:someValuesFrom ?tasks.
+   ?tasks rdfs:label ?label     
+} """ % stadium
+    sparql.setQuery(prefix + query)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results["results"]["bindings"]
+
+
+# TestFall
+
+# stadium = "Stadium_3_Patient"
+# for item in taskaids_query(stadium):
+#     print(item["label"]["value"])
+
+
+def get_stadium_based_on_symptoms(symptom):
+    sparql = sparqlurl3
+    query = """
+           Select ?class ?label WHERE {
+    ?class dem:hasSymptom dem:%s.
+    ?class rdfs:label ?label.
+    ?class rdf:type dem:Dementia_Patient.    
+} """ % symptom
+    sparql.setQuery(prefix + query)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results["results"]["bindings"]
+
+
+# TestFall
+
+# symptom = "Memory_Loss"
+# for item in get_stadium_based_on_symptoms(symptom):
+#     print(item["label"]["value"])
+
+# Get the Patients Stadium by knowing his Disease.
+def get_stadium_based_on_disease(disease):
+    sparql = sparqlurl3
+    query = """
+    Select ?class ?label WHERE {
+    dem:%s dem:hasDiagnosis ?class.
+    ?class rdfs:label ?label
+} """ % disease
+    sparql.setQuery(prefix + query)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results["results"]["bindings"]
+
+# TestFall
+# disease = "Alzheimers_Disease"
+# for item in get_stadium_based_on_disease(disease):
+#     print(item["label"]["value"])
+
+# Get Stadium based on CareAgent
+def get_stadium_based_careagent(careagent):
+    sparql = sparqlurl3
+    query = """
+    Select ?class ?tasks ?label WHERE {
+    dem:%s dem:hasPatient ?class.
+    ?class rdf:type ?tasks.
+   ?tasks rdfs:subClassOf dem:Dementia_Patient.
+   FILTER NOT EXISTS{?abc rdfs:subClassOf ?tasks}
+   ?tasks rdfs:label ?label
+}
+    """ % careagent
+    sparql.setQuery(prefix + query)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results["results"]["bindings"]
+
+careagent = "CareAgent_3_Spätstadium"
+# for item in get_stadium_based_careagent(careagent):
+#     print(item["class"]["value"])
+#     print(item["label"]["value"])
+
+def get_task_needs_based_on_stadium_and_category(stadium, category):
+    sparql = sparqlurl3
+    query = """
+    Select ?class ?tasks ?label WHERE {
+    dem:%s rdfs:subClassOf ?class.
+   ?class owl:someValuesFrom ?tasks.
+   ?tasks rdfs:label ?label. 
+   ?tasks rdfs:subClassOf dem:%s
+} """ % (stadium, category)
+    sparql.setQuery(prefix + query)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results["results"]["bindings"]
+
+category = "Informational_Support"
+for item in get_task_needs_based_on_stadium_and_category(get_stadium_based_careagent(careagent)[0]["label"]["value"], category):
+    print(item["label"]["value"])
+
+
+def get_symptoms_based_on_stadium(stadium):
+    sparql = sparqlurl3
+    query = """
+        Select ?class ?symptom ?label WHERE {
+   ?class rdf:type dem:Stadium_6_Patient.
+   ?class dem:hasSymptom ?symptom.
+   ?symptom rdfs:label ?label
+} """ % stadium
+    sparql.setQuery(prefix + query)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results["results"]["bindings"]
+
+
+for item in get_symptoms_based_on_stadium(get_stadium_based_careagent(careagent)):
+    print(item["label"]["value"])
+
+def get_disease_based_on_symptoms(symptoms):
+    sparql = sparqlurl3
+    query = """
+    Select ?class ?label WHERE {
+   ?class dem:hasSymptom dem:%s.
+   ?class rdfs:subClassOf dem:Disease.
+   ?class rdfs:label ?label
+   
+} """ % symptoms
+    sparql.setQuery(prefix + query)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results["results"]["bindings"]
+
+for item in get_symptoms_based_on_stadium(get_stadium_based_careagent(careagent)):
+    print(item["label"]["value"])
+    print(get_disease_based_on_symptoms(item["label"]["value"]))
