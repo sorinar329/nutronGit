@@ -883,12 +883,18 @@ def graph_viz():
     return render_template("owlvisualizer/graphviz.html")
 
 
+cached_data = None
+
 @app.route('/get_graph_data_rdf')
 def get_graph_data_rdf():
-    graph_visualize = graph.get_graph_to_visualize()
-    coloring.color_classes(graph_visualize)
-    coloring.color_parameters(graph_visualize)
-    return jsonify({'nodes': graph_visualize.get("nodes"), 'edges': graph_visualize.get("edges")})
+    global cached_data
+
+    if cached_data is None:
+        graph_visualize = graph.get_graph_to_visualize()
+        coloring.color_classes(graph_visualize)
+        coloring.color_parameters(graph_visualize)
+        cached_data = {'nodes': graph_visualize.get("nodes"), 'edges': graph_visualize.get("edges")}
+    return jsonify(cached_data)
 
 
 @app.route('/suggest_classes', methods=["GET"])
