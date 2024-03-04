@@ -1,19 +1,17 @@
 #!/usr/bin/env python3.10
-import os
 import csv
-
 import numpy
-from flask import Flask, render_template, request, url_for, redirect, session, flash
+from flask import Flask, render_template, request, url_for, redirect, session, flash, jsonify
 import sqlite3 as sql
 from pyzbar import pyzbar
-
-from werkzeug.utils import secure_filename
+from src.owlvisualizer.graph import graph
+from src.owlvisualizer.graph import coloring
+from src.owlvisualizer import query_builder
 import cv2
 from datetime import datetime
 from datetime import timedelta
-import queryCollection
-import textManipulation
-import userDAO
+from src.nutron import queryCollection, textManipulation, userDAO
+
 
 app = Flask(__name__)
 
@@ -21,13 +19,14 @@ app = Flask(__name__)
 db_path = '/var/www/nutronGit/user.db'
 # db_path = "E:/nutronGit/user.db"
 # db_path = 'C:/Users/meike/Downloads/nutronGit/user.db'
-#db_path = "user.db"
+# db_path = "user.db"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = './pictures'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 
+# --------------------------- PRODUCT SCAN BACKEND ---------------------------
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -163,6 +162,7 @@ def upload_file():
                                    useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything())
 
 
+# --------------------------- DATABASE STUFF ---------------------------
 # managing the database
 def databasemanager():
     conn = sql.connect(db_path)
@@ -183,6 +183,27 @@ def databasemanager():
 
 
 databasemanager()
+
+
+@app.before_first_request
+def fill_database_products():
+    con = sql.connect(db_path)
+    cur = con.cursor()
+
+    usda = queryCollection.triply_query_products()
+    symptom_data = queryCollection.triply_query_symptoms_data()
+
+    for item in usda:
+        cur.execute("INSERT INTO ingredients(class, label) VALUES(?,?)",
+                    (item["food"]["value"], item["label"]["value"]))
+        con.commit()
+
+    for item in symptom_data:
+        cur.execute("INSERT INTO symptoms(class, label) VALUES(?,?)", (item["class"]["value"], item["label"]["value"]))
+        con.commit()
+
+    con.close()
+
 
 def deleteexpired():
     conn = sql.connect(db_path)
@@ -207,32 +228,13 @@ def redirecttologin():
     return data
 
 
-
-# database filled with products and recipes. this happens before the first request.
-@app.before_first_request
-def fill_database_products():
-    con = sql.connect(db_path)
-    cur = con.cursor()
-
-    usda = queryCollection.triply_query_products()
-    symptom_data = queryCollection.triply_query_symptoms_data()
-
-    for item in usda:
-        cur.execute("INSERT INTO ingredients(class, label) VALUES(?,?)",
-                    (item["food"]["value"], item["label"]["value"]))
-        con.commit()
-
-    for item in symptom_data:
-        cur.execute("INSERT INTO symptoms(class, label) VALUES(?,?)", (item["class"]["value"], item["label"]["value"]))
-        con.commit()
-
-    con.close()
-
+# --------------------------- NutrOn ---------------------------
 @app.route('/')
 def hello():
-   return render_template("new_homepage.html")
+    return render_template("new_homepage.html")
 
-@app.route('/home', methods=['POST','GET'])
+
+@app.route('/home', methods=['POST', 'GET'])
 def backhome():
     if request.method == 'POST':
         return render_template('new_homepage.html')
@@ -268,13 +270,14 @@ def disclaimernutron():
         else:
             return render_template('disclaimernutron.html')
 
+
 @app.route('/sparklis', methods=['POST', 'GET'])
 def sparklis():
     if request.method == 'POST':
         return render_template('osparklis.html')
 
 
-#logout function
+# logout function
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
     if request.method == 'POST':
@@ -299,17 +302,17 @@ def logouttohome():
         return render_template("new_homepage.html")
 
 
-
 @app.route('/nutron_landingpage', methods=['POST', 'GET'])
 def nutron_landingpage():
     return render_template("nutron/new_nutronlandingpage.html")
+
 
 @app.route("/nutron_continue_without_registration", methods=["POST", "GET"])
 def nutron_continue_without_registration():
     return render_template("nutron/new_nutron_continue_without_account.html")
 
 
-#inserting user data into the database
+# inserting user data into the database
 @app.route('/addrec', methods=['POST', 'GET'])
 def addrec():
     deleteexpired()
@@ -322,7 +325,6 @@ def addrec():
     for row in cur:
         for field in row:
             names.append(field)
-
 
     if str(username) in names:
         return render_template("nutron/new_nutron_continue_without_account_failed.html")
@@ -337,21 +339,19 @@ def addrec():
                 with sql.connect(db_path) as con:
                     cur = con.cursor()
 
-                    cur.execute("INSERT INTO user (name,age,g,activity, weight, datum)VALUES(?, ?, ?,?,?,?)",(name,age,gender,activity, weight, datetime.now()) )
+                    cur.execute("INSERT INTO user (name,age,g,activity, weight, datum)VALUES(?, ?, ?,?,?,?)",
+                                (name, age, gender, activity, weight, datetime.now()))
 
                     con.commit()
                     msg = "User succesfully Added"
-                    #con.close()
+                    # con.close()
             except:
                 con.rollback()
                 msg = "error in insert operation"
 
             finally:
-                return render_template("nutron/homepage.html", msg=msg, username=name,userage=userDAO.getprofileage(),
-                                       useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything())
-
-
-
+                return render_template("nutron/homepage.html", msg=msg, username=name, userage=userDAO.getprofileage(),
+                                       useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything())
 
 
 @app.route('/homepage', methods=['POST', 'GET'])
@@ -362,12 +362,11 @@ def homepage():
             return render_template('index.html')
         else:
             return render_template('nutron/homepage.html', userage=userDAO.getprofileage(),
-                                   useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything())
-
+                                   useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything())
 
 
 # Redirect to nutrient.html
-@app.route("/name", methods = ['GET', 'POST'])
+@app.route("/name", methods=['GET', 'POST'])
 def name():
     deleteexpired()
     con = sql.connect(db_path)
@@ -379,22 +378,23 @@ def name():
     username = cur.fetchone()
     con.close()
 
-    #products and ingredients from the database
+    # products and ingredients from the database
     ingredients = userDAO.getIngredients()
     produckte = userDAO.getProducts()
     if redirecttologin() == None:
         return render_template('index.html')
     else:
         if 'username' in session:
-            return render_template("nutrient.html", username=username['name'], produckte=produckte, ingredients=ingredients,
-                           userage=userDAO.getprofileage(),useractivity=userDAO.getprofileactivity(),
-                           everything=userDAO.getEverything())
+            return render_template("nutrient.html", username=username['name'], produckte=produckte,
+                                   ingredients=ingredients,
+                                   userage=userDAO.getprofileage(), useractivity=userDAO.getprofileactivity(),
+                                   everything=userDAO.getEverything())
         else:
             return render_template("index.html")
 
 
-#redirect to symptoms.html
-@app.route("/symptoms", methods = ['GET', 'POST'])
+# redirect to symptoms.html
+@app.route("/symptoms", methods=['GET', 'POST'])
 def symptoms():
     deleteexpired()
     con = sql.connect(db_path)
@@ -410,13 +410,12 @@ def symptoms():
         return render_template('index.html')
     else:
         return render_template("symptomsV2.html", userage=userDAO.getprofileage(),
-                                   useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything(),
-                                   symptoms = symptoms)
+                               useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything(),
+                               symptoms=symptoms)
 
 
-
-#the function for getting the right nutrients for a given symptom
-@app.route('/treatmentnutrient/', methods = ['GET', 'POSt'])
+# the function for getting the right nutrients for a given symptom
+@app.route('/treatmentnutrient/', methods=['GET', 'POSt'])
 def treatmentnutrient():
     deleteexpired()
     symptom = request.form['symptom']
@@ -428,8 +427,8 @@ def treatmentnutrient():
         for item in nutrients:
             nutrientlist.append(item["nutrient"]["value"])
         nutrientlist = [n.replace('http://purl.org/ProductKG/nutrition#', '') for n in nutrientlist]
-        #prefix = "http://purl.org/ProductKG/disease"
-        #nutrientlist2 = [x for x in nutrientlist if not x.startswith(prefix)]
+        # prefix = "http://purl.org/ProductKG/disease"
+        # nutrientlist2 = [x for x in nutrientlist if not x.startswith(prefix)]
         products = queryCollection.triply_query_filter(nutrientlist)
 
         if redirecttologin() == None:
@@ -440,12 +439,12 @@ def treatmentnutrient():
                                    products_conjuction=products, symptom=symptom, symptoms=symptoms)
     else:
         return render_template("symptomsV2_error.html", userage=userDAO.getprofileage(),
-                                   useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything(),
+                               useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything(),
                                symptom=symptom, symptoms=symptoms)
 
 
 # redirect to nutrient_filter.html
-@app.route("/filterredirect", methods = ['GET', 'POST'])
+@app.route("/filterredirect", methods=['GET', 'POST'])
 def filterredirect():
     deleteexpired()
     con = sql.connect(db_path)
@@ -461,9 +460,7 @@ def filterredirect():
         return render_template('index.html')
     else:
         return render_template("nutrient_filter.html", username=username['name'], userage=userDAO.getprofileage(),
-                                   useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything())
-
-
+                               useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything())
 
 
 # function for the nutrient_filter.html. Gets a list of search parameters (nutrients) and returns a table with the
@@ -491,17 +488,15 @@ def filternut():
     allfiltered1 = allfiltered.replace("[", "")
     allfiltered2 = allfiltered1.replace("]", "")
 
-
     products = queryCollection.triply_query_filter(all)
 
     return render_template("nutrient_filter.html", products=products, userage=userDAO.getprofileage(),
-                                   useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything(), all=all,
+                           useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything(), all=all,
                            allfiltered=allfiltered2)
 
 
-
 # redirect to the recipe.html
-@app.route("/recipes", methods = ['GET', 'POST'])
+@app.route("/recipes", methods=['GET', 'POST'])
 def recipes():
     deleteexpired()
     con = sql.connect(db_path)
@@ -517,8 +512,9 @@ def recipes():
     if redirecttologin() == None:
         return render_template('index.html')
     else:
-        return render_template("recipesV2.html", username=username['name'], recipes=recipes,userage=userDAO.getprofileage(),
-                                   useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything())
+        return render_template("recipesV2.html", username=username['name'], recipes=recipes,
+                               userage=userDAO.getprofileage(),
+                               useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything())
 
 
 # function for getting the needed parameters for the query. calls another function 'recipequery_result' and gives the
@@ -531,19 +527,17 @@ def actualquery_recipe():
     if "http://purl.org/heals/ingredient/" in recipe:
         recipe = recipe.replace("http://purl.org/heals/ingredient/", "ingredient:")
 
-
     if "http://purl.org/heals/ingredient/" in recipe_shown:
         recipe_shown = recipe.replace("http://purl.org/heals/ingredient/", "")
 
-    return redirect(url_for('recipequery_result', recipe=recipe, portions=portions,userage=userDAO.getprofileage(),
-                                   useractivity=userDAO.getprofileactivity() ,everything=userDAO.getEverything(),
+    return redirect(url_for('recipequery_result', recipe=recipe, portions=portions, userage=userDAO.getprofileage(),
+                            useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything(),
                             recipe_shown=recipe_shown))
 
 
 # the function for the recipe query. returns a list for all catergories which is needed for the table in recipe.html
-@app.route('/recipequery/<recipe>,<portions>', methods=['POST','GET'])
+@app.route('/recipequery/<recipe>,<portions>', methods=['POST', 'GET'])
 def recipequery_result(recipe, portions):
-
     results = queryCollection.query_products_in_recipe(recipe, portions)
     gender = userDAO.getUserGenderGroup()
     age = userDAO.getUserAge()
@@ -583,17 +577,15 @@ def recipequery_result(recipe, portions):
     for item in minerals:
         minerallist.append(item)
     for item in proteins:
-
         carboslist.append(item)
     username = userDAO.getUserName()
     recipess = userDAO.getRecipes()
-    return render_template('recipesV2.html', all_prods=all_prods, username=username, recipess=recipess, recipecoveragelist=recipecoveragelist,
+    return render_template('recipesV2.html', all_prods=all_prods, username=username, recipess=recipess,
+                           recipecoveragelist=recipecoveragelist,
                            vitaminlist=vitaminlist, fatslist=fatslist, carboslist=carboslist, minerallist=minerallist,
                            userage=userDAO.getprofileage(),
                            useractivity=userDAO.getprofileactivity(), everything=userDAO.getEverything(),
                            recipe=recipe, others=others, label=label, portions=portions)
-
-
 
 
 # function that contains the parameters needed for the query for the nutritional information of a given product
@@ -613,7 +605,6 @@ def sparql_query(product, unit):
     if "ntr:" in label:
         label = label.replace("ntr:", "")
 
-
     vitamins = queryCollection.triply_query_nutrient_products_percategory(age, gender, activity, category1, product,
                                                                           unit)
     fats = queryCollection.triply_query_nutrient_products_percategory(age, gender, activity, category2, product, unit)
@@ -622,7 +613,6 @@ def sparql_query(product, unit):
     minerals = queryCollection.triply_query_nutrient_products_percategory(age, gender, activity, category4, product,
                                                                           unit)
     proteins = queryCollection.triply_query_nutrient_products_protein(age, gender, weight, product, unit)
-
 
     minerallist = list()
     vitaminslist = list()
@@ -636,7 +626,6 @@ def sparql_query(product, unit):
     articles = list()
 
     for item in vitamins:
-
         vitaminslist.append(item)
 
     for item in fats:
@@ -707,7 +696,7 @@ def query_param():
     return redirect(url_for('sparql_query', product=product, unit=actualunit))
 
 
-
+# --------------------------- Surveys STUFF ---------------------------
 @app.route('/set_language', methods=['POST', 'GET'])
 def set_language():
     req = request.form['langButton']
@@ -724,17 +713,21 @@ def set_language():
 
     return render_template('survey.html')
 
+
 @app.route('/surveys_and_experiments', methods=['GET', 'POST'])
 def surveys_and_experiments():
     return render_template('new_surveys_experiments.html')
+
 
 @app.route('/experiment_chabot', methods=['GET', 'POST'])
 def chatbot():
     return render_template('new_experiment.html')
 
+
 @app.route('/survey', methods=['POST', 'GET'])
 def survey():
     return render_template('surveys/survey.html')
+
 
 @app.route('/finish_survey', methods=['POST', 'GET'])
 def finish_survey():
@@ -745,12 +738,13 @@ def finish_survey():
     getfirstOpinion(input.opinionLabel2, input.opinionCheckboxes2, lang)
     getMissingRobots(lang)
     render = ""
-    if lang == "ger" :
+    if lang == "ger":
         render = 'finished_survey.html'
     else:
         render = 'finished_survey_en.html'
-    #render = "finished_survey.html" if lang == "ger" else render = "finished_survey_en.html"
+    # render = "finished_survey.html" if lang == "ger" else render = "finished_survey_en.html"
     return render_template(render)
+
 
 def writeTOCSV_en(l, which):
     w = ""
@@ -762,9 +756,10 @@ def writeTOCSV_en(l, which):
         w = "survey/survey_missing_en.csv"
     else:
         w = "survey/survey_opinion_en.csv"
-    with open(w, "a", newline= "") as f:
+    with open(w, "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerows(l)
+
 
 def writeTOCSV_ger(l, which):
     w = ""
@@ -776,9 +771,10 @@ def writeTOCSV_ger(l, which):
         w = "survey/survey_missing_de.csv"
     else:
         w = "survey/survey_opinion_de.csv"
-    with open(w, "a", newline= "") as f:
+    with open(w, "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerows(l)
+
 
 def getMissingRobots(lang):
     if request.method == "POST":
@@ -790,10 +786,12 @@ def getMissingRobots(lang):
             func = request.form['functionOfMissing']
             p.append(place)
             f.append(func)
-            output = list(zip(p,f))
+            output = list(zip(p, f))
             writeTOCSV_ger(output, "missing") if lang == "ger" else writeTOCSV_en(output, "missing")
         except Exception as e:
             print("Missing: " + str(e))
+
+
 def getfirstOpinion(label, checkbox, lang):
     if request.method == "POST":
         try:
@@ -809,8 +807,10 @@ def getfirstOpinion(label, checkbox, lang):
             writeTOCSV_ger(zippedList, "") if lang == "ger" else writeTOCSV_en(zippedList, "")
         except Exception as e:
             print(str(e))
+
+
 def getDailyOfRobots(lang):
-    if request.method=="POST":
+    if request.method == "POST":
         try:
             quantity = list()
             function = list()
@@ -830,8 +830,9 @@ def getDailyOfRobots(lang):
         except Exception as e:
             print(str(e))
 
+
 def getUsageOfRobotos(lang):
-    if request.method=="POST":
+    if request.method == "POST":
         try:
             quantitiy = list()
             function = list()
@@ -854,23 +855,59 @@ def getUsageOfRobotos(lang):
         except Exception as e:
             print(str(e))
 
+
 @app.route('/contact_survey', methods=['POST', 'GET'])
 def contact_survey():
     return render_template('contact_survey.html')
+
 
 @app.route('/contact_survey_en', methods=['POST', 'GET'])
 def contact_survey_en():
     return render_template('contact_survey_em.html')
 
+
 @app.route('/about_survey', methods=['POST', 'GET'])
 def about_survey():
     return render_template('about_survey.html')
 
+
 @app.route('/about_survey_en', methods=['POST', 'GET'])
 def about_survey_en():
     return render_template('about_survey_en.html')
-app.secret_key= 'nutron'
 
+
+# --------------------------- GraphViz STUFF ---------------------------
+
+@app.route('/graphviz')
+def graph_viz():
+    return render_template("owlvisualizer/graphviz.html")
+
+
+@app.route('/get_graph_data_rdf')
+def get_graph_data_rdf():
+    graph_visualize = graph.get_graph_to_visualize()
+    coloring.color_classes(graph_visualize)
+    coloring.color_parameters(graph_visualize)
+    return jsonify({'nodes': graph_visualize.get("nodes"), 'edges': graph_visualize.get("edges")})
+
+
+@app.route('/suggest_classes', methods=["GET"])
+def suggest_classes():
+    graph_visualize = graph.get_graph_to_visualize()
+    classes = [i.get('id') for i in graph_visualize.get("nodes")]
+    print(classes)
+    return jsonify(classes)
+
+
+@app.route('/query_builder', methods=["GET"])
+def suggest_triples():
+    qb = query_builder.get_query_builder()
+    suggestions = qb.mock_suggestion2()
+    selected_option = request.args.get('selectedOption')
+    return jsonify(suggestions)
+
+
+app.secret_key = 'nutron'
 
 if __name__ == "__main__":
-   app.run()
+    app.run()

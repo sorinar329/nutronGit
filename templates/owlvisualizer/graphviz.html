@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OWLVisualizer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css"/>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #mynetwork {
+            width: 100%;
+            height: 800px;
+            border: 1px solid lightgray;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">OWLVisualizer</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <form class="container-fluid justify-content-start">
+                    <button class="btn btn-outline-success me-2 " type="button">Load Ontology</button>
+                </form>
+            </li>
+        </ul>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            QueryBuilder
+        </button>
+        <div class="container ">
+            <form class="form-inline">
+                <div class="input-group">
+                    <input type="text" class="form-control mr-sm-2" id="autocompleteInput" placeholder="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Query Builder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <select class="custom-select custom-select-sm" id="select1" onchange="showSelectFields()">
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select class="custom-select custom-select-sm d-none" id="select2"
+                                onchange="showSelectFields()"></select>
+                    </div>
+                    <div class="col">
+                        <select class="custom-select custom-select-sm d-none" id="select3"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveChanges()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mynetwork"></div>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+<script src="/static/js/graphviz.js"></script>
+<script src="/static/js/query_builder.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const select1 = document.getElementById('select1');
+        const select2 = document.getElementById('select2');
+        const select3 = document.getElementById('select3');
+        if (select1) {
+            select1.addEventListener('click', function () {
+                const selectedOption = select1.value;
+                populate_suggestions_triple(selectedOption, 1);
+            });
+        }
+        if (select2) {
+            select2.addEventListener('click', function () {
+                const selectedOption = select2.value;
+                populate_suggestions_triple(selectedOption, 2);
+            });
+        }
+
+        if (select3) {
+            select3.addEventListener('click', function () {
+                const selectedOption = select3.value;
+                populate_suggestions_triple(selectedOption, 3);
+                console.log(selectedOption)
+            });
+        }
+
+        const autocompleteInput = document.getElementById('autocompleteInput');
+        if (autocompleteInput) {
+            autocompleteInput.addEventListener('input', function () {
+                // Hier kannst du weitere Aktionen für die Eingabe durchführen
+                console.log('Input changed:', autocompleteInput.value);
+            });
+        }
+    });
+
+    // Hier wird die Funktion viz_graph beim Laden der Seite aufgerufen
+    viz_graph();
+
+</script>
+
+</body>
+</html>

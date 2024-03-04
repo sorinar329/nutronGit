@@ -1,9 +1,7 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 
-import textManipulation
-from textManipulation import dynamicgeneration_filter_nutritions
-from textManipulation import dynamicgeneration_union
-from textManipulation import dynamicgeneration_filter_nutritions_category
+import src.nutron.textManipulation
+
 
 # endpoint connection
 sparqlurl = SPARQLWrapper("https://graphdb.informatik.uni-bremen.de:7200/repositories/nonfoodkg")
