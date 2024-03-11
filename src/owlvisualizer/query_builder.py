@@ -3,8 +3,8 @@ import rdflib.util
 from src.owlvisualizer.graph import graph_utility
 
 motion = "http://www.ease-crc.org/ont/mixing#WhirlstormMotion"
-knowledge_graph = Graph()
-knowledge_graph.parse("nutronGit/nutronGit/data/mixing.owl")
+#knowledge_graph = Graph()
+#knowledge_graph.parse("nutronGit/nutronGit/dummydata/mixing.owl")
 
 
 class QueryBuilder:

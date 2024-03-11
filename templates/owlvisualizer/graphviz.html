@@ -26,9 +26,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <form class="container-fluid justify-content-start">
-                    <button class="btn btn-outline-success me-2 " type="button">Load Ontology</button>
-                </form>
+                <<form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="fileInput">
+    <button type="submit" id="uploadBtn">Upload</button>
+</form>
+
             </li>
         </ul>
         <!-- Button trigger modal -->
@@ -91,6 +93,8 @@
 <script src="/static/js/query_builder.js"></script>
 
 <script>
+
+
     document.addEventListener('DOMContentLoaded', function () {
         const select1 = document.getElementById('select1');
         const select2 = document.getElementById('select2');
@@ -125,8 +129,32 @@
         }
     });
 
-    // Hier wird die Funktion viz_graph beim Laden der Seite aufgerufen
-    viz_graph();
+// Call this function whenever you want to wipe the graph
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to handle form submission
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+            const formData = new FormData(this); // Create FormData object
+            fetch('/upload', { // Send POST request to server
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) // Parse response as JSON
+            .then(data => {
+                console.log(data); // Log response data
+                if (!data.error) {
+
+
+                    viz_graph(); // Call viz_graph again if needed
+
+                }
+            })
+            .catch(error => console.error('Error:', error)); // Log any errors
+        });
+
+
+    });
 
 </script>
 

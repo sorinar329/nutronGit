@@ -6,12 +6,13 @@ import sqlite3 as sql
 from pyzbar import pyzbar
 from src.owlvisualizer.graph import graph
 from src.owlvisualizer.graph import coloring
-from src.owlvisualizer import query_builder
+#from src.owlvisualizer import query_builder
 import cv2
 from datetime import datetime
 from datetime import timedelta
 from src.nutron import queryCollection, textManipulation, userDAO
-
+import os
+from rdflib import Graph, OWL, RDFS, RDF
 
 app = Flask(__name__)
 
@@ -883,18 +884,51 @@ def graph_viz():
     return render_template("owlvisualizer/graphviz.html")
 
 
+def get_intersection(dict1, dict2):
+    dict1_ids = {node['id'] for node in dict1['nodes']}
+    dict2_ids = {node['id'] for node in dict2['nodes']}
+    intersection_ids = dict1_ids.intersection(dict2_ids)
+
+    intersection_nodes = [node for node in dict1['nodes'] if node['id'] in intersection_ids]
+
+    intersection_edges = [edge for edge in dict1['edges'] if
+                          edge['from'] in intersection_ids and edge['to'] in intersection_ids]
+
+    return {'nodes': intersection_nodes, 'edges': intersection_edges}
+
 cached_data = None
+cached_status = False
+
 
 @app.route('/get_graph_data_rdf')
 def get_graph_data_rdf():
     global cached_data
+    global cached_status
+    file_path = [os.path.join("/home/sorin/code/nutronGit/nutronGit/data", file) for file in
+                 os.listdir("/home/sorin/code/nutronGit/nutronGit/data")]
 
-    if cached_data is None:
-        graph_visualize = graph.get_graph_to_visualize()
+    knowledge_graph = Graph()
+    knowledge_graph.parse(file_path[0])
+    if not cached_status:
+        if cached_data is None:
+
+            graph_visualize = graph.get_graph_to_visualize(knowledge_graph)
+            coloring.color_classes(graph_visualize)
+            coloring.color_parameters(graph_visualize)
+            cached_data = {'nodes': graph_visualize.get("nodes"), 'edges': graph_visualize.get("edges")}
+            cached_status = True
+            return jsonify(cached_data)
+    if cached_status:
+        graph_visualize = graph.get_graph_to_visualize(knowledge_graph)
         coloring.color_classes(graph_visualize)
         coloring.color_parameters(graph_visualize)
-        cached_data = {'nodes': graph_visualize.get("nodes"), 'edges': graph_visualize.get("edges")}
-    return jsonify(cached_data)
+        cached_data_new = {'nodes': graph_visualize.get("nodes"), 'edges': graph_visualize.get("edges")}
+
+
+        filtered_data = get_intersection(cached_data, cached_data_new)
+
+
+        return jsonify(cached_data_new)
 
 
 @app.route('/suggest_classes', methods=["GET"])
@@ -911,6 +945,33 @@ def suggest_triples():
     suggestions = qb.mock_suggestion2()
     selected_option = request.args.get('selectedOption')
     return jsonify(suggestions)
+
+
+@app.route('/upload', methods=['POST'])
+def upload_file_graph():
+    # Delete existing files in the folder
+    folder_path = '/home/sorin/code/nutronGit/nutronGit/data/'
+    for filename in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, filename)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+        except Exception as e:
+            return jsonify({'error': f'Failed to delete {file_path}: {e}'})
+
+    # Save the new uploaded file
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'})
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'})
+
+    file.save(os.path.join(folder_path, file.filename))
+
+    return jsonify({'filename': file.filename})
+
 
 
 app.secret_key = 'nutron'
