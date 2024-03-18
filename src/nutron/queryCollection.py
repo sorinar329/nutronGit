@@ -1,9 +1,8 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 
-import src.nutron.textManipulation
-
-
 # endpoint connection
+from src.nutron import textManipulation
+
 sparqlurl = SPARQLWrapper("https://graphdb.informatik.uni-bremen.de:7200/repositories/nonfoodkg")
 sparqlurl2 = SPARQLWrapper("https://api.krr.triply.cc/datasets/mkumpel/ProductKG/services/ProductKG/sparql")
 
