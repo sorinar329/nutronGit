@@ -288,7 +288,7 @@ def logout():
         conn.execute("DELETE from 'user' where name = ?", (username,))
         conn.commit()
         conn.close()
-        return render_template("index.html")
+        return render_template("new_homepage.html")
 
 
 @app.route('/logouttohome', methods=['POST', 'GET'])
