@@ -1,0 +1,24 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+  /* CSS to make the Bootstrap icon bigger */
+  .navbar-right .bi {
+    font-size: 20px; /* Adjust the size as needed */
+  }
+
+/* Custom CSS */
+.custom-line {
+    border-top: 2px solid green; /* Adjust the color and thickness as needed */
+    margin-top: 10px; /* Optional: Add some space between the line and content */
+}
+
+.navbar {
+    background-color: #123524;
+}
+
+/* Override the text color of the navbar links */
+.navbar-nav .nav-link {
+    color: white; /* You can change the text color to match your design */
+}

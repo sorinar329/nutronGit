@@ -3,3 +3,8 @@ body {
   padding-top: 50px;
   padding-bottom: 20px;
 }
+  /* CSS to make the Bootstrap icon bigger */
+  .navbar-right .bi {
+    font-size: 24px; /* Adjust the size as needed */
+  }
+
