@@ -101,7 +101,7 @@ prefix = """
     PREFIX tax: <http://purl.org/ProductKG/product-taxonomy#>
             \n"""
 
-sparqlurltripy = "https://api.krr.triply.cc/datasets/mkumpel/ProductKG/services/ProductKG/sparql"
+sparqlurltripy = "http://knowledgedb.informatik.uni-bremen.de:3030/ds/sparql"
 def triply_query_products():
     spq = SPARQLWrapper(sparqlurltripy)
     sparql = spq
