@@ -720,9 +720,9 @@ def surveys_and_experiments():
     return render_template('new_surveys_experiments.html')
 
 
-@app.route('/experiment_chabot', methods=['GET', 'POST'])
+@app.route('/chatbot', methods=['GET', 'POST'])
 def chatbot():
-    return render_template('new_experiment.html')
+    return render_template('chatroom.html')
 
 
 @app.route('/survey', methods=['POST', 'GET'])
@@ -875,6 +875,7 @@ def about_survey():
 @app.route('/about_survey_en', methods=['POST', 'GET'])
 def about_survey_en():
     return render_template('about_survey_en.html')
+
 
 
 # --------------------------- GraphViz STUFF ---------------------------
