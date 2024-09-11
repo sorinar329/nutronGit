@@ -20,7 +20,7 @@ app = Flask(__name__)
 db_path = '/var/www/nutronGit/user.db'
 # db_path = "E:/nutronGit/user.db"
 # db_path = 'C:/Users/meike/Downloads/nutronGit/user.db'
-# db_path = "user.db"
+#db_path = "user.db"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = './pictures'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -415,8 +415,9 @@ def symptoms():
                                symptoms=symptoms)
 
 
-# the function for getting the right nutrients for a given symptom
-@app.route('/treatmentnutrient/', methods=['GET', 'POSt'])
+
+#the function for getting the right nutrients for a given symptom
+@app.route('/treatmentnutrient/', methods = ['GET', 'POSt'])
 def treatmentnutrient():
     deleteexpired()
     symptom = request.form['symptom']
@@ -720,9 +721,14 @@ def surveys_and_experiments():
     return render_template('new_surveys_experiments.html')
 
 
-@app.route('/chatbot', methods=['GET', 'POST'])
-def chatbot():
-    return render_template('chatroom.html')
+@app.route('/chatbot_robot', methods=['GET', 'POST'])
+def chatbot_robot():
+    return render_template('chatroom_robot.html')
+
+
+@app.route('/chatbot_human', methods=['GET', 'POST'])
+def chatbot_human():
+    return render_template('chatroom_human.html')
 
 
 @app.route('/survey', methods=['POST', 'GET'])
