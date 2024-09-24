@@ -13,6 +13,7 @@ from datetime import timedelta
 from src.nutron import queryCollection, textManipulation, userDAO
 import os
 from rdflib import Graph, OWL, RDFS, RDF
+import random
 
 app = Flask(__name__)
 
@@ -720,6 +721,33 @@ def set_language():
 def surveys_and_experiments():
     return render_template('new_surveys_experiments.html')
 
+html1_count = 0
+html2_count = 0
+total_visits = 0
+
+@app.route('/randomize_chatroom')
+def redirect_random():
+    global html1_count, html2_count, total_visits
+    total_visits += 1
+
+
+    html1_percentage = (html1_count / total_visits) * 100 if total_visits > 0 else 0
+    html2_percentage = (html2_count / total_visits) * 100 if total_visits > 0 else 0
+
+
+    if html1_percentage >= 60:
+        chosen = 'html2'
+    elif html2_percentage >= 40:
+        chosen = 'html1'
+    else:
+        chosen = random.choices(['html1', 'html2'], weights=[0.6, 0.4])[0]
+
+    if chosen == 'html1':
+        html1_count += 1
+        return redirect(url_for('chatbot_robot'))
+    else:
+        html2_count += 1
+        return redirect(url_for('chatbot_human'))
 
 @app.route('/chatbot_robot', methods=['GET', 'POST'])
 def chatbot_robot():
